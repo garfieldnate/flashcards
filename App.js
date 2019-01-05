@@ -1,14 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Card from './src/components/Card.js';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <TouchableOpacity activeOpacity={1} onPress={() => this.card.flip()} >
+        <Card front="สวัสดี"
+              back= "hello"
+              ref={(card) => this.card = card} />
+      </ TouchableOpacity>
+      </ View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
