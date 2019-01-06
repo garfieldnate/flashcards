@@ -1,176 +1,142 @@
 // The main animated learning area of the app
 
-import {Enum} from 'enumify';
-import React, { Component } from "react";
-import { Alert, Dimensions, StyleSheet, View, Text, PanResponder, Animated } from "react-native";
+import React, { Component } from 'react'
+import Swiper from 'react-native-deck-swiper'
+import { Button, StyleSheet, Text, View } from 'react-native'
 
 import Card from './Card.js';
 
-const { width, height } = Dimensions.get("window");
-
-class SelectedPerformance extends Enum {};
-SelectedPerformance.initEnum(['GOOD', 'OK', 'BAD', 'NONE']);
-
 export default class Stage extends Component {
-  constructor(props) {
-    super(props);
-
+  constructor (props) {
+    super(props)
     this.state = {
-      showDraggable: true,
-      pan: new Animated.ValueXY(),
-      zones: {good: {}, ok: {}, bad: {}}
-    };
-  }
-
-  render() {
-    const panStyle = {
-      transform: this.state.pan.getTranslateTransform()
-    };
-    const zoneSaver = key => e => {
-      const { width, height, x, y } = e.nativeEvent.layout;
-      this.state.zones[key] = {
-        top: y,
-        bottom: y + height,
-        left: x,
-        right: x + width
-      };
-      console.log(`${key}: `);
-      console.log(this.state.zones[key]);
-    };
-    return (
-      <View style={styles.mainContainer}>
-        <View style={styles.goodDropZone} onLayout={zoneSaver('good')} />
-        <View style={styles.okDropZone} onLayout={zoneSaver('ok')} />
-        <View style={styles.badDropZone} onLayout={zoneSaver('bad')} />
-        <View style={styles.dragContainer}>
-          <Animated.View
-            {...this.panResponder.panHandlers}
-            style={[panStyle, {top: 2*width/5}]}
-          >
-            <Card front="สวัสดี"
-              back= "hello"
-              ref={(card) => this.card = card} />
-          </Animated.View>
-        </View>
-      </View>
-    );
-  }
-
-  componentWillMount = this.animateCard;
-
-  flip() {
-    this.card.flip();
-  }
-
-  animateCard() {
-    const initial_location = {x: 0, y:0};
-    this._val = { x:initial_location.x, y:initial_location.y }
-    this.state.pan.addListener((value) => this._val = value);
-
-    this.panResponder = PanResponder.create({
-        // make card draggable
-        onStartShouldSetPanResponder: (e, gesture) => true,
-        onPanResponderGrant: (e, gesture) => {
-          // The user has touched the card
-          this.state.pan.setOffset({
-            x: this._val.x,
-            y:this._val.y
-          })
-          this.state.pan.setValue({ x:initial_location.x, y:initial_location.y})
-        },
-        onPanResponderMove: (e, gesture) => {
-          // the user has made a movement
-          this.state.pan.setValue({x: gesture.dx, y: gesture.dy});
-        },
-        onPanResponderRelease: (e, gesture) => {
-          // The user has let go of the card
-          const judgement = this.getDropResult(gesture);
-          // if the user scored the card, then fling it in the direction
-          // that they selected
-          if (judgement !== SelectedPerformance.NONE) {
-            var destination;
-            if(judgement === SelectedPerformance.OK) {
-              destination = {x: 0, y: -height};
-            } else if(judgement === SelectedPerformance.GOOD) {
-              destination = {x: width * 2, y: 0};
-            } else if(judgement === SelectedPerformance.BAD) {
-              destination = {x: -2*width, y: 0};
-            }
-            Animated.timing(this.state.pan, {
-              toValue: destination,
-              duration: 200
-            }).start(() =>
-              {
-                Alert.alert(`Chose ${judgement}!`);
-              }
-            );
-          } else {
-            // If the user did not score the card, move it back to the
-            // center and flip it (good for shaky hands that have trouble
-            // trouble tapping).
-            Animated.spring(this.state.pan, {
-              toValue: { x: 0, y: 0 },
-              friction: 50
-            }).start();
-            this.flip();
-          }
-        }
-      });
-  }
-
-  getDropResult(gesture) {
-    console.log(gesture);
-    if (-gesture.dy >= this.state.zones.ok.bottom) {
-        console.log(-gesture.dy);
-      return SelectedPerformance.OK;
-    } else if(gesture.dx < this.state.zones.bad.right) {
-      return SelectedPerformance.BAD;
-    } else if(gesture.dx > this.state.zones.good.left) {
-      return SelectedPerformance.GOOD;
+      cardData: [{front: 'สวัสดี', back: 'hello'}, {front: 'selam söyle', back: 'say hi'}, {front: 'ウィッス', back: 'sup'}],
+      renderedCards: [],
+      swipedAllCards: false,
+      swipeDirection: '',
+      cardIndex: 0
     }
-    return SelectedPerformance.NONE;
+  }
+
+  renderCard = (cardData, index) => {
+    return (<Card front={cardData.front} back={cardData.back} ref={(card) => this.state.renderedCards[index] = card}/>);
+  };
+
+  onSwiped = (type) => {
+    console.log(`on swiped ${type}`)
+  }
+
+  flipCard = (index) => {
+    this.state.renderedCards[index].flip();
+  }
+
+  onSwipedAllCards = () => {
+    this.setState({
+      swipedAllCards: true
+    })
+  };
+
+  render () {
+    return (
+      <View style={styles.container}>
+        <Swiper
+          ref={swiper => {
+            this.swiper = swiper
+          }}
+          onSwiped={() => this.onSwiped('general')}
+          onSwipedLeft={() => this.onSwiped('bad')}
+          onSwipedRight={() => this.onSwiped('great')}
+          onSwipedTop={() => this.onSwiped('ok')}
+          onTapCard={this.flipCard}
+          onSwipedAborted={() => this.flipCard(this.swiper.state.firstCardIndex)}
+          cards={this.state.cardData}
+          cardIndex={this.state.cardIndex}
+          cardVerticalMargin={80}
+          renderCard={this.renderCard}
+          onSwipedAll={this.onSwipedAllCards}
+          stackSize={3}
+          stackSeparation={15}
+          overlayLabels={{
+            left: {
+              title: '✖',
+              style: {
+                label: {
+                  backgroundColor: 'red',
+                  color: 'red',
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-start',
+                  marginTop: 30,
+                  marginLeft: -30
+                }
+              }
+            },
+            top: {
+              title: 'OK',
+              style: {
+                label: {
+                  backgroundColor: 'yellow',
+                  color: '#FFA300',
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }
+              }
+            },
+            right: {
+              title: '✔',
+              style: {
+                label: {
+                  backgroundColor: 'green',
+                  color: '#000000',
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  marginTop: 30,
+                  marginLeft: 30
+                }
+              }
+            }
+          }}
+          animateOverlayLabelsOpacity
+          animateCardOpacity
+          swipeBackCard
+          disableBottomSwipe
+        >
+        </Swiper>
+      </View>
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
-    zIndex: -100
+    backgroundColor: '#F5FCFF'
   },
-  dragContainer: {
-    alignItems: 'center'
-  },
-  goodDropZone: {
-    position: "absolute",
-    top: "20%",
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0,0,0,.2)",
-    width: "20%",
-  },
-  okDropZone: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    right: 0,
-    backgroundColor: "rgba(0,0,0,.2)",
-    height: "20%",
-  },
-  badDropZone: {
-    position: "absolute",
-    top: "20%",
-    left: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0,0,0,.2)",
-    width: "20%",
+  card: {
+    flex: 1,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#E8E8E8',
+    justifyContent: 'center',
+    backgroundColor: 'white'
   },
   text: {
-    marginTop: 25,
-    marginLeft: 5,
-    marginRight: 5,
-    textAlign: "center",
-    color: "#fff",
-    fontSize: 25,
-    fontWeight: "bold"
+    textAlign: 'center',
+    fontSize: 50,
+    backgroundColor: 'transparent'
+  },
+  done: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: 'white',
+    backgroundColor: 'transparent'
   }
-});
+})

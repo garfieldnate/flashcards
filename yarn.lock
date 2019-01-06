@@ -1942,6 +1942,11 @@ encoding@^0.1.11:
   dependencies:
     iconv-lite "~0.4.13"
 
+enumify@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/enumify/-/enumify-1.0.4.tgz#2bb6263071dd4551e54c55755707fad24a40cd7e"
+  integrity sha1-K7YmMHHdRVHlTFV1Vwf60kpAzX4=
+
 envinfo@^5.7.0:
   version "5.12.1"
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-5.12.1.tgz#83068c33e0972eb657d6bc69a6df30badefb46ef"
@@ -4426,6 +4431,13 @@ react-native-card-flip@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-card-flip/-/react-native-card-flip-1.0.4.tgz#cf01fccbb98697842de7134a4f7b51ee69da430a"
   integrity sha512-CbCLrcGxEkHP87Aid7YBZXQiiXin/dH8ve4UI4Xin7/fpmoWaSv2bRsCgcCvRsfYXvkyx1pgdBOBlGqLJy52cA==
+  dependencies:
+    prop-types "15.5.10"
+
+react-native-deck-swiper@1.5.25:
+  version "1.5.25"
+  resolved "https://registry.yarnpkg.com/react-native-deck-swiper/-/react-native-deck-swiper-1.5.25.tgz#1188339cc33bb87f629cb963e8ef5f6a9a9305d7"
+  integrity sha512-s3QiAV6/u5Vu1zc/8xH/zAKlCzlryilI+Z9gAteg7TntSMa/pMP3/5owsBw6qTRoEmAI5hYsIUs0A494NA50Zg==
   dependencies:
     prop-types "15.5.10"
 
