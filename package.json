@@ -7,12 +7,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "//": "see https://github.com/expo/vector-icons/issues/58",
+    "//": "see https://github.com/alexbrillant/react-native-deck-swiper/issues/200",
     "@expo/vector-icons": "^8.1.0",
     "expo": "^32.0.0",
+    "mobx": "^5.8.0",
+    "mobx-react": "^5.4.3",
     "native-base": "^2.10.0",
     "react": "16.5.0",
-    "//": "see https://github.com/alexbrillant/react-native-deck-swiper/issues/200",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-card-flip": "^1.0.4",
     "react-native-deck-swiper": "1.5.25",

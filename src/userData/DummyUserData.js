@@ -1,15 +1,14 @@
+import { observable, computed } from "mobx";
+import { ListView } from "react-native";
+
 export default class DummyUserData {
-    constructor() {
-        // contains just the ID's
-        this.studySources = [];
-    }
+  @observable _studySources = [];
 
-    addNewStudySource = (sourceId) => {
-        this.studySources.push(sourceId);
-        // console.log(this.studySources);
-    }
+  addNewStudySource = (sourceId) => {
+    this._studySources.push(sourceId);
+  }
 
-    getStudySources = () => {
-        return this.studySources;
-    }
+  get studySources() {
+    return this._studySources;
+  }
 }

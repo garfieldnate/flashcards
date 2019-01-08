@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
+import {observer} from "mobx-react";
+import {computed} from "mobx";
 import { Container, Content, Left, Body, Right,  Thumbnail, Button, Icon, List, ListItem, Text } from 'native-base';
 import DummyUserData from '../userData/DummyUserData.js';
 import DummyDeckSource from '../builtinData/DummyDeckSource.js';
 
+// TODO: move to App.js?
 const userData = new DummyUserData();
+
+@observer
 export default class ChooseStudyDeckScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: "Pick a deck",
@@ -16,17 +21,11 @@ export default class ChooseStudyDeckScreen extends Component {
     )
   });
 
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows(userData.getStudySources())
-    };
-    this.willFocus = this.props.navigation.addListener('willFocus', payload => {
-      console.log("firing willFocus");
-      this.setState({dataSource: ds.cloneWithRows(userData.getStudySources())});
-    });
-    this.deckSource = new DummyDeckSource();
+  listDataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+  deckSource = new DummyDeckSource();
+
+  @computed get dataSource() {
+    return this.listDataSource.cloneWithRows(userData.studySources.slice());
   }
 
   deleteRow(secId, rowId, rowMap) {
@@ -42,7 +41,7 @@ export default class ChooseStudyDeckScreen extends Component {
           <List
             leftOpenValue={75}
             rightOpenValue={-75}
-            dataSource={this.state.dataSource}
+            dataSource={this.dataSource}
             renderRow={data =>
               <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {deck: data})}>
                 <Left>

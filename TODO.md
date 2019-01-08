@@ -1,6 +1,6 @@
 # TODO
 
-Next: Connect with mobx
+Next: Move user data into global
 
 * if the list of decks to study is empty, render an "add decks" button instead of an empty ChooseStudyDeckScreen
 * Design everywhere!
