@@ -11,7 +11,7 @@ const datas = [
   'Joe Allen',
   'Phil Coutinho',
 ];
-export default class SwipeableListExample extends Component {
+export default class AddDecksScreen extends Component {
   static navigationOptions = {
     title: "Pick a deck"
   }
@@ -31,6 +31,7 @@ export default class SwipeableListExample extends Component {
   }
   render() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    // TODO: if the list of decks is empty, render an "add decks" button instead
     return (
       <Container>
         <Content>

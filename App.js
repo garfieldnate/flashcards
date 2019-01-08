@@ -1,15 +1,17 @@
 import React from 'react';
 import StudyScreen from './src/screens/StudyScreen.js';
-import DeckPickerScreen from './src/screens/DeckPickerScreen.js';
+import ChooseStudyDeckScreen from './src/screens/ChooseStudyDeckScreen.js';
+import AddDecksScreen from './src/screens/AddDecksScreen.js';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 
 const AppNavigator = createStackNavigator(
   {
-    DeckPicker: DeckPickerScreen,
+    ChooseStudyDeck: ChooseStudyDeckScreen,
+    AddDecks: AddDecksScreen,
     Study: StudyScreen,
   },
   {
-    initialRouteName: "DeckPicker"
+    initialRouteName: "ChooseStudyDeck"
   }
 );
 
