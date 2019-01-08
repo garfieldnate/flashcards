@@ -1,0 +1,58 @@
+{
+    "0": {
+        "front": "Black",
+        "back": "Siyah"
+    },
+    "1": {
+        "front": "White",
+        "back": "Beyaz"
+    },
+    "2": {
+        "front": "Red",
+        "back": "Kırmızı"
+    },
+    "3": {
+        "front": "Blue",
+        "back": "Mavi"
+    },
+    "4": {
+        "front": "Orange",
+        "back": "Turuncu"
+    },
+    "5": {
+        "front": "Green",
+        "back": "Yeşil"
+    },
+    "6": {
+        "front": "Purple",
+        "back": "Mor"
+    },
+    "7": {
+        "front": "Pink",
+        "back": "Pembe"
+    },
+    "8": {
+        "front": "Brown",
+        "back": "Kahverengi"
+    },
+    "9": {
+        "front": "Yellow",
+        "back": "Sarı"
+    },
+    "10": {
+        "front": "Grey",
+        "back": "Gri"
+    },
+    "11": {
+        "front": "Color",
+        "back": "Renk"
+    },
+    "12": {
+        "front": "Light",
+        "back": "Açık"
+    },
+    "13": {
+        "front": "Dark",
+        "back": "Koyu"
+    }
+}

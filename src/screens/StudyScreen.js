@@ -3,13 +3,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Stage from '../components/Stage.js';
 
 export default class StudyScreen extends React.Component {
-  static navigationOptions = {
-    title: "Turkish - 3"
-  }
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.getParam('deck', {}).name
+  });
   render() {
     return (
       <View style={styles.container}>
-        <Stage />
+        <Stage deck={this.props.navigation.getParam('deck', {})}/>
       </ View>
     );
   }
