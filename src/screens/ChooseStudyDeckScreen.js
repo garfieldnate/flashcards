@@ -36,7 +36,6 @@ export default class ChooseStudyDeckScreen extends Component {
     this.setState({ listViewData: newData });
   }
   render() {
-    // TODO: if the list of decks is empty, render an "add decks" button instead
     return (
       <Container>
         <Content>
