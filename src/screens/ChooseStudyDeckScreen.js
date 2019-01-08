@@ -3,11 +3,7 @@ import { ListView } from 'react-native';
 import {observer} from "mobx-react";
 import {computed} from "mobx";
 import { Container, Content, Left, Body, Right,  Thumbnail, Button, Icon, List, ListItem, Text } from 'native-base';
-import DummyUserData from '../userData/DummyUserData.js';
 import DummyDeckSource from '../builtinData/DummyDeckSource.js';
-
-// TODO: move to App.js?
-const userData = new DummyUserData();
 
 @observer
 export default class ChooseStudyDeckScreen extends Component {
@@ -15,7 +11,7 @@ export default class ChooseStudyDeckScreen extends Component {
     title: "Pick a deck",
     headerRight: (
       <Button transparent
-              onPress={() => navigation.navigate('AddDecks', {userData: userData})}>
+              onPress={() => navigation.navigate('AddDecks', {userData: navigation.state.params.userData})}>
         <Icon name="ios-add-circle-outline" />
       </Button>
     )
@@ -25,7 +21,7 @@ export default class ChooseStudyDeckScreen extends Component {
   deckSource = new DummyDeckSource();
 
   @computed get dataSource() {
-    return this.listDataSource.cloneWithRows(userData.studySources.slice());
+    return this.listDataSource.cloneWithRows(this.props.navigation.getParam('userData', 'no user data present in navigation properties!').studySources.slice());
   }
 
   deleteRow(secId, rowId, rowMap) {

@@ -9,8 +9,6 @@ import Card from './Card.js';
 export default class Stage extends Component {
   constructor (props) {
     super(props);
-    console.log("Chose: " + this.props.deck.ID);
-    console.log(this.props.deck.getCardSource().getCards());
     this.state = {
       cardData: Array.from(Object.values(this.props.deck.getCardSource().getCards())),
       renderedCards: [],

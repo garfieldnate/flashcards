@@ -1,8 +1,10 @@
 # TODO
 
-Next: Move user data into global
+Next: 
 
 * if the list of decks to study is empty, render an "add decks" button instead of an empty ChooseStudyDeckScreen
+* navigation parameter validation
+* validation in general (TypeScript?)
 * Design everywhere!
 * Overlay image on card swipes
 
