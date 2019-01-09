@@ -1,58 +1,72 @@
 {
     "0": {
         "front": "Black",
-        "back": "Siyah"
+        "back": "Siyah",
+        "category": "colors"
     },
     "1": {
         "front": "White",
-        "back": "Beyaz"
+        "back": "Beyaz",
+        "category": "colors"
     },
     "2": {
         "front": "Red",
-        "back": "Kırmızı"
+        "back": "Kırmızı",
+        "category": "colors"
     },
     "3": {
         "front": "Blue",
-        "back": "Mavi"
+        "back": "Mavi",
+        "category": "colors"
     },
     "4": {
         "front": "Orange",
-        "back": "Turuncu"
+        "back": "Turuncu",
+        "category": "colors"
     },
     "5": {
         "front": "Green",
-        "back": "Yeşil"
+        "back": "Yeşil",
+        "category": "colors"
     },
     "6": {
         "front": "Purple",
-        "back": "Mor"
+        "back": "Mor",
+        "category": "colors"
     },
     "7": {
         "front": "Pink",
-        "back": "Pembe"
+        "back": "Pembe",
+        "category": "colors"
     },
     "8": {
         "front": "Brown",
-        "back": "Kahverengi"
+        "back": "Kahverengi",
+        "category": "colors"
     },
     "9": {
         "front": "Yellow",
-        "back": "Sarı"
+        "back": "Sarı",
+        "category": "colors"
     },
     "10": {
         "front": "Grey",
-        "back": "Gri"
+        "back": "Gri",
+        "category": "colors"
     },
     "11": {
         "front": "Color",
-        "back": "Renk"
+        "back": "Renk",
+        "category": "colors"
     },
     "12": {
         "front": "Light",
-        "back": "Açık"
+        "back": "Açık",
+        "category": "colors"
     },
     "13": {
         "front": "Dark",
-        "back": "Koyu"
+        "back": "Koyu",
+        "category": "colors"
     }
 }
