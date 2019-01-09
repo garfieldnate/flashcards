@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ListView, StyleSheet } from 'react-native';
 import {observer} from "mobx-react";
-import {computed} from "mobx";
 import { Container, Content, Left, Body, Right,  Thumbnail, Button, Icon, List, ListItem, Text } from 'native-base';
 import DummyDeckSource from '../builtinData/DummyDeckSource.js';
 
@@ -33,7 +32,7 @@ export default class ChooseStudyDeckScreen extends Component {
 
   render() {
     var contents;
-    if(this.studySources.length === 0) {
+    if(this.studySources.size === 0) {
       contents = this.renderAddDeckNotice(this.props.navigation);
     } else {
       contents = this.renderDeckList();
@@ -51,11 +50,7 @@ export default class ChooseStudyDeckScreen extends Component {
     <Container style={styles.container}>
       <Content>
         <Text>Click on</Text>
-          <Button transparent
-            onPress={() => navigation.navigate('AddDecks', {userData: navigation.state.params.userData})}>
-            <Icon name="ios-add-circle-outline" />
-          </Button>
-
+        {ChooseStudyDeckScreen.navigationOptions({ navigation }).headerRight}
         <Text>to add a deck</Text>
       </Content>
     </Container>);
@@ -67,7 +62,7 @@ export default class ChooseStudyDeckScreen extends Component {
           <List
             disableRightSwipe
             rightOpenValue={-75}
-            dataSource={this.listDataSource.cloneWithRows(this.studySources.slice())}
+            dataSource={this.listDataSource.cloneWithRows(Array.from(this.studySources).slice())}
             renderRow={this.renderRow}
             renderRightHiddenRow={data =>
               <Button full onPress={() => alert(data)}>
@@ -79,7 +74,6 @@ export default class ChooseStudyDeckScreen extends Component {
 
   renderRow = (deckID) => {
     const deck = this.deckSource.getDeck(deckID);
-    console.log(deck);
     return (
       <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {cardSource: deck.getCardSource()})}>
         <Left>

@@ -1,8 +1,7 @@
 # TODO
 
-Next: Only hold deck IDs in UserData
+Next: Wire UserData to AddDecksScreen
 
-* Use proper set in UserData
 * new card provider
 * wire to stage with MobX
 * navigation parameter validation
