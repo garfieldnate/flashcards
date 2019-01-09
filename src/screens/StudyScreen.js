@@ -9,7 +9,7 @@ export default class StudyScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Stage deck={this.props.navigation.getParam('deck', {})}/>
+        <Stage cardSource={this.props.navigation.getParam('cardSource', {})}/>
       </ View>
     );
   }

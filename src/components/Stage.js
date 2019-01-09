@@ -10,7 +10,7 @@ export default class Stage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      cardData: Array.from(Object.values(this.props.deck.getCardSource().getCards())),
+      cardData: Array.from(Object.values(this.props.cardSource.getCards())),
       renderedCards: [],
       swipedAllCards: false,
       swipeDirection: '',

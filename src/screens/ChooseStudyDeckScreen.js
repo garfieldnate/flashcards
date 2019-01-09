@@ -65,36 +65,36 @@ export default class ChooseStudyDeckScreen extends Component {
       <Container>
         <Content>
           <List
-            leftOpenValue={75}
+            disableRightSwipe
             rightOpenValue={-75}
             dataSource={this.listDataSource.cloneWithRows(this.studySources.slice())}
             renderRow={this.renderRow}
-            renderLeftHiddenRow={data =>
+            renderRightHiddenRow={data =>
               <Button full onPress={() => alert(data)}>
                 <Icon active name="information-circle" />
-              </Button>}
-            renderRightHiddenRow={(data, secId, rowId, rowMap) =>
-              <Button full danger onPress={_ => this.deleteRow(secId, rowId, rowMap)}>
-                <Icon active name="trash" />
               </Button>}
           />
         </Content>
       </Container>);
 
-  renderRow = (data) => (
-    <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {deck: data})}>
-      <Left>
-        {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
-        <Thumbnail square source={{ uri: data.thumbnail }}
-          style={{width: 49, height: 49}} />
-      </Left>
-      <Body>
-        <Text>{data.name}</Text>
-      </Body>
-      <Right>
-        <Text>{data.cardsDue}</Text>
-      </Right>
-    </ListItem>);
+  renderRow = (deckID) => {
+    const deck = this.deckSource.getDeck(deckID);
+    console.log(deck);
+    return (
+      <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {cardSource: deck.getCardSource()})}>
+        <Left>
+          {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
+          <Thumbnail square source={{ uri: deck.thumbnail }}
+            style={{width: 49, height: 49}} />
+        </Left>
+        <Body>
+          <Text>{deck.name}</Text>
+        </Body>
+        <Right>
+          <Text>{deck.cardsDue}</Text>
+        </Right>
+      </ListItem>);
+  };
 }
 
 const styles = StyleSheet.create({

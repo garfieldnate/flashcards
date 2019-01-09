@@ -1,11 +1,15 @@
 # TODO
 
-Next: review card provider; wire to stage with MobX
+Next: Only hold deck IDs in UserData
 
+* Use proper set in UserData
+* new card provider
+* wire to stage with MobX
 * navigation parameter validation
 * validation in general (TypeScript?)
 * Design everywhere!
 * Overlay image on card swipes
+* TypeScript
 
 srs notes:
 
