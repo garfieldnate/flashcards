@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
-import { Container, Content, Left, Body, Right,  Thumbnail, Button, Icon, List, ListItem, Text } from 'native-base';
-import DummyDeckSource from '../builtinData/DummyDeckSource.js';
+import { FlatList } from 'react-native';
+import { Container, Content, Left, Body, Right,  Thumbnail, Button, Icon, ListItem, Text } from 'native-base';
 
 export default class AddDecksScreen extends Component {
   static navigationOptions = {
     title: "Pick a deck"
   }
 
-  deckSource = new DummyDeckSource();
+  get userData() {
+    return this.props.navigation.getParam('userData', 'no user data present in navigation properties!');
+  }
+
+  get deckSource() {
+    return this.props.navigation.getParam('deckSource', 'no deck source present in navigation properties!');
+  }
 
   render() {
-    const userData = this.props.navigation.getParam('userData', 'userData parameter missing from navigation properties!');
-    // TODO: disable and style as disabled elements that are already in the user's study list
-    // const userData =
     return (
       <Container>
         <Content>
-          <List
-            dataArray={this.deckSource.getAvailableDecks()}
-            renderRow={data =>
+          <FlatList
+            data={this.deckSource.getAvailableDecks()}
+            keyExtractor={(item, index) => item.ID}
+            renderItem={({item, index}) =>
               <ListItem thumbnail
-                        onPress={() => userData.addNewStudySource(data.ID)}
+                        onPress={() => this.userData.addNewStudySource(item.ID)}
                         // disabled={userData.studySources.includes(data)}
                         >
                 <Left>
                   {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
-                  <Thumbnail square source={{ uri: data.thumbnail }}
+                  <Thumbnail square source={{ uri: item.thumbnail }}
                     style={{width: 49, height: 49}} />
                 </Left>
                 <Body>
-                  <Text>{ data.name }</Text>
+                  <Text>{ item.name }</Text>
                 </Body>
               </ListItem>}
           />

@@ -5,8 +5,10 @@ import AddDecksScreen from './src/screens/AddDecksScreen.js';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 
 import DummyUserData from './src/userData/DummyUserData.js';
+import DummyDeckSource from './src/builtinData/DummyDeckSource.js';
 
 const userData = new DummyUserData();
+const deckSource = new DummyDeckSource();
 
 
 const AppNavigator = createStackNavigator(
@@ -17,7 +19,7 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: "ChooseStudyDeck",
-    initialRouteParams: {userData: userData}
+    initialRouteParams: {userData: userData, deckSource: deckSource}
   }
 );
 

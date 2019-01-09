@@ -37,6 +37,6 @@ export default class DummyDeckSource {
         }
     }
 
-    getAvailableDecks = () => this.decks;
+    getAvailableDecks = () => Array.from(Object.values(this.decks));
     getDeck = (deckID) => this.decks[deckID];
 }
