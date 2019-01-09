@@ -1,8 +1,6 @@
 # TODO
 
-Next: Wire UserData to AddDecksScreen
-
-* new card provider
+Next: new card provider
 * wire to stage with MobX
 * navigation parameter validation
 * validation in general (TypeScript?)
