@@ -16,7 +16,6 @@ class Stage extends Component {
       renderedCards: [],
       swipedAllCards: false,
       swipeDirection: '',
-      cardIndex: 0
     }
   }
 
@@ -24,15 +23,8 @@ class Stage extends Component {
     return (<Card front={cardData.front} back={cardData.back} ref={(card) => this.state.renderedCards[index] = card}/>);
   };
 
-  onSwiped = (type) => {
-    console.log(`on swiped ${type}`);
-    if(type === 'great') {
-      this.state.cardData.push({
-        "front": "b",
-        "back": "a",
-        "category": "colors"
-      });
-    }
+  score = (result) => {
+    console.log(`on swiped ${result}`);
   }
 
   flipCard = (index) => {
@@ -41,10 +33,6 @@ class Stage extends Component {
 
   onSwipedAllCards = () => {
     console.log("swipedAll");
-    this.forceUpdate();
-    // this.setState({
-    //   swipedAllCards: true
-    // })
   };
 
   render () {
@@ -55,14 +43,12 @@ class Stage extends Component {
           ref={swiper => {
             this.swiper = swiper
           }}
-          onSwiped={() => this.onSwiped('general')}
-          onSwipedLeft={() => this.onSwiped('bad')}
-          onSwipedRight={() => this.onSwiped('great')}
-          onSwipedTop={() => this.onSwiped('ok')}
+          onSwipedLeft={() => this.score('bad')}
+          onSwipedRight={() => this.score('great')}
+          onSwipedTop={() => this.score('ok')}
           onTapCard={this.flipCard}
           onSwipedAborted={() => this.flipCard(this.swiper.state.firstCardIndex)}
-          cards={this.state.cardData}
-          cardIndex={this.state.cardIndex}
+          cards={this.state.cardData.toJS()}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
@@ -117,7 +103,6 @@ class Stage extends Component {
           }}
           animateOverlayLabelsOpacity
           animateCardOpacity
-          swipeBackCard
           disableBottomSwipe
         >
         </Swiper>

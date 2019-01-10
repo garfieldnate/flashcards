@@ -4,48 +4,4 @@
         "back": "สีดำ",
         "category": "colors"
     },
-    "1": {
-        "front": "blue",
-        "back": "สีน้ำเงิน",
-        "category": "colors"
-    },
-    "2": {
-        "front": "brown",
-        "back": "สีน้ำตาล",
-        "category": "colors"
-    },
-    "3": {
-        "front": "gray",
-        "back": "สีเทา",
-        "category": "colors"
-    },
-    "4": {
-        "front": "green",
-        "back": "สีเขียว",
-        "category": "colors"
-    },
-    "5": {
-        "front": "orange",
-        "back": "สีส้ม",
-        "category": "colors"
-    },
-    "6": {
-        "front": "purple",
-        "back": "สีม่วง",
-        "category": "colors"
-    },
-    "7": {
-        "front": "red" ,
-        "back": "สีแดง",
-        "category": "colors"
-    },
-    "8": {
-        "front": "white",
-        "back": "สีขาว",
-        "category": "colors"
-    },
-    "9": {
-        "front": "yellow",
-        "back": "สีเหลือง"
-    }
 }
