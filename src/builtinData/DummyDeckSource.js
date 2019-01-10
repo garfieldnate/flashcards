@@ -5,19 +5,11 @@ cards = {
     "dev-thai": require("./cards-dev-thai.json"),
     "dev-turkish": require("./cards-dev-turkish.json")
 }
-
-class DummyCardSource {
-    constructor(cards) {
-        for (var key in cards) {
-            cards[key].ID = key;
-        }
-        this.cards = cards;
+for (var deck in cards) {
+    for (var key in deck) {
+        deck[key].ID = key;
     }
-
-    // flux-ify this
-    getCards = () => this.cards;
 }
-
 
 export default class DummyDeckSource {
     constructor() {
@@ -32,7 +24,8 @@ export default class DummyDeckSource {
         this.decks = require('./decks.json');
         for (var key in this.decks) {
             const id = key;
-            this.decks[key].getCardSource = () => new DummyCardSource(cards[id]);
+            this.decks[key].cards = cards[id];
+            this.decks[key].isBuiltin = true;
             this.decks[key].ID = key;
         }
     }

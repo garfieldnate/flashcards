@@ -1,7 +1,7 @@
 # TODO
 
-Next: new card provider
-* wire to stage with MobX
+Next: Wire up Stage with a card provider
+
 * navigation parameter validation
 * validation in general (TypeScript?)
 * Design everywhere!

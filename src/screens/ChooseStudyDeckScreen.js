@@ -30,13 +30,6 @@ export default class ChooseStudyDeckScreen extends Component {
     return this.props.navigation.getParam('deckSource', 'no deck source present in navigation properties!');
   }
 
-  deleteRow(secId, rowId, rowMap) {
-    rowMap[`${secId}${rowId}`].props.closeRow();
-    const newData = [...this.state.listViewData];
-    newData.splice(rowId, 1);
-    this.setState({ listViewData: newData });
-  }
-
   render() {
     var contents;
     if(this.studySources.size === 0) {
@@ -56,9 +49,11 @@ export default class ChooseStudyDeckScreen extends Component {
   renderAddDeckNotice = (navigation) => (
     <Container style={styles.container}>
       <Content>
-        <Text>Click on</Text>
-        {ChooseStudyDeckScreen.navigationOptions({ navigation }).headerRight}
-        <Text>to add a deck</Text>
+        <Body>
+          <Text>Click on</Text>
+          {ChooseStudyDeckScreen.navigationOptions({ navigation }).headerRight}
+          <Text>to add a deck</Text>
+        </Body>
       </Content>
     </Container>);
 
@@ -82,7 +77,7 @@ export default class ChooseStudyDeckScreen extends Component {
   renderRow = (deckID) => {
     const deck = this.deckSource.getDeck(deckID);
     return (
-      <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {cardSource: deck.getCardSource()})}>
+      <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {deck: deck, userData: this.props.navigation.state.params.userData})}>
         <Left>
           {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
           <Thumbnail square source={{ uri: deck.thumbnail }}

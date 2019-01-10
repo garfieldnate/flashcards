@@ -1,16 +1,18 @@
 // The main animated learning area of the app
 
-import React, { Component } from 'react'
-import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react';
+import Swiper from 'react-native-deck-swiper';
+import { observer } from 'mobx-react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Card from './Card.js';
 
-export default class Stage extends Component {
+@observer
+class Stage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      cardData: Array.from(Object.values(this.props.cardSource.getCards())),
+      cardData: this.props.cardSource.cards,
       renderedCards: [],
       swipedAllCards: false,
       swipeDirection: '',
@@ -23,7 +25,14 @@ export default class Stage extends Component {
   };
 
   onSwiped = (type) => {
-    console.log(`on swiped ${type}`)
+    console.log(`on swiped ${type}`);
+    if(type === 'great') {
+      this.state.cardData.push({
+        "front": "b",
+        "back": "a",
+        "category": "colors"
+      });
+    }
   }
 
   flipCard = (index) => {
@@ -31,12 +40,15 @@ export default class Stage extends Component {
   }
 
   onSwipedAllCards = () => {
-    this.setState({
-      swipedAllCards: true
-    })
+    console.log("swipedAll");
+    this.forceUpdate();
+    // this.setState({
+    //   swipedAllCards: true
+    // })
   };
 
   render () {
+    console.log("rendering");
     return (
       <View style={styles.container}>
         <Swiper
@@ -51,7 +63,6 @@ export default class Stage extends Component {
           onSwipedAborted={() => this.flipCard(this.swiper.state.firstCardIndex)}
           cards={this.state.cardData}
           cardIndex={this.state.cardIndex}
-          cardVerticalMargin={80}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
@@ -140,3 +151,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   }
 })
+
+export default Stage;
