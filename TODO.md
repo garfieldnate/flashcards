@@ -1,6 +1,6 @@
 # TODO
 
-Next: Wire up Stage with a card provider
+Next: userData.getSRSDue() and deck.getNewCardsDue() used by CardSource
 
 * navigation parameter validation
 * validation in general (TypeScript?)

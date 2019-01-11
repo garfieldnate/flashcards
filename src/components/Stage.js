@@ -12,7 +12,7 @@ class Stage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      cardData: this.props.cardSource.cards,
+      cardData: this.props.studyManager.cards,
       renderedCards: [],
       swipedAllCards: false,
       swipeDirection: '',

@@ -13,4 +13,13 @@ export default class DummyUserData {
   get studySources() {
     return this._studySources;
   }
+
+  getUserDeckData = (sourceId) => {
+    return {
+      prefs: {
+        numNewCardsPerDay: 3,
+      },
+      studyState: {}
+    };
+  }
 }
