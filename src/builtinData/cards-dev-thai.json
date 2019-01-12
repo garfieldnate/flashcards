@@ -1,7 +1,8 @@
-{
-    "0": {
+[
+    {
+        "ID": 0,
         "front": "black",
         "back": "สีดำ",
         "category": "colors"
     },
-}
+]

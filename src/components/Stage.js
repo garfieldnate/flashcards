@@ -11,6 +11,7 @@ import Card from './Card.js';
 class Stage extends Component {
   constructor (props) {
     super(props);
+    // console.log(this.props.studyManager.cards.toJS())
     this.state = {
       cardData: this.props.studyManager.cards,
       renderedCards: [],

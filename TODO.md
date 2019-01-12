@@ -1,6 +1,6 @@
 # TODO
 
-Next: userData.getSRSDue() and deck.getNewCardsDue() used by CardSource
+Next: StudyManager working and instantiated
 
 * navigation parameter validation
 * validation in general (TypeScript?)

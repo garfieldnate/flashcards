@@ -1,25 +1,23 @@
 import { observable } from 'mobx';
-import moment from 'moment';
+// import moment from 'moment';
+
+// TODO: all of the logic for choosing how many new cards to get should reside in the parent StudyManager. This class should only concern itself with which new cards to pick.
+
 
 export default class NewCardProvider {
-    constructor(deck, userData) {
-        const userDeckData = userData.getUserDeckData(deck.ID);
-        const { prefs, studyState } = userDeckData;
-        const today = moment().format("YYYY-MM-DD");
-        const lastStudied = studyState.lastStudied;
-        if(!lastStudied || lastStudied !== today) {
-            studyState.numAddedToday = 0;
-            studyState.lastStudied = today;
-        }
-        this.numLeft = observable.box(prefs.numNewCardsPerDay - studyState.numAddedToday);
-    }
+  constructor(deck, studyState) {
+    // TODO: inject thes instead of extracting from deck and userData
+    this.deck = deck;
+    this.studyState = studyState;
+  }
 
-    getNewCards = () => {
-        // TODO:
-        // select a maximum of this.numLeft cards;
-        // do not grab cards that have already been studied;
-        // grab 10 cards from a category at a time;
-        // cover more basic vocab categories first
-        return deck.cards;
-    }
+  getNewCards = () => {
+    // TODO:
+    // select a maximum of this.numLeft cards;
+    // do not grab cards that have already been studied;
+    // grab 10 cards from a category at a time;
+    // cover more basic vocab categories first
+
+    return deck.cards;
+  }
 }

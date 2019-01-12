@@ -5,11 +5,6 @@ cards = {
     "dev-thai": require("./cards-dev-thai.json"),
     "dev-turkish": require("./cards-dev-turkish.json")
 }
-for (var deck in cards) {
-    for (var key in deck) {
-        deck[key].ID = key;
-    }
-}
 
 export default class DummyDeckSource {
     constructor() {

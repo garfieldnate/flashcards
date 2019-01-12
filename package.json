@@ -18,7 +18,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-card-flip": "^1.0.4",
     "react-native-deck-swiper": "1.5.25",
-    "react-navigation": "^3.0.9"
+    "react-navigation": "^3.0.9",
+    "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
