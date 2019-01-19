@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "//": "see https://github.com/alexbrillant/react-native-deck-swiper/issues/200",
-    "@expo/vector-icons": "^8.1.0",
+    "@expo/vector-icons": "^9.0.0",
     "expo": "^32.0.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
