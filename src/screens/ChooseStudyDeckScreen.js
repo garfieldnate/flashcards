@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
-import { ListView, StyleSheet } from 'react-native';
+import { ListView, StyleSheet, View } from 'react-native';
 import {observer} from "mobx-react";
 import {computed} from "mobx";
-import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text } from 'native-base';
+import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text, Row } from 'native-base';
+
+import AddDeckNotice from '../components/AddDeckNotice.js';
+import AddDeckButton from '../components/AddDeckButton.js';
 
 @observer
 export default class ChooseStudyDeckScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: "Pick a deck",
-    headerRight: (
-      <Button transparent
-              onPress={() => navigation.navigate('AddDecks',
-                {
-                  userData:   navigation.state.params.userData,
-                  deckSource: navigation.state.params.deckSource
-                })}>
-        <Icon name="ios-add-circle-outline" />
-      </Button>
-    )
+    headerRight: <AddDeckButton navigation={navigation} />
   });
 
   listDataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -48,12 +42,8 @@ export default class ChooseStudyDeckScreen extends Component {
 
   renderAddDeckNotice = (navigation) => (
     <Container style={styles.container}>
-      <Content>
-        <Body>
-          <Text>Click on</Text>
-          {ChooseStudyDeckScreen.navigationOptions({ navigation }).headerRight}
-          <Text>to add a deck</Text>
-        </Body>
+      <Content contentContainerStyle={styles.container}>
+        <AddDeckNotice />
       </Content>
     </Container>);
 
@@ -94,7 +84,7 @@ export default class ChooseStudyDeckScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'

@@ -1,12 +1,14 @@
 # TODO
 
-Next: StudyManager working and instantiated
+Next: Proper design for cards/deck/stage
 
+* Test with Jest
 * navigation parameter validation
 * validation in general (TypeScript?)
 * Design everywhere!
 * Overlay image on card swipes
 * TypeScript
+* Change to AGPL
 
 srs notes:
 
