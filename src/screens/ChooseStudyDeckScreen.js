@@ -43,7 +43,7 @@ export default class ChooseStudyDeckScreen extends Component {
   renderAddDeckNotice = (navigation) => (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.container}>
-        <AddDeckNotice />
+        <AddDeckNotice navigation={this.props.navigation}/>
       </Content>
     </Container>);
 
