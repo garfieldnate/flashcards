@@ -11,7 +11,6 @@ import Card from './Card.js';
 class Stage extends Component {
   constructor (props) {
     super(props);
-    // console.log(this.props.studyManager.cards.toJS())
     this.state = {
       cardData: this.props.studyManager.cards,
       renderedCards: [],
@@ -21,7 +20,13 @@ class Stage extends Component {
   }
 
   renderCard = (cardData, index) => {
-    return (<Card front={cardData.front} back={cardData.back} ref={(card) => this.state.renderedCards[index] = card}/>);
+    return (
+      <Card
+        front={cardData.front}
+        back={cardData.back}
+        exampleForeignLang={cardData.exampleForeignLang}
+        exampleUserLang={cardData.exampleUserLang}
+        ref={(card) => this.state.renderedCards[index] = card}/>);
   };
 
   score = (result) => {
@@ -41,6 +46,7 @@ class Stage extends Component {
     return (
       <View style={styles.container}>
         <Swiper
+          containerStyle={styles.swiper}
           ref={swiper => {
             this.swiper = swiper
           }}
@@ -115,26 +121,9 @@ class Stage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF'
   },
-  card: {
-    flex: 1,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#E8E8E8',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
-  text: {
-    textAlign: 'center',
-    fontSize: 50,
-    backgroundColor: 'transparent'
-  },
-  done: {
-    textAlign: 'center',
-    fontSize: 30,
-    color: 'white',
-    backgroundColor: 'transparent'
+  swiper: {
+    backgroundColor: "rgba(26, 84, 147, 1)",
   }
 })
 

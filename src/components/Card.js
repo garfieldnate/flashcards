@@ -14,15 +14,30 @@ export default class Card extends Component<Props> {
   static propTypes = {
     front: PropTypes.string.isRequired,
     back: PropTypes.string.isRequired,
+    exampleForeignLang: PropTypes.string.isRequired,
+    exampleUserLang: PropTypes.string.isRequired,
   };
   render() {
     return (
         <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
           <View style={[styles.card, styles.card1]}>
-            <Text style={styles.label}>{this.props.front}</Text>
+            <View style={{flex: 1}} />
+            <View style={styles.textContainer} >
+              <Text style={styles.headword}>{this.props.front}</Text>
+            </View>
+            <View style={{flex: 2}} />
           </View>
           <View style={[styles.card, styles.card2]} >
-            <Text style={styles.label}>{this.props.back}</Text>
+            <View style={{flex: 1}} />
+            <View style={styles.textContainer} >
+              <Text style={styles.headword}>{this.props.back}</Text>
+            </View>
+            <View style={{flex: 2}} />
+            <View style={[styles.textContainer, styles.exampleContainer]}>
+              <Text style={styles.example}>{this.props.exampleForeignLang}</Text>
+              <Text style={styles.example}>{'─────'}</Text>
+              <Text style={styles.example}>{this.props.exampleUserLang}</Text>
+            </View>
           </View>
         </CardFlip>
     );
@@ -32,14 +47,13 @@ export default class Card extends Component<Props> {
 
 const styles = StyleSheet.create({
   cardContainer:{
-    width: 320,
-    height: 470,
+    flex: 1
   },
   card:{
-    width: 320,
-    height: 470,
-    backgroundColor: '#FE474C',
-    borderRadius: 5,
+    width: "100%",
+    height: "85%",
+    borderColor: "white",
+    borderWidth: 10,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
@@ -48,17 +62,28 @@ const styles = StyleSheet.create({
     shadowOpacity:0.5,
   },
   card1: {
-    backgroundColor: '#FE474C',
+    backgroundColor: 'rgba(83, 165, 72, 1)',
   },
   card2: {
-    backgroundColor: '#FEB12C',
+    backgroundColor: 'rgba(145, 203, 62, 1)',
   },
-  label: {
-    lineHeight: 470,
+  textContainer: {
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  headword: {
     textAlign: 'center',
     fontSize: 55,
     fontFamily: 'System',
     color: '#ffffff',
-    backgroundColor: 'transparent',
   },
+  exampleContainer: {
+    flex: 2,
+    padding: '2%'
+  },
+  example: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontFamily: 'System',
+    color: '#FFFFFF',
+  }
 });
