@@ -23,20 +23,23 @@ export default class Card extends Component<Props> {
           <View style={[styles.card, styles.card1]}>
             <View style={{flex: 1}} />
             <View style={styles.textContainer} >
-              <Text style={styles.headword}>{this.props.front}</Text>
+              <Text adjustsFontSizeToFit numberOfLines={2} style={styles.headword}>{this.props.front}</Text>
             </View>
-            <View style={{flex: 2}} />
+            <View style={{flex: 3}} />
           </View>
           <View style={[styles.card, styles.card2]} >
             <View style={{flex: 1}} />
             <View style={styles.textContainer} >
-              <Text style={styles.headword}>{this.props.back}</Text>
+              <Text adjustsFontSizeToFit numberOfLines={2} style={styles.headword}>{this.props.back}</Text>
             </View>
-            <View style={{flex: 2}} />
-            <View style={[styles.textContainer, styles.exampleContainer]}>
-              <Text style={styles.example}>{this.props.exampleForeignLang}</Text>
-              <Text style={styles.example}>{'─────'}</Text>
-              <Text style={styles.example}>{this.props.exampleUserLang}</Text>
+            <View style={{flex: 3}}>
+              <View style={{flex: 1}} />
+              <View style={[styles.textContainer, styles.exampleContainer]}>
+                <Text style={styles.example}>{this.props.exampleForeignLang}</Text>
+                <Text style={styles.example}>{'─────'}</Text>
+                <Text style={styles.example}>{this.props.exampleUserLang}{''}</Text>
+              </View>
+              <View style={{flex: 1}} />
             </View>
           </View>
         </CardFlip>
@@ -77,8 +80,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   exampleContainer: {
-    flex: 2,
-    padding: '2%'
+    padding: '2%',
+    // overflow: 'hidden',
+    flexShrink: 1,
   },
   example: {
     textAlign: 'center',

@@ -1,14 +1,6 @@
 # TODO
 
-Next: 
-
-User flexbox to: 
-
-* make headword appear in same spot on both sides of card.
-* use the rest of the card for the example sentence; use as much space as needed, leaving some at the bottom if available.
-* Change font size of headword if it doesn't fit.
-* 
-
+Next: TDD the card providers, or research flexbox and fix issues with card design
 
 * color pallette for whole app
 * typography for whole app
@@ -19,6 +11,11 @@ User flexbox to:
 * TypeScript
 * Change to AGPL
 
+## Issues
+
+* If second line of headword is too long, it is simply not shown
+* there's probably a more elegant flexboxy way to format the card
+* example text and container View component overflow bottom of card
 
 ## Notes
 
