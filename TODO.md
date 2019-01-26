@@ -1,21 +1,17 @@
 # TODO
 
-Next: TDD the card providers, or research flexbox and fix issues with card design
+Next: TDD the card providers
 
 * color pallette for whole app
 * typography for whole app
 * navigation parameter validation
 * validation in general (TypeScript?)
-* Design everywhere!
 * Overlay image on card swipes
 * TypeScript
 * Change to AGPL
-
-## Issues
-
-* If second line of headword is too long, it is simply not shown
-* there's probably a more elegant flexboxy way to format the card
-* example text and container View component overflow bottom of card
+* Calculate length limit for example sentence display
+* Calculate length limit for headword display
+* Flashcard data needs to be checked for length limits
 
 ## Notes
 

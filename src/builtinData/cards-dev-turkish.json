@@ -11,78 +11,100 @@
         "ID": 1,
         "front": "White",
         "back": "Beyaz",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Beyaz giyme söz olur",
+        "exampleUserLang": "I promise to wear white (?)"
     },
     {
         "ID": 2,
         "front": "Red",
         "back": "Kırmızı",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Kırmızı Mercimek Çorbası Tarifi (videolu) İçin Malzemeler"
     },
     {
         "ID": 3,
         "front": "Blue",
         "back": "Mavi",
-        "category": "colors"
+        "category": "colors",
+        "exampleUserLang": "Blue is great!"
     },
     {
         "ID": 4,
         "front": "Orange",
         "back": "Turuncu",
-        "category": "colors"
+        "category": "colors",
     },
     {
         "ID": 5,
         "front": "Green",
         "back": "Yeşil",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 6,
         "front": "Purple",
         "back": "Mor",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 7,
         "front": "Pink",
         "back": "Pembe",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 8,
         "front": "Brown",
         "back": "Kahverengi",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 9,
         "front": "Yellow",
         "back": "Sarı",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 10,
         "front": "Grey",
         "back": "Gri",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 11,
         "front": "Color",
         "back": "Renk",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 12,
         "front": "Light",
         "back": "Açık",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     },
     {
         "ID": 13,
         "front": "Dark",
         "back": "Koyu",
-        "category": "colors"
+        "category": "colors",
+        "exampleForeignLang": "Neque porro quisquam est",
+        "exampleUserLang": "qui dolorem ipsum quia dolor sit amet"
     }
 ]

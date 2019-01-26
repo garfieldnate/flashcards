@@ -1,6 +1,7 @@
 // Visual component for a single flashcard
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import {
   StyleSheet,
   Text,
@@ -14,38 +15,67 @@ export default class Card extends Component<Props> {
   static propTypes = {
     front: PropTypes.string.isRequired,
     back: PropTypes.string.isRequired,
-    exampleForeignLang: PropTypes.string.isRequired,
-    exampleUserLang: PropTypes.string.isRequired,
+    exampleForeignLang: PropTypes.string,
+    exampleUserLang: PropTypes.string,
   };
+
   render() {
     return (
         <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
           <View style={[styles.card, styles.card1]}>
-            <View style={{flex: 1}} />
-            <View style={styles.textContainer} >
-              <Text adjustsFontSizeToFit numberOfLines={2} style={styles.headword}>{this.props.front}</Text>
-            </View>
-            <View style={{flex: 3}} />
+            {this.renderTopSection(this.props.front)}
+            <View style={styles.cardBottomSection} />
           </View>
           <View style={[styles.card, styles.card2]} >
-            <View style={{flex: 1}} />
-            <View style={styles.textContainer} >
-              <Text adjustsFontSizeToFit numberOfLines={2} style={styles.headword}>{this.props.back}</Text>
-            </View>
-            <View style={{flex: 3}}>
-              <View style={{flex: 1}} />
-              <View style={[styles.textContainer, styles.exampleContainer]}>
-                <Text style={styles.example}>{this.props.exampleForeignLang}</Text>
-                <Text style={styles.example}>{'─────'}</Text>
-                <Text style={styles.example}>{this.props.exampleUserLang}{''}</Text>
-              </View>
-              <View style={{flex: 1}} />
+            {this.renderTopSection(this.props.back)}
+            <View style={styles.cardBottomSection}>
+              {this.renderExample()}
             </View>
           </View>
         </CardFlip>
     );
   }
+
+  renderTopSection = (headwordText) => {
+    return (
+      <View style={{flex: 2, justifyContent: 'flex-end'}}>
+        <View style={styles.textContainer} >
+          <Text adjustsFontSizeToFit numberOfLines={countLines(headwordText)} style={styles.headword}>{headwordText}</Text>
+        </View>
+      </View>);
+  }
+
+  // Renders the foreign language example, the user's language example,
+  // and a separating line between them. Adjusts for missing sentence
+  // data by omitting elements as needed.
+  renderExample = () => {
+    var foreignExample, separator, userLangExample;
+    if (!this.props.exampleForeignLang && !this.props.exampleUserLang) {
+      return null;
+    }
+
+    if(this.props.exampleForeignLang) {
+      foreignExample = <Text style={styles.exampleText}>{this.props.exampleForeignLang}</Text>;
+    }
+    if(this.props.exampleUserLang) {
+      userLangExample = <Text style={styles.exampleText}>{this.props.exampleUserLang}</Text>;
+    }
+    if(foreignExample && userLangExample) {
+      separator = <Text style={styles.exampleText}>{'─────'}</Text>;
+    }
+    return (
+      <View style={[styles.textContainer, styles.exampleContainer]}>
+        {foreignExample}
+        {separator}
+        {userLangExample}
+      </View>);
+  }
+
   flip = () => this.card.flip();
+}
+
+const countLines = (text) => {
+  return (text.match(/\r?\n/g)||[]).length + 1;
 }
 
 const styles = StyleSheet.create({
@@ -63,6 +93,7 @@ const styles = StyleSheet.create({
       height: 1
     },
     shadowOpacity:0.5,
+    overflow: 'hidden'
   },
   card1: {
     backgroundColor: 'rgba(83, 165, 72, 1)',
@@ -73,10 +104,13 @@ const styles = StyleSheet.create({
   textContainer: {
     backgroundColor: 'rgba(0,0,0,0.4)',
   },
+  cardBottomSection: {
+    flex: 3,
+    justifyContent: 'space-around'
+  },
   headword: {
     textAlign: 'center',
     fontSize: 55,
-    fontFamily: 'System',
     color: '#ffffff',
   },
   exampleContainer: {
@@ -84,10 +118,10 @@ const styles = StyleSheet.create({
     // overflow: 'hidden',
     flexShrink: 1,
   },
-  example: {
+  exampleText: {
     textAlign: 'center',
     fontSize: 18,
-    fontFamily: 'System',
     color: '#FFFFFF',
+    fontWeight: '500',
   }
 });
