@@ -1,7 +1,8 @@
 # TODO
 
-Next: TDD the card providers
+Next: Spaced repetition
 
+* TDD the card providers
 * color pallette for whole app
 * typography for whole app
 * navigation parameter validation

@@ -11,7 +11,7 @@ import AddDeckButton from '../components/AddDeckButton.js';
 export default class ChooseStudyDeckScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: "Pick a deck",
-    headerRight: <AddDeckButton navigation={navigation} />
+    headerRight: <AddDeckButton navigation={navigation} iconStyle={{color: "#D1DCE9", fontSize: 28}}/>
   });
 
   listDataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 });

@@ -6,9 +6,6 @@ import StudyManager from '../logic/StudyManager.js';
 export default class StudyScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.getParam('deck', {}).name,
-    headerStyle: {
-      backgroundColor: '#D1DCE9'
-    },
   });
 
   constructor(props) {
@@ -30,8 +27,7 @@ export default class StudyScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: "#D1DCE9",
   },
 });

@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   swiper: {
-    backgroundColor: "rgba(26, 84, 147, 1)",
+    backgroundColor: 'transparent'
   }
 })
 

@@ -15,11 +15,21 @@ const AppNavigator = createStackNavigator(
   {
     ChooseStudyDeck: ChooseStudyDeckScreen,
     AddDecks: AddDecksScreen,
-    Study: StudyScreen,
+    Study: StudyScreen
   },
   {
     initialRouteName: "ChooseStudyDeck",
-    initialRouteParams: {userData: userData, deckSource: deckSource}
+    initialRouteParams: {userData: userData, deckSource: deckSource},
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'rgba(26, 84, 147, 1)',
+      },
+      headerTitleStyle: {
+        color: "#D1DCE9"
+      },
+      // colors the back button and text
+      headerTintColor: '#D1DCE9',
+    }
   }
 );
 

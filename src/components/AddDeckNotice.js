@@ -12,7 +12,7 @@ export default class AddDeckNotice extends Component {
             <View style={{flex: 1}} />
             <View style={{flex: 1}}>
                 <View style={styles.row}>
-                  <Text style={styles.text}>Click on</Text>
+                  <Text style={styles.text}>Touch</Text>
                 </View>
                 <View style={styles.row}>
                   <AddDeckButton iconStyle={styles.icon} navigation={this.props.navigation} />
