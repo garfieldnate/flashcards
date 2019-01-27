@@ -2,12 +2,15 @@
 
 import React, { Component } from 'react';
 import Swiper from 'react-native-deck-swiper';
+// import Swiper from '../vendor/react-native-deck-swiper/Swiper.js';
 import { observer } from 'mobx-react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'native-base';
 
 import Card from './Card.js';
 import cardLayout from './CardLayout.js';
+
+const { height, width } = Dimensions.get('window')
 
 @observer
 class Stage extends Component {
@@ -44,7 +47,6 @@ class Stage extends Component {
   };
 
   render () {
-    console.log("rendering");
     return (
       <View style={styles.container}>
         <Swiper
@@ -52,14 +54,15 @@ class Stage extends Component {
           ref={swiper => {
             this.swiper = swiper
           }}
+          disableBottomSwipe
           onSwipedLeft={() => this.score('bad')}
           onSwipedRight={() => this.score('great')}
           onSwipedTop={() => this.score('ok')}
           onTapCard={this.flipCard}
           onSwipedAborted={() => this.flipCard(this.swiper.state.firstCardIndex)}
+          onSwipedAll={this.onSwipedAllCards}
           cards={this.state.cardData.toJS()}
           renderCard={this.renderCard}
-          onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
           stackSeparation={15}
           overlayLabels={{
@@ -88,15 +91,20 @@ class Stage extends Component {
               }
             },
           }}
+
           animateOverlayLabelsOpacity
-          animateCardOpacity
-          disableBottomSwipe
+          overlayOpacityHorizontalThreshold={width / 12}
+          inputOverlayLabelsOpacityRangeX={[-width / 2, -width / 12, 0, width / 12, width / 2]}
+          inputOverlayLabelsOpacityRangeY={[-height / 4, -height / 12, 0, height / 12, height / 4]}
+          overlayOpacityVerticalThreshold={height / 12}
         >
         </Swiper>
       </View>
     )
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

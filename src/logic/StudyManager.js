@@ -26,7 +26,7 @@ class StudyManager {
     // TODO: max with number of cards left to study in deck
     const numLeft = this.getNumNewCardsLeftToday();
     newCards = this.newCardProvider.getNewCards(numLeft)
-    console.log(newCards);
+    // console.log(newCards);
     this.cards = observable(reviewCards.concat(newCards))
 
     this.lastUpdated = now;
