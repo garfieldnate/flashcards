@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 import Swiper from 'react-native-deck-swiper';
 import { observer } from 'mobx-react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'native-base';
 
 import Card from './Card.js';
+import cardLayout from './CardLayout.js';
 
 @observer
 class Stage extends Component {
@@ -62,51 +64,29 @@ class Stage extends Component {
           stackSeparation={15}
           overlayLabels={{
             left: {
-              title: '✖',
+              element: <Icon style={styles.swipeLabelIcon}
+                type="Foundation"
+                name="x" />,
               style: {
-                label: {
-                  backgroundColor: 'red',
-                  color: 'red',
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-end',
-                  justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: -30
-                }
+                wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerBad]
               }
             },
             top: {
-              title: 'OK',
+              element: <Icon style={styles.swipeLabelIcon}
+                type="Entypo"
+                name="check" />,
               style: {
-                label: {
-                  backgroundColor: 'yellow',
-                  color: '#FFA300',
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }
+                wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerOK]
               }
             },
             right: {
-              title: '✔',
+              element: <Icon style={styles.swipeLabelIcon}
+                type="Entypo"
+                name="check" />,
               style: {
-                label: {
-                  backgroundColor: 'green',
-                  color: '#000000',
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: 30
-                }
+                wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerGood]
               }
-            }
+            },
           }}
           animateOverlayLabelsOpacity
           animateCardOpacity
@@ -124,7 +104,25 @@ const styles = StyleSheet.create({
   },
   swiper: {
     backgroundColor: 'transparent'
-  }
+  },
+  swipeLabelContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...cardLayout
+  },
+  swipeLabelContainerBad: {
+    backgroundColor: '#D13800'
+  },
+  swipeLabelContainerOK: {
+    backgroundColor: '#EEE82C'
+  },
+  swipeLabelContainerGood: {
+    backgroundColor: '#53A548'
+  },
+  swipeLabelIcon: {
+    color: 'white',
+    fontSize: 250
+  },
 })
 
 export default Stage;

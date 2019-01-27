@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import cardLayout from './CardLayout.js';
 
 import CardFlip from 'react-native-card-flip';
 
@@ -82,18 +83,15 @@ const styles = StyleSheet.create({
   cardContainer:{
     flex: 1
   },
-  card:{
-    width: "100%",
-    height: "85%",
-    borderColor: "white",
-    borderWidth: 10,
+  card: {
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
       height: 1
     },
     shadowOpacity:0.5,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    ...cardLayout
   },
   card1: {
     backgroundColor: 'rgba(83, 165, 72, 1)',
