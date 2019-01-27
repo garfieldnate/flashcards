@@ -1,5 +1,6 @@
 // Visual component for a single flashcard
 import PropTypes from 'prop-types';
+import { Audio } from 'expo';
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import {
@@ -14,13 +15,29 @@ import CardFlip from 'react-native-card-flip';
 
 export default class Card extends Component<Props> {
   static propTypes = {
+    deckID: PropTypes.string.isRequired,
+    cardID: PropTypes.number.isRequired,
     front: PropTypes.string.isRequired,
     back: PropTypes.string.isRequired,
     exampleForeignLang: PropTypes.string,
     exampleUserLang: PropTypes.string,
   };
 
-  render() {
+  constructor (props) {
+    super(props);
+    this.recording = new Audio.Sound();
+    this.recording.loadAsync(this.props.foreignHeadwordAudio).
+      then(() => {
+        this.recordingReady = true;
+        console.log(`loaded audio for ${this.props.back}`)
+      }).
+      catch((error) => {
+        console.log(`Couldn't load audio for ${this.props.back}`);
+        console.log(error);
+      });
+  }
+
+  render () {
     return (
         <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
           <View style={[styles.card, styles.cardFront]}>
@@ -72,7 +89,17 @@ export default class Card extends Component<Props> {
       </View>);
   }
 
-  flip = () => this.card.flip();
+  flip = () => {
+    if (this.card.state.side === 0) {
+      console.log(`playing recording ${this.props.back}`);
+      this.recording.replayAsync().
+        catch((error) => {
+          console.log("Error while playing mp3");
+          console.log(error);
+        });
+    }
+    this.card.flip();
+  }
 }
 
 const countLines = (text) => {

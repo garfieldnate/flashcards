@@ -27,6 +27,9 @@ class Stage extends Component {
   renderCard = (cardData, index) => {
     return (
       <Card
+        deckID={this.props.studyManager.deck.ID}
+        cardID={cardData.ID}
+        foreignHeadwordAudio={cardData.foreignHeadwordAudio}
         front={cardData.front}
         back={cardData.back}
         exampleForeignLang={cardData.exampleForeignLang}

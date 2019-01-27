@@ -2,8 +2,8 @@
 
 // we have to explicitly require all of our files; dynamic require will not compile
 cards = {
-    "dev-thai": require("./cards-dev-thai.json"),
-    "dev-turkish": require("./cards-dev-turkish.json")
+    "dev-thai": require("./cards-dev-thai.js").default,
+    "dev-turkish": require("./cards-dev-turkish.js").default
 }
 
 export default class DummyDeckSource {
@@ -15,7 +15,6 @@ export default class DummyDeckSource {
         //         "name": "<deck name>",
         //         "thumbnail": "<URI to deck thumbnail>"
         //     }
-        //     ...
         this.decks = require('./decks.json');
         for (var key in this.decks) {
             const id = key;
