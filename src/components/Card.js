@@ -23,11 +23,11 @@ export default class Card extends Component<Props> {
   render() {
     return (
         <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
-          <View style={[styles.card, styles.card1]}>
+          <View style={[styles.card, styles.cardFront]}>
             {this.renderTopSection(this.props.front)}
             <View style={styles.cardBottomSection} />
           </View>
-          <View style={[styles.card, styles.card2]} >
+          <View style={[styles.card, styles.cardBack]} >
             {this.renderTopSection(this.props.back)}
             <View style={styles.cardBottomSection}>
               {this.renderExample()}
@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     ...cardLayout
   },
-  card1: {
-    backgroundColor: 'rgba(83, 165, 72, 1)',
+  cardFront: {
+    backgroundColor: '#91CB3E',
   },
-  card2: {
-    backgroundColor: 'rgba(145, 203, 62, 1)',
+  cardBack: {
+    backgroundColor: '#84B939',
   },
   textContainer: {
     backgroundColor: 'rgba(0,0,0,0.4)',
