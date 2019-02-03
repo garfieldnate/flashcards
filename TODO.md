@@ -1,13 +1,17 @@
 # TODO
 
-Next: 
+Next: Test and finalize sm2plus
 
+* model interface, with mock for testing
+* real model class
+* model synch with server (PouchDB?)
 * TDD the card providers
 * color pallette for whole app
-* typography for whole app
+* typography for whole app (choose and bundle fonts)
 * navigation parameter validation
 * validation in general (TypeScript?)
-* Overlay image on card swipes
+* how to handle assets generally? require() doesn't work with dynamic strings, and we're certainly not going to load thousands of images and audios into memory just in case
+* card background pictures
 * TypeScript
 * Change to AGPL
 * Calculate length limit for example sentence display

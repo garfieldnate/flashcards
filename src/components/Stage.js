@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import Swiper from 'react-native-deck-swiper';
-// import Swiper from '../vendor/react-native-deck-swiper/Swiper.js';
 import { observer } from 'mobx-react';
 import { Dimensions, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'native-base';
