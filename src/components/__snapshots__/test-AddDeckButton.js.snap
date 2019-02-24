@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders icon button 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "backgroundColor": "transparent",
+      "borderBottomWidth": null,
+      "borderColor": "#007aff",
+      "borderLeftWidth": null,
+      "borderRadius": 5,
+      "borderRightWidth": null,
+      "borderTopWidth": null,
+      "borderWidth": undefined,
+      "elevation": 0,
+      "flexDirection": "row",
+      "height": 45,
+      "justifyContent": "space-between",
+      "opacity": 1,
+      "paddingBottom": 0,
+      "paddingTop": 0,
+      "shadowColor": null,
+      "shadowOffset": null,
+      "shadowOpacity": null,
+      "shadowRadius": null,
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        Array [
+          Object {
+            "color": "#000",
+            "fontSize": 30,
+          },
+          Object {
+            "color": "#007aff",
+            "fontSize": 24,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "paddingTop": 2,
+          },
+          Object {
+            "fontSize": 36,
+          },
+        ],
+        Object {
+          "fontFamily": "ionicons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;

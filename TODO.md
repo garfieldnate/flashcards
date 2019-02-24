@@ -21,10 +21,11 @@ Next: Test and finalize sm2plus
 ## Notes
 
 * Icon directory: https://oblador.github.io/react-native-vector-icons/
-* Testing via Jest does not work with native-base components. See thread in https://nativebase.slack.com/archives/C2XDREYSJ/p1547992457022900.
 * Expo does not play well with ESLint: https://github.com/yannickcr/eslint-plugin-react/issues/1955
 * Prettier works fine, but I don't know how to integrate it into the project properly.
 * Hot reload does not always cause an immediate re-render; I usually have to manually cause one to see the effect of a change in styles, etc.
+* Fonts have to be pre-loaded to get correct jest snapshots in Expo: https://github.com/expo/expo/issues/3566. Unfortunately jest currently has no way of defining an async beforeAll across all tests. See https://github.com/facebook/jest/issues/3832.
+* 
 
 ## Color Pallete
 
