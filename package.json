@@ -9,22 +9,22 @@
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
-    "//": "see https://github.com/alexbrillant/react-native-deck-swiper/issues/200",
-    "@expo/vector-icons": "^9.0.0",
-    "expo": "^32.0.0",
-    "mobx": "^5.8.0",
+    "@expo/vector-icons": "^10.0.1",
+    "expo": "^32.0.3",
+    "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
-    "moment": "^2.23.0",
-    "native-base": "^2.10.0",
+    "moment": "^2.24.0",
+    "native-base": "^2.12.1",
     "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.3.tar.gz",
     "react-native-card-flip": "^1.0.4",
-    "react-native-deck-swiper": "1.5.25",
-    "react-navigation": "^3.0.9",
+    "react-native-deck-swiper": "1.6.7",
+    "react-native-view-overflow": "0.0.4",
+    "react-navigation": "^3.9.1",
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0",
+    "babel-preset-expo": "^5.1.1",
     "jest-expo": "^32.0.0"
   },
   "//": "We put unit tests next to the components they test",
