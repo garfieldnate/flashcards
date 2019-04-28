@@ -20,7 +20,8 @@ export default class Card extends Component<Props> {
     back: PropTypes.string.isRequired,
     exampleForeignLang: PropTypes.string,
     exampleUserLang: PropTypes.string,
-    foreignHeadwordAudio: PropTypes.string
+    // result of asset require() is a number
+    foreignHeadwordAudio: PropTypes.number
   };
 
   constructor (props) {
