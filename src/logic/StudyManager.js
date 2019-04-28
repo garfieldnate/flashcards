@@ -1,4 +1,3 @@
-import { observable } from 'mobx';
 import moment from 'moment';
 import NewCardProvider from './NewCardProvider.js';
 import ReviewCardProvider from './ReviewCardProvider.js';
@@ -25,15 +24,23 @@ class StudyManager {
 
     // TODO: max with number of cards left to study in deck
     const numLeft = this.getNumNewCardsLeftToday();
-    newCards = this.newCardProvider.getNewCards(numLeft)
-    // console.log(newCards);
-    this.cards = observable(reviewCards.concat(newCards))
+    this.newCards = this.newCardProvider.getNewCards(numLeft)
+    this.reviewCards = reviewCards
 
     this.lastUpdated = now;
 
     // run update() once per minute
     // TODO: client should set this
     // this.interval = setInterval(this.update, 60000);
+  }
+
+  getNextCard = () => {
+    if (this.newCards) {
+      return this.newCards.shift(); // technically not efficient but whatevs for now :)
+    } else if(this.reviewCards) {
+      return this.reviewCards.shift();
+    }
+    return null;
   }
 
   updateStudyData = (currentTime) => {

@@ -8,15 +8,18 @@ import { Icon } from 'native-base';
 
 import Card from './Card.js';
 import cardLayout from './CardLayout.js';
+import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy.js'
 
 const { height, width } = Dimensions.get('window')
+const STACK_SIZE = 3;
 
 @observer
 class Stage extends Component {
   constructor (props) {
     super(props);
+    const cardData = createArrayToFunctionProxy(this.props.studyManager, STACK_SIZE);
     this.state = {
-      cardData: this.props.studyManager.cards,
+      cardData: cardData,
       renderedCards: [],
       swipedAllCards: false,
       swipeDirection: '',
@@ -24,6 +27,7 @@ class Stage extends Component {
   }
 
   renderCard = (cardData, index) => {
+    console.log("cardData: " + cardData);
     return (
       <Card
         cardID={cardData.ID}
@@ -50,7 +54,17 @@ class Stage extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Swiper
+        {this.renderSwiper()}
+      </View>
+    )
+  }
+
+  renderSwiper = () => {
+    if (this.state.cardData.length === 0) {
+      return
+    }
+    return (
+      <Swiper
           containerStyle={styles.swiper}
           ref={swiper => {
             this.swiper = swiper
@@ -62,9 +76,9 @@ class Stage extends Component {
           onTapCard={this.flipCard}
           onSwipedAborted={() => this.flipCard(this.swiper.state.firstCardIndex)}
           onSwipedAll={this.onSwipedAllCards}
-          cards={this.state.cardData.toJS()}
+          cards={this.state.cardData}
           renderCard={this.renderCard}
-          stackSize={3}
+          stackSize={STACK_SIZE}
           stackSeparation={15}
           overlayLabels={{
             left: {
@@ -99,8 +113,7 @@ class Stage extends Component {
           inputOverlayLabelsOpacityRangeY={[-height / 4, -height / 12, 0, height / 12, height / 4]}
           overlayOpacityVerticalThreshold={height / 12}
         >
-        </Swiper>
-      </View>
+      </Swiper>
     )
   }
 }
