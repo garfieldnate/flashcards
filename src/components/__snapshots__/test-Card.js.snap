@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a card 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "transform": Array [
+        Object {
+          "scale": 1,
+        },
+      ],
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "bottom": 0,
+        "flex": 1,
+        "left": 0,
+        "opacity": 100,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "transform": Array [
+          Object {
+            "perspective": 800,
+          },
+          Object {
+            "rotateY": "0deg",
+          },
+        ],
+        "zIndex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "borderColor": "white",
+            "borderWidth": 10,
+            "height": "85%",
+            "overflow": "hidden",
+            "shadowColor": "rgba(0,0,0,0.5)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0,
+            },
+            "shadowOpacity": 0.5,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "#91CB3E",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 2,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0,0,0,0.4)",
+            }
+          }
+        >
+          <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 55,
+                "textAlign": "center",
+              }
+            }
+          >
+            hello
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 3,
+            "justifyContent": "space-around",
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "bottom": 0,
+        "flex": 1,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "transform": Array [
+          Object {
+            "perspective": -800,
+          },
+          Object {
+            "rotateY": "180deg",
+          },
+        ],
+        "zIndex": 0,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "borderColor": "white",
+            "borderWidth": 10,
+            "height": "85%",
+            "overflow": "hidden",
+            "shadowColor": "rgba(0,0,0,0.5)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 0,
+            },
+            "shadowOpacity": 0.5,
+            "width": "100%",
+          },
+          Object {
+            "backgroundColor": "#84B939",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 2,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "rgba(0,0,0,0.4)",
+            }
+          }
+        >
+          <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 55,
+                "textAlign": "center",
+              }
+            }
+          >
+            ハロー
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 3,
+            "justifyContent": "space-around",
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "rgba(0,0,0,0.4)",
+              },
+              Object {
+                "flexShrink": 1,
+                "padding": "2%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 18,
+                "fontWeight": "500",
+                "textAlign": "center",
+              }
+            }
+          >
+            例文
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 18,
+                "fontWeight": "500",
+                "textAlign": "center",
+              }
+            }
+          >
+            ─────
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFFFFF",
+                "fontSize": 18,
+                "fontWeight": "500",
+                "textAlign": "center",
+              }
+            }
+          >
+            example
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

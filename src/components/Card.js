@@ -15,26 +15,28 @@ import CardFlip from 'react-native-card-flip';
 
 export default class Card extends Component<Props> {
   static propTypes = {
-    deckID: PropTypes.string.isRequired,
     cardID: PropTypes.number.isRequired,
     front: PropTypes.string.isRequired,
     back: PropTypes.string.isRequired,
     exampleForeignLang: PropTypes.string,
     exampleUserLang: PropTypes.string,
+    foreignHeadwordAudio: PropTypes.string
   };
 
   constructor (props) {
     super(props);
-    this.recording = new Audio.Sound();
-    this.recording.loadAsync(this.props.foreignHeadwordAudio).
-      then(() => {
-        this.recordingReady = true;
-        console.log(`loaded audio for ${this.props.back}`)
-      }).
-      catch((error) => {
-        console.log(`Couldn't load audio for ${this.props.back}`);
-        console.log(error);
-      });
+    if(this.props.foreignHeadwordAudio) {
+      this.recording = new Audio.Sound();
+      this.recording.loadAsync(this.props.foreignHeadwordAudio).
+        then(() => {
+          this.recordingReady = true;
+          console.log(`loaded audio for ${this.props.back}`)
+        }).
+        catch((error) => {
+          console.log(`Couldn't load audio for ${this.props.back}`);
+          console.log(error);
+        });
+    }
   }
 
   render () {
@@ -91,12 +93,14 @@ export default class Card extends Component<Props> {
 
   flip = () => {
     if (this.card.state.side === 0) {
-      console.log(`playing recording ${this.props.back}`);
-      this.recording.replayAsync().
-        catch((error) => {
-          console.log("Error while playing mp3");
-          console.log(error);
-        });
+      if(this.recording) {
+        console.log(`playing recording ${this.props.back}`);
+        this.recording.replayAsync().
+          catch((error) => {
+            console.log("Error while playing mp3");
+            console.log(error);
+          });
+      }
     }
     this.card.flip();
   }

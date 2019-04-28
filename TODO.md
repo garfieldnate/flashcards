@@ -1,7 +1,8 @@
 # TODO
 
-Next: Test and finalize sm2plus
+Next: Continue testing!
 
+* add .editorconfig, install Editorconfig in sublime
 * model interface, with mock for testing
 * real model class
 * model synch with server (PouchDB?)
@@ -17,6 +18,7 @@ Next: Test and finalize sm2plus
 * Calculate length limit for example sentence display
 * Calculate length limit for headword display
 * Flashcard data needs to be checked for length limits
+* integrate jest-snapshots-svg (couldn't install due to https://github.com/foliojs/font-manager/issues/33)
 
 ## Notes
 
