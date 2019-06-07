@@ -3,8 +3,11 @@ from collections import defaultdict
 import sqlite3
 import sys
 import threading
+import urllib
 
-from flask import Flask, jsonify, Response
+from flask import Flask, jsonify, Response, url_for
+
+app = Flask(__name__)
 
 db_file = None
 manifests = None
@@ -71,7 +74,18 @@ def load_examples():
         examples[row['language_id']][row['id']] = row
 
 
-app = Flask(__name__)
+# Thanks to John Jiang: https://stackoverflow.com/a/22651263/474819
+@app.route("/endpoints")
+def endpoints():
+    output = []
+    for rule in sorted(app.url_map.iter_rules(), key=lambda r: r.endpoint):
+        methods = ','.join(rule.methods)
+        output.append({
+            "endpoint": str(rule),
+            "methods": ','.join(rule.methods),
+        });
+
+    return jsonify(output)
 
 
 @app.route('/api/v1/manifests')
