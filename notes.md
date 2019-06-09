@@ -57,3 +57,16 @@ where
         c2v.vocab_id = 200
         and
                         c.parent_id is null
+
+# Duplicate words (237 words for Thai. Grr!)
+WITH dup AS
+  (SELECT foreign_word,
+          english_word
+   FROM vocab
+   GROUP BY foreign_word
+   HAVING count(*) > 1)
+SELECT v.id, v.foreign_word, v.english_word, v.pronunciation, v.pos, v.language_id, v.frequency, v.image_id, v.foreign_audio_id
+FROM vocab v,
+     dup
+WHERE v.foreign_word=dup.foreign_word
+ORDER BY v.foreign_word;

@@ -41,7 +41,7 @@ def load_vocab():
     global vocab
     vocab = {}
     db = get_or_create_db()
-    result = db.cursor().execute("SELECT id, foreign_word, english_word, pronunciation, pos, frequency, language_id FROM vocab").fetchall()
+    result = db.cursor().execute("SELECT id, foreign_word, english_word, pronunciation, pos, frequency, language_id, foreign_audio_id FROM vocab").fetchall()
     for row in result:
         vocab.setdefault(row['language_id'], {})
         row['cats'] = []
@@ -60,7 +60,9 @@ def load_cats():
     global cats
     cats = {}
     db = get_or_create_db()
-    result = db.cursor().execute("SELECT * FROM category").fetchall()
+    result = db.cursor().execute("SELECT * FROM category ORDER BY id").fetchall()
+    # skip ROOT
+    result.pop(0)
     for row in result:
         cats[row['id']] = row
 
@@ -68,7 +70,7 @@ def load_examples():
     global examples
     examples = {}
     db = get_or_create_db()
-    result = db.cursor().execute("SELECT id, foreign_text, english_text, language_id FROM example").fetchall()
+    result = db.cursor().execute("SELECT id, foreign_text, english_text, foreign_audio_id, language_id FROM example").fetchall()
     for row in result:
         examples.setdefault(row['language_id'], {})
         examples[row['language_id']][row['id']] = row
@@ -107,32 +109,20 @@ def all_examples(lang_id):
     # TODO: check for bad lang id
     return jsonify(examples[lang_id])
 
-@app.route('/api/v1/vocab/<int:vocab_id>/image')
-def vocab_image(vocab_id):
+def binary_resource(resource_type, resource_id, mimetype):
     db = get_or_create_db()
-    result = db.cursor().execute(f'SELECT image_base64 FROM vocab WHERE id = {vocab_id};').fetchone()
-    # TODO: handle non-existent vocab
-    base64text = result['image_base64']
-    image = base64.b64decode(base64text)
-    return image, 200, {'Content-Type': 'image/jpeg'}
+    result = db.cursor().execute(f'SELECT * FROM {resource_type} WHERE id = {resource_id}').fetchone()
+    base64text = result[f'{resource_type}_base64']
+    resource = base64.b64decode(base64text)
+    return resource, 200, {'Content-Type': mimetype}
 
-@app.route('/api/v1/vocab/<int:vocab_id>/foreign_audio')
-def vocab_foreign_audio(vocab_id):
-    db = get_or_create_db()
-    result = db.cursor().execute(f'SELECT foreign_audio_base64 FROM vocab WHERE id = {vocab_id};').fetchone()
-    # TODO: handle non-existent vocab
-    base64text = result['foreign_audio_base64']
-    image = base64.b64decode(base64text)
-    return image, 200, {'Content-Type': 'audio/mpeg'}
+@app.route('/api/v1/image/<int:image_id>')
+def image(image_id):
+    return binary_resource('image', image_id, 'image/jpeg')
 
-@app.route('/api/v1/example/<int:example_id>/foreign_audio')
-def example_foreign_audio(example_id):
-    db = get_or_create_db()
-    result = db.cursor().execute(f'SELECT foreign_audio_base64 FROM example WHERE id = {example_id};').fetchone()
-    # TODO: handle non-existent example
-    base64text = result['foreign_audio_base64']
-    image = base64.b64decode(base64text)
-    return image, 200, {'Content-Type': 'audio/mpeg'}
+@app.route('/api/v1/audio/<int:audio_id>')
+def audio(audio_id):
+    return binary_resource('audio', audio_id, 'audio/mpeg')
 
 if __name__ == '__main__':
     db_file = sys.argv[1]
