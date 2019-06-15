@@ -26,7 +26,7 @@ export default class AddDecksScreen extends Component {
             renderItem={({item, index}) =>
               <Observer>{() =>
                 <ListItem thumbnail
-                          onPress={() => this.userData.addNewStudySource(item.ID)}
+                          onPress={() => {this.userData.addNewStudySource(item.ID)}}
                           disabled={this.userData.studySources.has(item.ID)}
                           >
                   <Left>

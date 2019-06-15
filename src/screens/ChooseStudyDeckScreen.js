@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import {observer} from "mobx-react";
 import {computed} from "mobx";
 import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text, Row } from 'native-base';
@@ -14,7 +14,7 @@ export default class ChooseStudyDeckScreen extends Component {
     headerRight: <AddDeckButton navigation={navigation} iconStyle={{color: "#D1DCE9", fontSize: 28}}/>
   });
 
-  listDataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+  // listDataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
   get studySources() {
     return this.props.navigation.getParam('userData', 'no user data present in navigation properties!').studySources;
@@ -49,23 +49,24 @@ export default class ChooseStudyDeckScreen extends Component {
 
 
   renderDeckList = () => (
+            // disableRightSwipe
+            // rightOpenValue={-75}
+            // renderRightHiddenRow={data =>
+            //   <Button full onPress={() => alert(data)}>
+            //     <Icon active name="information-circle" />
+            //   </Button>}
       <Container>
         <Content>
-          <List
-            disableRightSwipe
-            rightOpenValue={-75}
-            dataSource={this.listDataSource.cloneWithRows(Array.from(this.studySources).slice())}
-            renderRow={this.renderRow}
-            renderRightHiddenRow={data =>
-              <Button full onPress={() => alert(data)}>
-                <Icon active name="information-circle" />
-              </Button>}
+          <FlatList
+            data={Array.from(this.studySources).slice()}
+            renderItem={this.renderItem}
+            keyExtractor={(item, index) => item}
           />
         </Content>
       </Container>);
 
-  renderRow = (deckID) => {
-    const deck = this.deckSource.getDeck(deckID);
+  renderItem = (listItem) => {
+    const deck = this.deckSource.getDeck(listItem.item);
     return (
       <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {deck: deck, userData: this.props.navigation.state.params.userData})}>
         <Left>
