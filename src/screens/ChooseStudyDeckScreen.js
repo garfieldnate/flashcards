@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import {observer} from "mobx-react";
 import {computed} from "mobx";
-import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text, Row } from 'native-base';
+import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, SwipeRow, Text, Row } from 'native-base';
 
 import AddDeckNotice from '../components/AddDeckNotice.js';
 import AddDeckButton from '../components/AddDeckButton.js';
@@ -49,12 +49,6 @@ export default class ChooseStudyDeckScreen extends Component {
 
 
   renderDeckList = () => (
-            // disableRightSwipe
-            // rightOpenValue={-75}
-            // renderRightHiddenRow={data =>
-            //   <Button full onPress={() => alert(data)}>
-            //     <Icon active name="information-circle" />
-            //   </Button>}
       <Container>
         <Content>
           <FlatList
@@ -68,19 +62,35 @@ export default class ChooseStudyDeckScreen extends Component {
   renderItem = (listItem) => {
     const deck = this.deckSource.getDeck(listItem.item);
     return (
-      <ListItem thumbnail onPress={() => this.props.navigation.navigate('Study', {deck: deck, userData: this.props.navigation.state.params.userData})}>
-        <Left>
-          {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
-          <Thumbnail square source={{ uri: deck.thumbnail }}
-            style={{width: 49, height: 49}} />
-        </Left>
-        <Body>
-          <Text>{deck.name}</Text>
-        </Body>
-        <Right>
-          <Text>{deck.cardsDue}</Text>
-        </Right>
-      </ListItem>);
+      <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Study', {deck: deck, userData: this.props.navigation.state.params.userData})}>
+        <SwipeRow
+            disableRightSwipe
+            rightOpenValue={-75}
+            thumbnail
+            right={
+              <Button full onPress={() => alert(deck.ID)}>
+                <Icon active name="information-circle" />
+              </Button>
+            }
+            body={
+              <View style={{flexDirection:'row'}}>
+                <Left>
+                  {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
+                  <Thumbnail square source={{ uri: deck.thumbnail }}
+                    style={{width: 49, height: 49}} />
+                </Left>
+                <Body>
+                  <Text>{deck.name}</Text>
+                </Body>
+                <Right>
+                  <Text>{deck.cardsDue}</Text>
+                </Right>
+              </View>
+            }
+          >
+        </SwipeRow>
+      </TouchableOpacity>);
   };
 }
 

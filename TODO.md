@@ -21,9 +21,11 @@ Next:
 * Calculate length limit for headword display
 * Flashcard data needs to be checked for length limits
 * integrate jest-snapshots-svg (couldn't install due to https://github.com/foliojs/font-manager/issues/33)
+* 
 
 ## Notes
 
+* SwipeRow in native-base does not support `thumbnail`, or in general the same styling as ListItem. Should probably send a PR.
 * Icon directory: https://oblador.github.io/react-native-vector-icons/
 * Expo does not play well with ESLint: https://github.com/yannickcr/eslint-plugin-react/issues/1955
 * Prettier works fine, but I don't know how to integrate it into the project properly.
