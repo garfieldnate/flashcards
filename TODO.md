@@ -1,7 +1,9 @@
 # TODO
 
-Next: Continue testing!
+Next: 
 
+* clock display to next set of cards being added
+* Continue testing!
 * add .editorconfig, install Editorconfig in sublime
 * model interface, with mock for testing
 * real model class

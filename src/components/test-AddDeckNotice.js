@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import AddDeckNotice from './AddDeckNotice.js';
 
 import { Ionicons } from '@expo/vector-icons';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 beforeAll(() => {
   return Font.loadAsync(Ionicons.font);
 });

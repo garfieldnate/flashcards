@@ -1,6 +1,6 @@
 // Visual component for a single flashcard
 import PropTypes from 'prop-types';
-import { Audio } from 'expo';
+import { Audio } from 'expo-av'
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 import {
