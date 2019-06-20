@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Button, Icon } from 'native-base';
-export default class AddDeckButton extends Component {
+import {NavigationScreenProp, NavigationState, NavigationParams} from 'react-navigation'
+
+type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
+
+type Props = {
+  iconStyle: Icon['props']['style'],
+  navigation: Navigation
+}
+
+export default class AddDeckButton extends Component<Props, {}> {
   render() {
     return (
       <Button transparent

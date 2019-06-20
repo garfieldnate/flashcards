@@ -5,7 +5,7 @@ import {computed} from "mobx";
 import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text, Row } from 'native-base';
 
 import AddDeckNotice from '../components/AddDeckNotice.js';
-import AddDeckButton from '../components/AddDeckButton.js';
+import AddDeckButton from '../components/AddDeckButton.tsx';
 
 @observer
 export default class ChooseStudyDeckScreen extends Component {

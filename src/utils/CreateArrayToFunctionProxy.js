@@ -38,19 +38,19 @@ const createArrayToFunctionProxy = (studyManager, stackSize) => {
       addBufferCards(name);
 
       if (name < generatedCards.length) {
-        console.log("returning previous: " + generatedCards[name])
+        // console.log("returning previous: " + generatedCards[name])
         return generatedCards[name];
       } else {
         var newCard = studyManager.getNextCard();
         if (newCard) {
           generatedCards.push(newCard);
-          console.log("returning new: " + newCard)
+          // console.log("returning new: " + newCard)
           return newCard;
         }
       }
       length = generatedCards.length;
-      console.log("set length to " + length)
-      console.log("returning undefined")
+      // console.log("set length to " + length)
+      // console.log("returning undefined")
       return;
     }
   };

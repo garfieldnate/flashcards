@@ -1,10 +1,54 @@
 # TODO
 
-Next: 
+Current: TypeScript migration
 
-* clock display to next set of cards being added
+### User Stories
+
+* When studying a deck, the header shows the number of cards left to study
+* the AddStudyDeck screen shows the decks available from the server
+* when the user selects a deck, the beginner vocab is downloaded from the server immediately
+* The decks the user selected are saved permanently
+* The decks the user selected are backed up to a server
+* The data the user downloaded is available offline
+* When the user reviews a card, the result is saved permanently
+* Review data is backed up to a server
+* The review schedule is adjusted based on previous review results (detailed stories are TODO)
+* When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
+* The first time a card is shown, the user is given the option to skip the card (confirm first)
+* Multi-user support (detailed stories are TODO)
+* When a deck is downloaded, the deck styling is also downloaded and used for card display (test with Thai, which needs a bigger font and probably a specific font)
+* An image associated with a card is shown as its background.
+* When a card is displayed and the image is too small or too big in one dimension, the picture is scaled gracefully and a background coloring is applied to the empty space
+* User can undo last card swipe
+
+#### Milestones
+
+* Thai deck is downloadable
+* review and deck data is saved and backed up
+* multi-user support/login
+
+### Developer Stories
+* App is written in TypeScript
+* Use hooks where applicable (navigation from context, etc.)
+* App is written using a more fully-featured IDE (VSCode, Atom)
+* App is licensed under AGPL
+* Code styling is set in .editorconfig and used by text editor of choice
+
+### Data Stories
+* For a supported language:
+* We have a good list of ~3000 high-frequency words for beginners
+    - We have a list of 50 basic phrases for beginners 
+    - We have a list of culture/country-specific words (food, holidays, parts of a house)
+    - Shortcut for future: permanent cross-linguistic category words (occupations, household items, vehicles)
+* The words have categories
+* The words have recordings
+* The words have example sentences
+* The words have high quality images associated with them
+
+
+General TODOs: 
+
 * Continue testing!
-* add .editorconfig, install Editorconfig in sublime
 * model interface, with mock for testing
 * real model class
 * model synch with server (PouchDB?)
@@ -15,8 +59,6 @@ Next:
 * validation in general (TypeScript?)
 * how to handle assets generally? require() doesn't work with dynamic strings, and we're certainly not going to load thousands of images and audios into memory just in case
 * card background pictures
-* TypeScript
-* Change to AGPL
 * Calculate length limit for example sentence display
 * Calculate length limit for headword display
 * Flashcard data needs to be checked for length limits

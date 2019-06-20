@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import AddDeckButton from './AddDeckButton.js';
+import AddDeckButton from './AddDeckButton.tsx';
 
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';

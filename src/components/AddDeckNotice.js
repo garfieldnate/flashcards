@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Body, Row, Text } from 'native-base';
 
-import AddDeckButton from './AddDeckButton.js';
+import AddDeckButton from './AddDeckButton.tsx';
 
 export default class AddDeckNotice extends Component {
   render() {
