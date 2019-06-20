@@ -7,7 +7,7 @@ import { Dimensions, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'native-base';
 
 import Card from './Card';
-import cardLayout from './CardLayout.js';
+import cardLayout from './CardLayout';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy.js';
 import StudyManager from '../logic/StudyManager';
 
@@ -163,6 +163,7 @@ const overlayLabels = {
       <Icon
         style={styles.swipeLabelIcon}
         type='Entypo'
+        // TODO: use a circle instead
         name='check'
       />
     ),

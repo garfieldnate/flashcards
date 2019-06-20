@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import AddDeckNotice from './AddDeckNotice.js';
+import AddDeckNotice from './AddDeckNotice';
 
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';

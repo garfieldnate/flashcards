@@ -1,12 +1,23 @@
 import moment from 'moment';
-import NewCardProvider from './NewCardProvider.js';
-import ReviewCardProvider from './ReviewCardProvider.js';
+import NewCardProvider from './NewCardProvider';
+import ReviewCardProvider from './ReviewCardProvider';
 
 function getDateTime() {
   return moment();
 }
 
 class StudyManager {
+  deck: any;
+  prefs: any;
+  studyState: any;
+  // TODO: declare these as baser interface type
+  reviewCardProvider: ReviewCardProvider;
+  newCardProvider: NewCardProvider;
+  nextDueTime: number;
+  newCards: any;
+  reviewCards: any;
+  lastUpdated: moment.Moment;
+  cards: any;
   constructor(deck, userData) {
     this.deck = deck;
     const { prefs, studyState } = userData.getUserDeckData(deck.ID);
@@ -17,15 +28,15 @@ class StudyManager {
 
     // fill cards initially:
 
-    now = getDateTime();
+    const now = getDateTime();
     const { reviewCards, nextDueTime } = this.reviewCardProvider.getNewCards(now.unix());
     this.nextDueTime = nextDueTime;
     this.updateStudyData(now);
 
     // TODO: max with number of cards left to study in deck
     const numLeft = this.getNumNewCardsLeftToday();
-    this.newCards = this.newCardProvider.getNewCards(numLeft)
-    this.reviewCards = reviewCards
+    this.newCards = this.newCardProvider.getNewCards(numLeft);
+    this.reviewCards = reviewCards;
 
     this.lastUpdated = now;
 
@@ -37,29 +48,30 @@ class StudyManager {
   getNextCard = () => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
-    } else if(this.reviewCards) {
+    } if (this.reviewCards) {
       return this.reviewCards.shift();
     }
     return null;
   }
 
   updateStudyData = (currentTime) => {
-    today = currentTime.format("YYYYMMDD");
-    if(today !== this.studyState.lastStudied) {
+    const today = currentTime.format('YYYYMMDD');
+    if (today !== this.studyState.lastStudied) {
       this.studyState.lastStudied = today;
       this.studyState.numAddedToday = 0;
     }
   }
 
-  getNumNewCardsLeftToday = () => {
-    this.prefs.numNewCardsPerDay - this.studyState.numAddedToday;
+  getNumNewCardsLeftToday = (): number => {
+    return this.prefs.numNewCardsPerDay - this.studyState.numAddedToday;
   }
 
   update = () => {
     // get review cards that are due now
-    now = getDateTime();
+    const now = getDateTime();
     if (now.unix() > this.nextDueTime) {
-      const {reviewCards, nextDueTime} = this.reviewCardProvider.getNewCards(this.lastUpdated.unix(), now.unix());
+      const { reviewCards, nextDueTime } =
+        this.reviewCardProvider.getNewCards(now.unix());
       reviewCards.forEach(c => this.cards.push(c));
       this.lastUpdated = now;
       this.nextDueTime = nextDueTime;
@@ -71,6 +83,5 @@ class StudyManager {
     // the user will close the app at some point, anyway.
   }
 }
-
 
 export default StudyManager;

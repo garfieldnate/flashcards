@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import cardLayout from './CardLayout.js';
+import cardLayout from './CardLayout';
 
 import CardFlip from 'react-native-card-flip';
 import { Sound } from 'expo-av/build/Audio';

@@ -1,23 +1,26 @@
 import { observable } from 'mobx';
 // import moment from 'moment';
 
-// TODO: all of the logic for choosing how many new cards to get should reside in the parent StudyManager. This class should only concern itself with which new cards to pick.
-
+// TODO: all of the logic for choosing how many new cards to get should reside
+// in the parent StudyManager. This class should only concern itself with which new cards to pick.
 
 export default class NewCardProvider {
+  // TODO: get rid of anys everywhere
+  deck: any;
+  studyState: any;
   constructor(deck, studyState) {
-    // TODO: inject thes instead of extracting from deck and userData
+    // TODO: inject these instead of extracting from deck and userData
     this.deck = deck;
     this.studyState = studyState;
   }
 
-  getNewCards = () => {
+  getNewCards = (numLeft: number) => {
     // TODO:
     // select a maximum of this.numLeft cards;
     // do not grab cards that have already been studied;
     // grab 10 cards from a category at a time;
     // cover more basic vocab categories first
 
-    return deck.cards;
+    return this.deck.cards;
   }
 }
