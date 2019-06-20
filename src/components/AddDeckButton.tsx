@@ -11,7 +11,7 @@ type Props = {
   navigation: Navigation,
 };
 
-export default class AddDeckButton extends Component<Props, {}> {
+export default class AddDeckButton extends Component<Props> {
   render() {
     return (
       <Button

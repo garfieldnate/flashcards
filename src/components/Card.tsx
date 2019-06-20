@@ -1,37 +1,40 @@
 // Visual component for a single flashcard
 import PropTypes from 'prop-types';
-import { Audio } from 'expo-av'
+import { Audio } from 'expo-av';
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import cardLayout from './CardLayout.js';
 
 import CardFlip from 'react-native-card-flip';
+import { Sound } from 'expo-av/build/Audio';
+
+type Props = {
+  cardID: number,
+  front: string,
+  back: string,
+  exampleForeignLang?: string,
+  exampleUserLang?: string,
+  // result of asset require() is a number
+  foreignHeadwordAudio?: number,
+};
 
 export default class Card extends Component<Props> {
-  static propTypes = {
-    cardID: PropTypes.number.isRequired,
-    front: PropTypes.string.isRequired,
-    back: PropTypes.string.isRequired,
-    exampleForeignLang: PropTypes.string,
-    exampleUserLang: PropTypes.string,
-    // result of asset require() is a number
-    foreignHeadwordAudio: PropTypes.number
-  };
+  recording: Sound;
+  recordingReady: boolean;
+  card: CardFlip;
 
   constructor (props) {
     super(props);
-    if(this.props.foreignHeadwordAudio) {
+    if (this.props.foreignHeadwordAudio) {
       this.recording = new Audio.Sound();
       this.recording.loadAsync(this.props.foreignHeadwordAudio).
         then(() => {
           this.recordingReady = true;
-          console.log(`loaded audio for ${this.props.back}`)
+          console.log(`loaded audio for ${this.props.back}`);
         }).
         catch((error) => {
           console.log(`Couldn't load audio for ${this.props.back}`);
@@ -42,7 +45,7 @@ export default class Card extends Component<Props> {
 
   render () {
     return (
-        <CardFlip style={styles.cardContainer} ref={(card) => this.card = card} >
+        <CardFlip style={styles.cardContainer} ref={(card: CardFlip) => this.card = card} >
           <View style={[styles.card, styles.cardFront]}>
             {this.renderTopSection(this.props.front)}
             <View style={styles.cardBottomSection} />
@@ -59,29 +62,38 @@ export default class Card extends Component<Props> {
 
   renderTopSection = (headwordText) => {
     return (
-      <View style={{flex: 2, justifyContent: 'flex-end'}}>
+      <View style={{ flex: 2, justifyContent: 'flex-end' }}>
         <View style={styles.textContainer} >
-          <Text adjustsFontSizeToFit numberOfLines={countLines(headwordText)} style={styles.headword}>{headwordText}</Text>
+          <Text
+              adjustsFontSizeToFit
+              numberOfLines={countLines(headwordText)}
+              style={styles.headword}
+          >
+            {headwordText}
+          </Text>
         </View>
-      </View>);
+      </View>
+    );
   }
 
   // Renders the foreign language example, the user's language example,
   // and a separating line between them. Adjusts for missing sentence
   // data by omitting elements as needed.
   renderExample = () => {
-    var foreignExample, separator, userLangExample;
+    let foreignExample: JSX.Element;
+    let separator: JSX.Element;
+    let userLangExample: JSX.Element;
     if (!this.props.exampleForeignLang && !this.props.exampleUserLang) {
       return null;
     }
 
-    if(this.props.exampleForeignLang) {
+    if (this.props.exampleForeignLang) {
       foreignExample = <Text style={styles.exampleText}>{this.props.exampleForeignLang}</Text>;
     }
-    if(this.props.exampleUserLang) {
+    if (this.props.exampleUserLang) {
       userLangExample = <Text style={styles.exampleText}>{this.props.exampleUserLang}</Text>;
     }
-    if(foreignExample && userLangExample) {
+    if (foreignExample && userLangExample) {
       separator = <Text style={styles.exampleText}>{'─────'}</Text>;
     }
     return (
@@ -89,16 +101,17 @@ export default class Card extends Component<Props> {
         {foreignExample}
         {separator}
         {userLangExample}
-      </View>);
+      </View>
+    );
   }
 
   flip = () => {
     if (this.card.state.side === 0) {
-      if(this.recording) {
+      if (this.recording) {
         console.log(`playing recording ${this.props.back}`);
         this.recording.replayAsync().
           catch((error) => {
-            console.log("Error while playing mp3");
+            console.log('Error while playing mp3');
             console.log(error);
           });
       }
@@ -108,22 +121,22 @@ export default class Card extends Component<Props> {
 }
 
 const countLines = (text) => {
-  return (text.match(/\r?\n/g)||[]).length + 1;
-}
+  return (text.match(/\r?\n/g) || []).length + 1;
+};
 
 const styles = StyleSheet.create({
   cardContainer:{
-    flex: 1
+    flex: 1,
   },
   card: {
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity:0.5,
     overflow: 'hidden',
-    ...cardLayout
+    ...cardLayout,
   },
   cardFront: {
     backgroundColor: '#91CB3E',
@@ -136,7 +149,7 @@ const styles = StyleSheet.create({
   },
   cardBottomSection: {
     flex: 3,
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   headword: {
     textAlign: 'center',
@@ -153,5 +166,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFFFFF',
     fontWeight: '500',
-  }
+  },
 });

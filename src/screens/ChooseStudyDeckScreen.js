@@ -4,7 +4,7 @@ import {observer} from "mobx-react";
 import {computed} from "mobx";
 import { Container, Content, Left, Body, Right, Thumbnail, Button, Icon, List, ListItem, Text, Row } from 'native-base';
 
-import AddDeckNotice from '../components/AddDeckNotice.js';
+import AddDeckNotice from '../components/AddDeckNotice.tsx';
 import AddDeckButton from '../components/AddDeckButton.tsx';
 
 @observer

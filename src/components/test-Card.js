@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Card from './Card.js';
+import Card from './Card.tsx';
 
 
 it("renders a card", () => {

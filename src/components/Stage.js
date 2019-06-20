@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { Dimensions, Button, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'native-base';
 
-import Card from './Card.js';
+import Card from './Card.tsx';
 import cardLayout from './CardLayout.js';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy.js'
 
