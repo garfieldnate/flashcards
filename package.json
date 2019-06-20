@@ -7,7 +7,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "node_modules/.bin/jest",
-    "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand"
+    "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
+    "lint": "tslint -p tsconfig.json src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "expo": "^33.0.0",
@@ -20,10 +21,10 @@
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-native-web": "^0.11.4",
     "react-native-card-flip": "^1.0.4",
     "react-native-deck-swiper": "1.6.7",
     "react-native-view-overflow": "0.0.4",
+    "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
     "shuffle-array": "^1.0.1"
   },
@@ -32,9 +33,11 @@
     "@types/react-native": "^0.57.60",
     "@types/react-navigation": "^3.0.7",
     "babel-preset-expo": "^5.1.1",
-    "typescript": "^3.4.5",
-    "babel-preset-expo": "^5.1.1",
-    "jest-expo": "^33.0.0"
+    "jest-expo": "^33.0.0",
+    "tslint": "^5.17.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.5"
   },
   "//": "We put unit tests next to the components they test",
   "jest": {
