@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Stage from '../components/Stage.js';
+import Stage from '../components/Stage.tsx';
 import StudyManager from '../logic/StudyManager.js';
 
 export default class StudyScreen extends React.Component {
