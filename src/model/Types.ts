@@ -17,4 +17,10 @@ type Deck = {
   cards: Card[],
 };
 
-export { Card, Deck };
+interface DeckSource {
+  // TODO: return the object here instead of an array
+  getAvailableDecks(): Deck[];
+  getDeck(deckID: string): Deck;
+}
+
+export { Card, Deck, DeckSource };

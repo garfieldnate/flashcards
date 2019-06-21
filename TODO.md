@@ -1,7 +1,6 @@
 # TODO
 
-Current: TypeScript migration
-* Migrate utils package
+Current: Developer story: app is written in TypeScript
 * Migrate tests
 
 ### User Stories
@@ -30,9 +29,7 @@ Current: TypeScript migration
 * multi-user support/login
 
 ### Developer Stories
-* App is written in TypeScript
 * Use hooks where applicable (navigation from context, etc.)
-* App is written using a more fully-featured IDE (VSCode, Atom)
 * App is licensed under AGPL
 * Code styling is set in .editorconfig and used by text editor of choice
 

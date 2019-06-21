@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { Observer } from 'mobx-react/native';
 import { Container, Content, Left, Body, Right, Thumbnail, ListItem, Text } from 'native-base';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
-import { Deck } from '../model/Types';
+import { Deck, DeckSource } from '../model/Types';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
@@ -21,12 +21,12 @@ export default class AddDecksScreen extends Component<Props> {
       'userData', 'no user data present in navigation properties!');
   }
 
-  get deckSource() {
+  get deckSource(): DeckSource {
     return this.props.navigation.getParam(
       'deckSource', 'no deck source present in navigation properties!');
   }
 
-  renderDeck = ({ item }) => {
+  renderDeck = ({ item }: { item: Deck }) => {
     const addNewStudySource = () => this.userData.addNewStudySource(item.ID);
     const makeDeckElement = () => (
       <ListItem

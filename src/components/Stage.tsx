@@ -8,7 +8,7 @@ import { Icon } from 'native-base';
 
 import Card from './Card';
 import cardLayout from './CardLayout';
-import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy.js';
+import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import StudyManager from '../logic/StudyManager';
 
 const { height, width } = Dimensions.get('window');

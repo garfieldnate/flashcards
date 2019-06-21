@@ -1,13 +1,11 @@
-import { observable } from 'mobx';
+import { observable, ObservableSet } from 'mobx';
 import moment from 'moment';
 
-import ObservableSet from '../utils/ObservableSet.js';
-
 export default class DummyUserData {
-  @observable STUDY_SOURCES = new ObservableSet();
+  @observable STUDY_SOURCES = new ObservableSet<string>();
   allUserDeckData = new Map();
 
-  addNewStudySource = (sourceID) => {
+  addNewStudySource = (sourceID: string) => {
     this.STUDY_SOURCES.add(sourceID);
   }
 
