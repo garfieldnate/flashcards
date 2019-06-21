@@ -3,6 +3,7 @@ import { FlatList } from 'react-native';
 import { Observer } from 'mobx-react/native';
 import { Container, Content, Left, Body, Right, Thumbnail, ListItem, Text } from 'native-base';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+import { Deck } from '../model/Types';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
@@ -50,7 +51,7 @@ export default class AddDecksScreen extends Component<Props> {
   }
 
   render() {
-    const keyExtractor: (item: unknown, index: number) => string = (item, index) => item.ID;
+    const keyExtractor: (item: Deck, index: number) => string = item => item.ID;
     return (
       <Container>
         <Content>

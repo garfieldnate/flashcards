@@ -1,6 +1,8 @@
 # TODO
 
 Current: TypeScript migration
+* Migrate utils package
+* Migrate tests
 
 ### User Stories
 
