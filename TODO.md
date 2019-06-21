@@ -31,12 +31,11 @@ Current: Developer story: app is written in TypeScript
 ### Developer Stories
 * Use hooks where applicable (navigation from context, etc.)
 * App is licensed under AGPL
-* Code styling is set in .editorconfig and used by text editor of choice
 
 ### Data Stories
 * For a supported language:
 * We have a good list of ~3000 high-frequency words for beginners
-    - We have a list of 50 basic phrases for beginners 
+    - We have a list of 50 basic phrases for beginners
     - We have a list of culture/country-specific words (food, holidays, parts of a house)
     - Shortcut for future: permanent cross-linguistic category words (occupations, household items, vehicles)
 * The words have categories
@@ -45,7 +44,7 @@ Current: Developer story: app is written in TypeScript
 * The words have high quality images associated with them
 
 
-General TODOs: 
+General TODOs:
 
 * Continue testing!
 * model interface, with mock for testing
@@ -70,7 +69,7 @@ General TODOs:
 * Prettier works fine, but I don't know how to integrate it into the project properly.
 * Hot reload does not always cause an immediate re-render; I usually have to manually cause one to see the effect of a change in styles, etc.
 * Fonts have to be pre-loaded to get correct jest snapshots in Expo: https://github.com/expo/expo/issues/3566. Unfortunately jest currently has no way of defining an async beforeAll across all tests. See https://github.com/facebook/jest/issues/3832.
-* 
+*
 
 ## Color Pallete
 
