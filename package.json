@@ -8,7 +8,9 @@
     "eject": "expo eject",
     "test": "node_modules/.bin/jest",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
-    "lint": "tslint -p tsconfig.json src/**/*.{ts,tsx}"
+    "lint": "tslint -p tsconfig.json src/**/*.{ts,tsx}",
+    "fix-jest-expo": "curl https://raw.githubusercontent.com/expo/expo/master/packages/jest-expo/src/preset/setup.js > node_modules/jest-expo/src/preset/setup.js",
+    "postinstall": "npm run fix-jest-expo"
   },
   "dependencies": {
     "expo": "^33.0.0",
