@@ -1,12 +1,16 @@
 {
   "defaultSeverity": "error",
   "extends": [
-    "tslint-config-airbnb",
-    "tslint-react"
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
   ],
   "jsRules": {},
   "rules": {
+    "arrow-parens": true,
     "import-name": [false],
+    "interface-over-type-literal": false,
     "variable-name": [
       true,
       "ban-keywords",

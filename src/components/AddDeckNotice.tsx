@@ -1,18 +1,18 @@
+import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Body, Row, Text } from 'native-base';
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
 
 import AddDeckButton from './AddDeckButton';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
-type Props = {
+interface IProps {
   navigation: Navigation,
 };
 
-export default class AddDeckNotice extends Component<Props> {
-  render() {
+export default class AddDeckNotice extends Component<IProps> {
+  public render() {
     // using flex to center vertically
     return (
       <View style={styles.container}>
@@ -36,15 +36,15 @@ export default class AddDeckNotice extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  row: {
-    alignItems: 'center',
   },
   icon: {
     fontSize: 36,
+  },
+  row: {
+    alignItems: 'center',
   },
   text: {
     fontSize: 24,

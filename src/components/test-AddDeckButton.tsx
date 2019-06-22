@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import AddDeckButton from './AddDeckButton';
 import { mockNavigator } from '../utils/mocks';
+import AddDeckButton from './AddDeckButton';
 
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
@@ -32,7 +32,7 @@ it('navigates to the AddDecks screen when pressed', () => {
 
   expect(navigatorMock.navigate).toHaveBeenCalledWith(
     'AddDecks', {
-      userData:   navigatorMock.state.params.userData,
       deckSource: navigatorMock.state.params.deckSource,
+      userData:   navigatorMock.state.params.userData,
     });
 });

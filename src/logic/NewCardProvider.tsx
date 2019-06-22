@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import { Deck } from '../model/Deck';
 // import moment from 'moment';
 
 // TODO: all of the logic for choosing how many new cards to get should reside
@@ -6,15 +7,15 @@ import { observable } from 'mobx';
 
 export default class NewCardProvider {
   // TODO: get rid of anys everywhere
-  deck: any;
-  studyState: any;
-  constructor(deck, studyState) {
+  private deck: any;
+  private studyState: any;
+  constructor(deck: Deck, studyState) {
     // TODO: inject these instead of extracting from deck and userData
     this.deck = deck;
     this.studyState = studyState;
   }
 
-  getNewCards = (numLeft: number) => {
+  public getNewCards = (numLeft: number) => {
     // TODO:
     // select a maximum of this.numLeft cards;
     // do not grab cards that have already been studied;

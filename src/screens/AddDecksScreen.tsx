@@ -2,18 +2,18 @@ import { Observer } from 'mobx-react/native';
 import { Body, Container, Content, Left, ListItem, Right, Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
-import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
-import { Deck } from "../model/Deck";
-import DeckSource from "../model/DeckSource";
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
+import { Deck } from '../model/Deck';
+import IDeckSource from '../model/DeckSource';
 
 type Navigation = NavigationScreenProp<NavigationState>;
 
-interface Props {
+interface IProps {
   navigation: Navigation,
 }
 
-export default class AddDecksScreen extends Component<Props> {
-  static navigationOptions = {
+export default class AddDecksScreen extends Component<IProps> {
+  public static navigationOptions = {
     title: 'Pick a deck',
   };
 
@@ -22,7 +22,7 @@ export default class AddDecksScreen extends Component<Props> {
       'userData', 'no user data present in navigation properties!');
   }
 
-  public get deckSource(): DeckSource {
+  public get deckSource(): IDeckSource {
     return this.props.navigation.getParam(
       'deckSource', 'no deck source present in navigation properties!');
   }
@@ -52,8 +52,8 @@ export default class AddDecksScreen extends Component<Props> {
     return <Observer>{makeDeckElement}</Observer>;
   }
 
-  render() {
-    const keyExtractor: (item: Deck, index: number) => string = item => item.ID;
+  public render() {
+    const keyExtractor: (item: Deck, index: number) => string = (item) => item.ID;
 
     return (
       <Container>

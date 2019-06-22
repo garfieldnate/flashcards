@@ -1,34 +1,34 @@
 // The main animated learning area of the app
 
-import React, { Component } from 'react';
-import Swiper from 'react-native-deck-swiper';
 import { observer } from 'mobx-react';
-import { Dimensions, StyleSheet, View } from 'react-native';
 import { Icon } from 'native-base';
+import React, { Component } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Swiper from 'react-native-deck-swiper';
+import StudyManager from '../logic/StudyManager';
+import { Card as CardData } from '../model/Card';
+import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 
 import Card from './Card';
-import { Card as CardData } from "../model/Card";
 import cardLayout from './CardLayout';
-import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
-import StudyManager from '../logic/StudyManager';
 
 const { height, width } = Dimensions.get('window');
 const STACK_SIZE = 3;
 
-type Props = {
+interface IProps {
   studyManager: StudyManager,
-};
+}
 
-type State = {
+interface IState {
   cardData: CardData[],
   renderedCards: Card[],
   swipedAllCards: boolean,
-};
+}
 
 @observer
-class Stage extends Component<Props, State> {
-  swiper: Swiper;
-  constructor (props: Readonly<Props>) {
+class Stage extends Component<IProps, IState> {
+  public swiper: Swiper;
+  constructor (props: Readonly<IProps>) {
     super(props);
     const cardData = createArrayToFunctionProxy(this.props.studyManager, STACK_SIZE);
     this.state = {
@@ -38,8 +38,7 @@ class Stage extends Component<Props, State> {
     };
   }
 
-  renderCard = (cardData: CardData, index: number) => {
-    console.log(`cardData: ${cardData}`);
+  public renderCard = (cardData: CardData, index: number) => {
     return (
       <Card
         cardID={cardData.ID}
@@ -53,19 +52,19 @@ class Stage extends Component<Props, State> {
     );
   }
 
-  score = (result: string) => {
+  public score = (result: string) => {
     console.log(`on swiped ${result}`);
   }
 
-  flipCard = (index: number) => {
+  public flipCard = (index: number) => {
     this.state.renderedCards[index].flip();
   }
 
-  onSwipedAllCards = () => {
+  public onSwipedAllCards = () => {
     console.log('swipedAll');
   }
 
-  render () {
+  public render () {
     return (
       <View style={styles.container}>
         {this.renderSwiper()}
@@ -73,7 +72,7 @@ class Stage extends Component<Props, State> {
     );
   }
 
-  renderSwiper = () => {
+  public renderSwiper = () => {
     if (this.state.cardData.length === 0) {
       return;
     }
@@ -111,9 +110,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  swiper: {
-    backgroundColor: 'transparent',
-  },
   swipeLabelContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -122,15 +118,18 @@ const styles = StyleSheet.create({
   swipeLabelContainerBad: {
     backgroundColor: '#D13800',
   },
-  swipeLabelContainerOK: {
-    backgroundColor: '#EEE82C',
-  },
   swipeLabelContainerGood: {
     backgroundColor: '#53A548',
+  },
+  swipeLabelContainerOK: {
+    backgroundColor: '#EEE82C',
   },
   swipeLabelIcon: {
     color: 'white',
     fontSize: 250,
+  },
+  swiper: {
+    backgroundColor: 'transparent',
   },
 });
 
@@ -147,18 +146,6 @@ const overlayLabels = {
       wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerBad],
     },
   },
-  top: {
-    element: (
-      <Icon
-        style={styles.swipeLabelIcon}
-        type='Entypo'
-        name='check'
-      />
-    ),
-    style: {
-      wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerOK],
-    },
-  },
   right: {
     element: (
       <Icon
@@ -170,6 +157,18 @@ const overlayLabels = {
     ),
     style: {
       wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerGood],
+    },
+  },
+  top: {
+    element: (
+      <Icon
+        style={styles.swipeLabelIcon}
+        type='Entypo'
+        name='check'
+      />
+    ),
+    style: {
+      wrapper: [styles.swipeLabelContainer, styles.swipeLabelContainerOK],
     },
   },
 };

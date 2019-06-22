@@ -1,5 +1,4 @@
 // Visual component for a single flashcard
-import PropTypes from 'prop-types';
 import { Audio } from 'expo-av';
 import React, { Component } from 'react';
 import {
@@ -9,10 +8,10 @@ import {
 } from 'react-native';
 import cardLayout from './CardLayout';
 
-import CardFlip from 'react-native-card-flip';
 import { Sound } from 'expo-av/build/Audio';
+import CardFlip from 'react-native-card-flip';
 
-type Props = {
+interface IProps {
   cardID: number,
   front: string,
   back: string,
@@ -20,12 +19,12 @@ type Props = {
   exampleUserLang?: string,
   // result of asset require() is a number
   foreignHeadwordAudio?: number,
-};
+}
 
-export default class Card extends Component<Props> {
-  recording: Sound;
-  recordingReady: boolean;
-  card: CardFlip;
+export default class Card extends Component<IProps> {
+  public recording: Sound;
+  public recordingReady: boolean;
+  public card: CardFlip;
 
   constructor (props) {
     super(props);
@@ -34,16 +33,16 @@ export default class Card extends Component<Props> {
       this.recording.loadAsync(this.props.foreignHeadwordAudio).
         then(() => {
           this.recordingReady = true;
-          console.log(`loaded audio for ${this.props.back}`);
+          // console.log(`loaded audio for ${this.props.back}`);
         }).
         catch((error) => {
-          console.log(`Couldn't load audio for ${this.props.back}`);
-          console.log(error);
+          // console.log(`Couldn't load audio for ${this.props.back}`);
+          // console.log(error);
         });
     }
   }
 
-  render () {
+  public render () {
     return (
         <CardFlip style={styles.cardContainer} ref={(card: CardFlip) => this.card = card} >
           <View style={[styles.card, styles.cardFront]}>
@@ -60,7 +59,7 @@ export default class Card extends Component<Props> {
     );
   }
 
-  renderTopSection = (headwordText) => {
+  public renderTopSection = (headwordText) => {
     return (
       <View style={{ flex: 2, justifyContent: 'flex-end' }}>
         <View style={styles.textContainer} >
@@ -79,7 +78,7 @@ export default class Card extends Component<Props> {
   // Renders the foreign language example, the user's language example,
   // and a separating line between them. Adjusts for missing sentence
   // data by omitting elements as needed.
-  renderExample = () => {
+  public renderExample = () => {
     let foreignExample: JSX.Element;
     let separator: JSX.Element;
     let userLangExample: JSX.Element;
@@ -105,14 +104,14 @@ export default class Card extends Component<Props> {
     );
   }
 
-  flip = () => {
+  public flip = () => {
     if (this.card.state.side === 0) {
       if (this.recording) {
-        console.log(`playing recording ${this.props.back}`);
+        // console.log(`playing recording ${this.props.back}`);
         this.recording.replayAsync().
           catch((error) => {
-            console.log('Error while playing mp3');
-            console.log(error);
+            // console.log('Error while playing mp3');
+            // console.log(error);
           });
       }
     }
@@ -125,46 +124,46 @@ const countLines = (text) => {
 };
 
 const styles = StyleSheet.create({
-  cardContainer:{
-    flex: 1,
-  },
   card: {
+    overflow: 'hidden',
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
-      width: 0,
       height: 1,
+      width: 0,
     },
     shadowOpacity:0.5,
-    overflow: 'hidden',
     ...cardLayout,
-  },
-  cardFront: {
-    backgroundColor: '#91CB3E',
   },
   cardBack: {
     backgroundColor: '#84B939',
-  },
-  textContainer: {
-    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   cardBottomSection: {
     flex: 3,
     justifyContent: 'space-around',
   },
-  headword: {
-    textAlign: 'center',
-    fontSize: 55,
-    color: '#ffffff',
+  cardContainer:{
+    flex: 1,
+  },
+  cardFront: {
+    backgroundColor: '#91CB3E',
   },
   exampleContainer: {
+    flexShrink: 1,
     padding: '2%',
     // overflow: 'hidden',
-    flexShrink: 1,
   },
   exampleText: {
-    textAlign: 'center',
-    fontSize: 18,
     color: '#FFFFFF',
+    fontSize: 18,
     fontWeight: '500',
+    textAlign: 'center',
+  },
+  headword: {
+    color: '#ffffff',
+    fontSize: 55,
+    textAlign: 'center',
+  },
+  textContainer: {
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
 });

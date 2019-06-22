@@ -28,6 +28,7 @@ Current: auto-formatting
 * multi-user support/login
 
 ### Developer Stories
+* Fix all type/lint errors (how the heck do I properly use the builtin Proxy class with TypeScript?)
 * Use hooks where applicable (navigation from context, etc.)
 * App is licensed under AGPL
 
@@ -62,7 +63,6 @@ General TODOs:
 * integrate jest-snapshots-svg (couldn't install due to https://github.com/foliojs/font-manager/issues/33)
 
 ## Notes
-
 * Linting doesn't work if you call a file Types.ts, DataTypes.ts, etc. I got "cannot find file Datapes" when I tried that second one.
 * Update jest-expo-preset once this PR is released with it: https://github.com/expo/expo/pull/4520/commits/bbbe9e2603d6713ebc2b98ec330af825811296fd.
 * Icon directory: https://oblador.github.io/react-native-vector-icons/

@@ -7,17 +7,17 @@ function getDateTime() {
 }
 
 class StudyManager {
-  deck: any;
-  prefs: any;
-  studyState: any;
+  private deck: any;
+  private prefs: any;
+  private studyState: any;
   // TODO: declare these as baser interface type
-  reviewCardProvider: ReviewCardProvider;
-  newCardProvider: NewCardProvider;
-  nextDueTime: number;
-  newCards: any;
-  reviewCards: any;
-  lastUpdated: moment.Moment;
-  cards: any;
+  private reviewCardProvider: ReviewCardProvider;
+  private newCardProvider: NewCardProvider;
+  private nextDueTime: number;
+  private newCards: any;
+  private reviewCards: any;
+  private lastUpdated: moment.Moment;
+  private cards: any;
   constructor(deck, userData) {
     this.deck = deck;
     const { prefs, studyState } = userData.getUserDeckData(deck.ID);
@@ -45,7 +45,7 @@ class StudyManager {
     // this.interval = setInterval(this.update, 60000);
   }
 
-  getNextCard = () => {
+  public getNextCard = () => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
     } if (this.reviewCards) {
@@ -54,7 +54,7 @@ class StudyManager {
     return null;
   }
 
-  updateStudyData = (currentTime) => {
+  public updateStudyData = (currentTime) => {
     const today = currentTime.format('YYYYMMDD');
     if (today !== this.studyState.lastStudied) {
       this.studyState.lastStudied = today;
@@ -62,17 +62,17 @@ class StudyManager {
     }
   }
 
-  getNumNewCardsLeftToday = (): number => {
+  public getNumNewCardsLeftToday = (): number => {
     return this.prefs.numNewCardsPerDay - this.studyState.numAddedToday;
   }
 
-  update = () => {
+  public update = () => {
     // get review cards that are due now
     const now = getDateTime();
     if (now.unix() > this.nextDueTime) {
       const { reviewCards, nextDueTime } =
         this.reviewCardProvider.getNewCards(now.unix());
-      reviewCards.forEach(c => this.cards.push(c));
+      reviewCards.forEach((c) => this.cards.push(c));
       this.lastUpdated = now;
       this.nextDueTime = nextDueTime;
     }

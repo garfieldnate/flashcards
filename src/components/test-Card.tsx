@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import Card from './Card';
 
-console.log(renderer);
 it('renders a card', () => {
   const tree = renderer.create((
     <Card

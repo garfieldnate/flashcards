@@ -1,22 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
 import Stage from '../components/Stage';
 import StudyManager from '../logic/StudyManager';
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
-type Props = {
+interface IProps {
   navigation: Navigation,
-};
+}
 
-export default class StudyScreen extends React.Component<Props> {
-  static navigationOptions = ({ navigation, screenProps }) => ({
+export default class StudyScreen extends React.Component<IProps> {
+  public static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('deck', {}).name,
   })
-  studyManager: StudyManager;
+  public studyManager: StudyManager;
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
     const deck = this.props.navigation.getParam(
       'deck', 'no deck present in navigation properties!');
@@ -25,7 +25,7 @@ export default class StudyScreen extends React.Component<Props> {
     this.studyManager = new StudyManager(deck, userData);
   }
 
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         <Stage studyManager={this.studyManager} />
@@ -36,8 +36,8 @@ export default class StudyScreen extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#D1DCE9',
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#D1DCE9',
   },
 });

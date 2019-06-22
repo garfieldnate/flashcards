@@ -1,29 +1,29 @@
+import { observer } from 'mobx-react';
+import { Body, Container, Content, Left, ListItem, Right, Text, Thumbnail } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { observer } from 'mobx-react';
-import { Container, Content, Left, Body, Right, Thumbnail, ListItem, Text } from 'native-base';
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
 
-import AddDeckNotice from '../components/AddDeckNotice';
 import AddDeckButton from '../components/AddDeckButton';
+import AddDeckNotice from '../components/AddDeckNotice';
 
 // TODO: this type declaration is duplicated everywhere.
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
-type Props = {
+interface IProps {
   navigation: Navigation,
-};
+}
 
 @observer
-export default class ChooseStudyDeckScreen extends Component<Props> {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: 'Pick a deck',
+export default class ChooseStudyDeckScreen extends Component<IProps> {
+  public static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: (
       <AddDeckButton
         navigation={navigation}
         iconStyle={{ color: '#D1DCE9', fontSize: 28 }}
       />
     ),
+    title: 'Pick a deck',
   })
 
   get studySources() {
@@ -36,7 +36,7 @@ export default class ChooseStudyDeckScreen extends Component<Props> {
       'deckSource', 'no deck source present in navigation properties!');
   }
 
-  render() {
+  public render() {
     let contents: JSX.Element;
     if (this.studySources.size === 0) {
       contents = this.renderAddDeckNotice();
@@ -53,7 +53,7 @@ export default class ChooseStudyDeckScreen extends Component<Props> {
     );
   }
 
-  renderAddDeckNotice = () => (
+  public renderAddDeckNotice = () => (
     <Container style={styles.container}>
       <Content contentContainerStyle={styles.container}>
         <AddDeckNotice navigation={this.props.navigation} />
@@ -61,8 +61,8 @@ export default class ChooseStudyDeckScreen extends Component<Props> {
     </Container>
   )
 
-  readonly identityKeyExtractor = item => item;
-  renderDeckList = () => (
+  public readonly identityKeyExtractor = (item) => item;
+  public renderDeckList = () => (
     // disableRightSwipe
     // rightOpenValue={-75}
     // renderRightHiddenRow={data =>
@@ -80,7 +80,7 @@ export default class ChooseStudyDeckScreen extends Component<Props> {
     </Container>
   )
 
-  renderItem = (listItem) => {
+  public renderItem = (listItem) => {
     const deck = this.deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () => this.props.navigation.navigate(
       'Study', { deck, userData: this.props.navigation.state.params.userData });
@@ -107,8 +107,8 @@ export default class ChooseStudyDeckScreen extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
   },
 });

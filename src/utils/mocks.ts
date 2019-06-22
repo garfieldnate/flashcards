@@ -1,17 +1,17 @@
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 const mockNavigator = (): Navigation => {
-  const mockNavigator: any = {
+  const mockedNavigator: any = {
     navigate: jest.fn(),
     state: {
       params: {
-        userData: 'foo',
         deckSource: 'bar',
+        userData: 'foo',
       },
     },
   };
-  return mockNavigator;
+  return mockedNavigator;
 };
 
 export { mockNavigator };

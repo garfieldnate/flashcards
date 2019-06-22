@@ -1,11 +1,12 @@
 import { observable, ObservableSet } from 'mobx';
 import moment from 'moment';
+import IUserData from '../model/UserData';
 
-export default class DummyUserData {
-  @observable STUDY_SOURCES = new ObservableSet<string>();
-  allUserDeckData = new Map();
+export default class DummyUserData implements IUserData {
+  @observable private STUDY_SOURCES = new ObservableSet<string>();
+  private allUserDeckData = new Map();
 
-  addNewStudySource = (sourceID: string) => {
+  public addNewStudySource = (sourceID: string) => {
     this.STUDY_SOURCES.add(sourceID);
   }
 
@@ -13,7 +14,7 @@ export default class DummyUserData {
     return this.STUDY_SOURCES;
   }
 
-  getUserDeckData = (sourceID) => {
+  public getUserDeckData = (sourceID) => {
     let userDeckData = this.allUserDeckData.get(sourceID);
     if (!userDeckData) {
       userDeckData =
@@ -22,14 +23,14 @@ export default class DummyUserData {
           numNewCardsPerDay: 3,
         },
         studyState: {
-          lastStudied: moment().format('YYYY-MM-DD'),
-          numAddedToday: 0,
           cardData: {
             getCardsDueBetween: (start, end) => ({
               cardsDue: [],
               nextDue: 9999999999999,
             }),
           },
+          lastStudied: moment().format('YYYY-MM-DD'),
+          numAddedToday: 0,
         },
       };
       this.allUserDeckData.set(sourceID, userDeckData);

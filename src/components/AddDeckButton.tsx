@@ -1,18 +1,17 @@
+import { Button, Icon } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
 
-import { Button, Icon } from 'native-base';
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+type Navigation = NavigationScreenProp<NavigationState>;
 
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
-
-type Props = {
+interface IProps {
   iconStyle: Icon['props']['style'],
   navigation: Navigation,
-};
+}
 
-export default class AddDeckButton extends Component<Props> {
-  render() {
+export default class AddDeckButton extends Component<IProps> {
+  public render() {
     return (
       <Button
         transparent
@@ -27,13 +26,13 @@ export default class AddDeckButton extends Component<Props> {
     );
   }
 
-  handlePressed = () => {
+  public handlePressed = () => {
     const navigation = this.props.navigation;
     navigation.navigate(
       'AddDecks',
       {
-        userData: navigation.state.params.userData,
         deckSource: navigation.state.params.deckSource,
+        userData: navigation.state.params.userData,
       });
   }
 }
@@ -41,8 +40,8 @@ export default class AddDeckButton extends Component<Props> {
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
+    paddingBottom: 0,
     // without this, the bottom of the icon can get cut off
     paddingTop: 0,
-    paddingBottom: 0,
   },
 });
