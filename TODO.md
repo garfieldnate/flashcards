@@ -1,6 +1,6 @@
 # TODO
 
-Current:
+Current: Move navigation to context/hooks
 
 ### User Stories
 
@@ -29,9 +29,7 @@ Current:
 
 ### Developer Stories
 
-- Fix all type/lint errors (how the heck do I properly use the builtin Proxy class with TypeScript?)
-- Use hooks where applicable (navigation from context, etc.)
-- App is licensed under AGPL
+- types are used everywhere
 
 ### Data Stories
 

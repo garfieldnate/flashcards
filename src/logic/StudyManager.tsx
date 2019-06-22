@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Card } from '../model/Card';
 import NewCardProvider from './NewCardProvider';
 import ReviewCardProvider from './ReviewCardProvider';
 
@@ -47,7 +48,8 @@ class StudyManager {
     // this.interval = setInterval(this.update, 60000);
   }
 
-  public getNextCard = () => {
+  // TODO: change to Optional<Card>
+  public getNextCard = (): Card => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
     }

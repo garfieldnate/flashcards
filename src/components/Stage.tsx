@@ -20,7 +20,7 @@ interface IProps {
 }
 
 interface IState {
-  cardData: CardData[];
+  cardData: CardData[]; // is actually a CardData[], but we are using a Proxy for now, so we have to do this
   renderedCards: Card[];
   swipedAllCards: boolean;
 }
