@@ -17,7 +17,7 @@ export default class AddDeckButton extends Component<Props> {
       <Button
         transparent
         style={styles.button}
-        onPress={this.handleClicked}
+        onPress={this.handlePressed}
       >
         <Icon
           style={this.props.iconStyle}
@@ -27,7 +27,7 @@ export default class AddDeckButton extends Component<Props> {
     );
   }
 
-  handleClicked = () => {
+  handlePressed = () => {
     const navigation = this.props.navigation;
     navigation.navigate(
       'AddDecks',

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import AddDeckNotice from './AddDeckNotice';
+import { mockNavigator } from '../utils/mocks';
 
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
@@ -8,9 +9,9 @@ beforeAll(() => {
   return Font.loadAsync(Ionicons.font);
 });
 
-it("renders icon button", () => {
+it('renders icon button', () => {
   const tree = renderer.create(
-    <AddDeckNotice />
+    <AddDeckNotice navigation={mockNavigator()} />,
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

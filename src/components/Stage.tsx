@@ -3,10 +3,11 @@
 import React, { Component } from 'react';
 import Swiper from 'react-native-deck-swiper';
 import { observer } from 'mobx-react';
-import { Dimensions, Button, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Icon } from 'native-base';
 
 import Card from './Card';
+import { Card as CardData } from '../model/types';
 import cardLayout from './CardLayout';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import StudyManager from '../logic/StudyManager';
@@ -19,7 +20,7 @@ type Props = {
 };
 
 type State = {
-  cardData,
+  cardData: CardData[],
   renderedCards: Card[],
   swipedAllCards: boolean,
 };
@@ -27,7 +28,7 @@ type State = {
 @observer
 class Stage extends Component<Props, State> {
   swiper: Swiper;
-  constructor (props) {
+  constructor (props: Readonly<Props>) {
     super(props);
     const cardData = createArrayToFunctionProxy(this.props.studyManager, STACK_SIZE);
     this.state = {
@@ -37,7 +38,7 @@ class Stage extends Component<Props, State> {
     };
   }
 
-  renderCard = (cardData, index) => {
+  renderCard = (cardData: CardData, index: number) => {
     console.log(`cardData: ${cardData}`);
     return (
       <Card
@@ -52,11 +53,11 @@ class Stage extends Component<Props, State> {
     );
   }
 
-  score = (result) => {
+  score = (result: string) => {
     console.log(`on swiped ${result}`);
   }
 
-  flipCard = (index) => {
+  flipCard = (index: number) => {
     this.state.renderedCards[index].flip();
   }
 

@@ -29,6 +29,7 @@ Current: Developer story: app is written in TypeScript
 * multi-user support/login
 
 ### Developer Stories
+* Update jest-expo-preset once this PR is released with it: https://github.com/expo/expo/pull/4520/commits/bbbe9e2603d6713ebc2b98ec330af825811296fd. Careful not to remove the fix to jest-expo/src/preset/setup.js
 * Use hooks where applicable (navigation from context, etc.)
 * App is licensed under AGPL
 
