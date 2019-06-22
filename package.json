@@ -8,7 +8,7 @@
     "eject": "expo eject",
     "test": "node_modules/.bin/jest",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
-    "lint": "tslint -p tsconfig.json src/**/*.{ts,tsx}",
+    "lint": "tslint -p tsconfig.json ./*.{ts,tsx} src/**/*.{ts,tsx}",
     "fix-jest-expo": "curl https://raw.githubusercontent.com/expo/expo/master/packages/jest-expo/src/preset/setup.js > node_modules/jest-expo/src/preset/setup.js",
     "postinstall": "npm run fix-jest-expo"
   },
@@ -45,13 +45,6 @@
     "tslint": "^5.17.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.4.5"
-  },
-  "//": "We put unit tests next to the components they test",
-  "jest": {
-    "preset": "jest-expo",
-    "testMatch": [
-      "**/test-*.js"
-    ]
   },
   "private": true
 }
