@@ -5,4 +5,4 @@ export type Deck = {
   thumbnail: string;
   cardsDue: number;
   cards: Card[];
-}
+};

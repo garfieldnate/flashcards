@@ -23,5 +23,5 @@ export default class NewCardProvider {
     // cover more basic vocab categories first
 
     return this.deck.cards;
-  }
+  };
 }

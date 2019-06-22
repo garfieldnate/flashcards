@@ -12,21 +12,17 @@ const DAY_TO_SECONDS = 24 * 60 * 60;
 export default class SM2Plus {
   // dateProvider: DateTime;
   // model: any;
-
   // constructor(dateProvider, model) {
   //   this.dateProvider = dateProvider;
   //   this.model = model;
   // }
-
   // const getDefaultVariables = (dateNow) =>
   //   // TODO: use user preferences
   //   ({"difficulty": 0.3, "dateLastReviewed": dateNow, 'daysBetweenReviews': .25});
-
   // const getVarsForCard = (cardData, dateNow) => {
   //   var sm2pVars = this.model.getSM2PVars(cardData);
   //   return sm2pVars || this.getDefaultVariables(dateNow);
   // }
-
   // const updateSm2p = (cardData, performanceRating) => {
   //   const dateNow = this.dateProvider.now();
   //   const sm2pVars = this.getVarsForCard(cardData, dateNow);
@@ -40,19 +36,15 @@ export default class SM2Plus {
   //   sm2pVars.daysBetweenReviews *= correct ?
   //     1 + (difficultyWeight - 1) * percentOverdue :
   //     1 / difficultyWeight ** 2;
-
   //   sm2pVars.dateLastReviewed = dateNow;
   //   this.model.updateSM2PlusVars(cardData, sm2pVars);
   // }
-
   // const getPercentOverdue = (dateNow, sm2pVars) => {
   //   const delta = dateNow - this.dateProvider.fromUnix(sm2pVars.dateLastReviewed);
   //   const deltaDays = float(delta.totalSeconds()) / DAY_TO_SECONDS;
   //   return deltaDays / sm2pVars.daysBetweenReviews;
   // }
-
   // const getDifficultyWeight = (difficulty) => (3 - 1.7 * difficulty;)
-
   // /**
   //   Given the list of all entries available for study, return a list of the ones that should
   //   be studied, in the order that they should be studied.
@@ -67,7 +59,6 @@ export default class SM2Plus {
   //         prioritizedCardList.append(cardData)
   //     }
   //   });
-
   //   prioritizedCardList.sort(key=lambda t: t['percentOverdue'], reverse=True)
   //   return prioritizedCardList
   // }

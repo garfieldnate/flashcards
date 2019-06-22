@@ -18,18 +18,18 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'ChooseStudyDeck',
-    initialRouteParams: { userData, deckSource},
+    initialRouteParams: { userData, deckSource },
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: 'rgba(26, 84, 147, 1)',
       },
       headerTitleStyle: {
-        color: '#D1DCE9'
+        color: '#D1DCE9',
       },
       // colors the back button and text
       headerTintColor: '#D1DCE9',
     },
-  },
+  }
 );
 
 export default createAppContainer(AppNavigator);

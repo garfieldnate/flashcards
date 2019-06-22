@@ -1,5 +1,14 @@
 import { Observer } from 'mobx-react/native';
-import { Body, Container, Content, Left, ListItem, Right, Text, Thumbnail } from 'native-base';
+import {
+  Body,
+  Container,
+  Content,
+  Left,
+  ListItem,
+  Right,
+  Text,
+  Thumbnail,
+} from 'native-base';
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
@@ -9,7 +18,7 @@ import IDeckSource from '../model/DeckSource';
 type Navigation = NavigationScreenProp<NavigationState>;
 
 interface IProps {
-  navigation: Navigation,
+  navigation: Navigation;
 }
 
 export default class AddDecksScreen extends Component<IProps> {
@@ -19,12 +28,16 @@ export default class AddDecksScreen extends Component<IProps> {
 
   get userData() {
     return this.props.navigation.getParam(
-      'userData', 'no user data present in navigation properties!');
+      'userData',
+      'no user data present in navigation properties!'
+    );
   }
 
   public get deckSource(): IDeckSource {
     return this.props.navigation.getParam(
-      'deckSource', 'no deck source present in navigation properties!');
+      'deckSource',
+      'no deck source present in navigation properties!'
+    );
   }
 
   public renderDeck = ({ item }: { item: Deck }) => {
@@ -45,15 +58,20 @@ export default class AddDecksScreen extends Component<IProps> {
         <Body>
           <Text>{item.name}</Text>
         </Body>
-        {this.userData.studySources.has(item.ID) ? (<Right><Text>Added!</Text></Right>) : null}
+        {this.userData.studySources.has(item.ID) ? (
+          <Right>
+            <Text>Added!</Text>
+          </Right>
+        ) : null}
       </ListItem>
     );
 
     return <Observer>{makeDeckElement}</Observer>;
-  }
+  };
 
   public render() {
-    const keyExtractor: (item: Deck, index: number) => string = (item) => item.ID;
+    const keyExtractor: (item: Deck, index: number) => string = (item) =>
+      item.ID;
 
     return (
       <Container>

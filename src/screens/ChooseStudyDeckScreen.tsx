@@ -1,8 +1,21 @@
 import { observer } from 'mobx-react';
-import { Body, Container, Content, Left, ListItem, Right, Text, Thumbnail } from 'native-base';
+import {
+  Body,
+  Container,
+  Content,
+  Left,
+  ListItem,
+  Right,
+  Text,
+  Thumbnail,
+} from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
+import {
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+} from 'react-navigation';
 
 import AddDeckButton from '../components/AddDeckButton';
 import AddDeckNotice from '../components/AddDeckNotice';
@@ -11,7 +24,7 @@ import AddDeckNotice from '../components/AddDeckNotice';
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
 interface IProps {
-  navigation: Navigation,
+  navigation: Navigation;
 }
 
 @observer
@@ -24,16 +37,20 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
       />
     ),
     title: 'Pick a deck',
-  })
+  });
 
   get studySources() {
     return this.props.navigation.getParam(
-      'userData', 'no user data present in navigation properties!').studySources;
+      'userData',
+      'no user data present in navigation properties!'
+    ).studySources;
   }
 
   get deckSource() {
     return this.props.navigation.getParam(
-      'deckSource', 'no deck source present in navigation properties!');
+      'deckSource',
+      'no deck source present in navigation properties!'
+    );
   }
 
   public render() {
@@ -46,9 +63,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
 
     return (
       <Container>
-        <Content>
-          {contents}
-        </Content>
+        <Content>{contents}</Content>
       </Container>
     );
   }
@@ -59,7 +74,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
         <AddDeckNotice navigation={this.props.navigation} />
       </Content>
     </Container>
-  )
+  );
 
   public readonly identityKeyExtractor = (item) => item;
   public renderDeckList = () => (
@@ -78,12 +93,15 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
         />
       </Content>
     </Container>
-  )
+  );
 
   public renderItem = (listItem) => {
     const deck = this.deckSource.getDeck(listItem.item);
-    const navigateToStudyScreen = () => this.props.navigation.navigate(
-      'Study', { deck, userData: this.props.navigation.state.params.userData });
+    const navigateToStudyScreen = () =>
+      this.props.navigation.navigate('Study', {
+        deck,
+        userData: this.props.navigation.state.params.userData,
+      });
     return (
       <ListItem thumbnail onPress={navigateToStudyScreen}>
         <Left>
@@ -102,7 +120,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
         </Right>
       </ListItem>
     );
-  }
+  };
 }
 
 const styles = StyleSheet.create({

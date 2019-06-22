@@ -10,8 +10,8 @@ beforeAll(() => {
 });
 
 it('renders icon button', () => {
-  const tree = renderer.create(
-    <AddDeckNotice navigation={mockNavigator()} />,
-  ).toJSON();
+  const tree = renderer
+    .create(<AddDeckNotice navigation={mockNavigator()} />)
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });

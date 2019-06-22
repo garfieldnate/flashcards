@@ -29,7 +29,9 @@ class StudyManager {
     // fill cards initially:
 
     const now = getDateTime();
-    const { reviewCards, nextDueTime } = this.reviewCardProvider.getNewCards(now.unix());
+    const { reviewCards, nextDueTime } = this.reviewCardProvider.getNewCards(
+      now.unix()
+    );
     this.nextDueTime = nextDueTime;
     this.updateStudyData(now);
 
@@ -48,11 +50,12 @@ class StudyManager {
   public getNextCard = () => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
-    } if (this.reviewCards) {
+    }
+    if (this.reviewCards) {
       return this.reviewCards.shift();
     }
     return null;
-  }
+  };
 
   public updateStudyData = (currentTime) => {
     const today = currentTime.format('YYYYMMDD');
@@ -60,18 +63,19 @@ class StudyManager {
       this.studyState.lastStudied = today;
       this.studyState.numAddedToday = 0;
     }
-  }
+  };
 
   public getNumNewCardsLeftToday = (): number => {
     return this.prefs.numNewCardsPerDay - this.studyState.numAddedToday;
-  }
+  };
 
   public update = () => {
     // get review cards that are due now
     const now = getDateTime();
     if (now.unix() > this.nextDueTime) {
-      const { reviewCards, nextDueTime } =
-        this.reviewCardProvider.getNewCards(now.unix());
+      const { reviewCards, nextDueTime } = this.reviewCardProvider.getNewCards(
+        now.unix()
+      );
       reviewCards.forEach((c) => this.cards.push(c));
       this.lastUpdated = now;
       this.nextDueTime = nextDueTime;
@@ -81,7 +85,7 @@ class StudyManager {
     // If the user tries to study
     // all night non-stop, we won't help them by adding more cards. Usually
     // the user will close the app at some point, anyway.
-  }
+  };
 }
 
 export default StudyManager;

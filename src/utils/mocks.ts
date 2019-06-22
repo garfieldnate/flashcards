@@ -1,4 +1,8 @@
-import { NavigationParams, NavigationScreenProp, NavigationState } from 'react-navigation';
+import {
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+} from 'react-navigation';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 const mockNavigator = (): Navigation => {

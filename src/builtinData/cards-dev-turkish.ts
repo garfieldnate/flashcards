@@ -4,8 +4,10 @@ const cards: Card[] = [
     ID: 0,
     back: 'Siyah',
     category: 'colors',
-    exampleForeignLang: 'Kadın Siyah Elbise modelleri uygun fiyatlarla ve indirimlerle!',
-    exampleUserLang: "Women's Black Dress models at affordable prices and discounts!",
+    exampleForeignLang:
+      'Kadın Siyah Elbise modelleri uygun fiyatlarla ve indirimlerle!',
+    exampleUserLang:
+      "Women's Black Dress models at affordable prices and discounts!",
     foreignHeadwordAudio: require('../../assets/sounds/decks/dev-turkish/headword_foreign_0.mp3'),
     front: 'Black',
   },
@@ -24,7 +26,8 @@ const cards: Card[] = [
     ID: 2,
     back: 'Kırmızı',
     category: 'colors',
-    exampleForeignLang: 'Kırmızı Mercimek Çorbası Tarifi (videolu) İçin Malzemeler',
+    exampleForeignLang:
+      'Kırmızı Mercimek Çorbası Tarifi (videolu) İçin Malzemeler',
     foreignHeadwordAudio: require('../../assets/sounds/decks/dev-turkish/headword_foreign_2.mp3'),
     front: 'Red',
   },

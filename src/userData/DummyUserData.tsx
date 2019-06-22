@@ -8,7 +8,7 @@ export default class DummyUserData implements IUserData {
 
   public addNewStudySource = (sourceID: string) => {
     this.STUDY_SOURCES.add(sourceID);
-  }
+  };
 
   get studySources() {
     return this.STUDY_SOURCES;
@@ -17,8 +17,7 @@ export default class DummyUserData implements IUserData {
   public getUserDeckData = (sourceID) => {
     let userDeckData = this.allUserDeckData.get(sourceID);
     if (!userDeckData) {
-      userDeckData =
-      {
+      userDeckData = {
         prefs: {
           numNewCardsPerDay: 3,
         },
@@ -36,5 +35,5 @@ export default class DummyUserData implements IUserData {
       this.allUserDeckData.set(sourceID, userDeckData);
     }
     return userDeckData;
-  }
+  };
 }

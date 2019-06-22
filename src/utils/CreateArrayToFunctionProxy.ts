@@ -4,7 +4,10 @@ import StudyManager from '../logic/StudyManager';
 // the current card. Since we are generating cards as we go, this is really
 // difficult to work with. To get around it, we create a proxy that pretends
 // to be an array but underneath calls StudyManager.getNextCard().
-const createArrayToFunctionProxy = (studyManager: StudyManager, stackSize: number) => {
+const createArrayToFunctionProxy = (
+  studyManager: StudyManager,
+  stackSize: number
+) => {
   const generatedCards = [];
   let length: number;
 
@@ -34,7 +37,8 @@ const createArrayToFunctionProxy = (studyManager: StudyManager, stackSize: numbe
       if (name === 'length') {
         // console.log("returning length: " + length)
         return length;
-      } if (isNaN(name)) {
+      }
+      if (isNaN(name)) {
         return;
       }
       addBufferCards(name);

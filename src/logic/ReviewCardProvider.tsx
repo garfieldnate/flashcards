@@ -12,11 +12,14 @@ export default class ReviewCardProvider {
 
   // TODO: wouldn't a real DateTime type be better here?
   public getNewCards = (now: number) => {
-    const { cardsDue, nextDue } = this.cardData.getCardsDueBetween(this.lastUpdated, now);
+    const { cardsDue, nextDue } = this.cardData.getCardsDueBetween(
+      this.lastUpdated,
+      now
+    );
     shuffle(cardsDue);
 
     this.nextDue = nextDue;
     this.lastUpdated = now;
     return { reviewCards: cardsDue, nextDueTime: 9999999999 };
-  }
+  };
 }
