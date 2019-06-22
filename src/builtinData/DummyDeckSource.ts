@@ -1,4 +1,5 @@
-import { Deck, DeckSource } from '../model/Types';
+import { DeckSource } from "../model/DeckSource";
+import { Deck } from "../model/Deck";
 import hardcodedDecks from './decks';
 
 // all data from here is hardcoded

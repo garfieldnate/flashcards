@@ -7,7 +7,7 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import { Icon } from 'native-base';
 
 import Card from './Card';
-import { Card as CardData } from '../model/types';
+import { Card as CardData } from "../model/Card";
 import cardLayout from './CardLayout';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import StudyManager from '../logic/StudyManager';

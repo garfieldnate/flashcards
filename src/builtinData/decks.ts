@@ -1,4 +1,4 @@
-import { Deck } from '../model/Types';
+import { Deck } from "../model/Deck";
 import thaiDeck from './cards-dev-thai';
 import turkishDeck from './cards-dev-turkish';
 

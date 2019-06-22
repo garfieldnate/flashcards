@@ -1,7 +1,6 @@
 # TODO
 
-Current: Developer story: app is written in TypeScript
-* Migrate tests
+Current: auto-formatting
 
 ### User Stories
 
@@ -29,7 +28,6 @@ Current: Developer story: app is written in TypeScript
 * multi-user support/login
 
 ### Developer Stories
-* Update jest-expo-preset once this PR is released with it: https://github.com/expo/expo/pull/4520/commits/bbbe9e2603d6713ebc2b98ec330af825811296fd. Careful not to remove the fix to jest-expo/src/preset/setup.js
 * Use hooks where applicable (navigation from context, etc.)
 * App is licensed under AGPL
 
@@ -65,6 +63,8 @@ General TODOs:
 
 ## Notes
 
+* Linting doesn't work if you call a file Types.ts, DataTypes.ts, etc. I got "cannot find file Datapes" when I tried that second one.
+* Update jest-expo-preset once this PR is released with it: https://github.com/expo/expo/pull/4520/commits/bbbe9e2603d6713ebc2b98ec330af825811296fd.
 * Icon directory: https://oblador.github.io/react-native-vector-icons/
 * Expo does not play well with ESLint: https://github.com/yannickcr/eslint-plugin-react/issues/1955
 * Prettier works fine, but I don't know how to integrate it into the project properly.

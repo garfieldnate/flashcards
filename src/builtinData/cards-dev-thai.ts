@@ -1,4 +1,4 @@
-import { Card } from '../model/Types';
+import { Card } from "../model/Card";
 const cards: Card[] = [
   {
     ID: 0,
