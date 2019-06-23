@@ -1,13 +1,14 @@
 // The main animated learning area of the app
 
 import { observer } from 'mobx-react';
-import { Icon } from 'native-base';
+import { Button, Icon, Text } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, Modal, StyleSheet, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
 import { Card as CardData } from '../model/Card';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
+import ConfirmationModal from './ConfirmationModal';
 
 import Card from './Card';
 import cardLayout from './CardLayout';
@@ -23,11 +24,13 @@ interface IState {
   cardData: CardData[]; // is actually a CardData[], but we are using a Proxy for now, so we have to do this
   renderedCards: Card[];
   swipedAllCards: boolean;
+  deleteModalVisible: boolean;
+  confirmDeleteCard: CardData;
 }
 
 @observer
 class Stage extends Component<IProps, IState> {
-  public swiper: Swiper;
+  private swiper: Swiper;
   constructor(props: Readonly<IProps>) {
     super(props);
     const cardData = createArrayToFunctionProxy(
@@ -36,6 +39,8 @@ class Stage extends Component<IProps, IState> {
     );
     this.state = {
       cardData,
+      confirmDeleteCard: null,
+      deleteModalVisible: false,
       renderedCards: [],
       swipedAllCards: false,
     };
@@ -47,12 +52,13 @@ class Stage extends Component<IProps, IState> {
         cardData={cardData}
         firstTimeSeen={true}
         ref={(card: Card) => (this.state.renderedCards[index] = card)}
+        onDelete={this.showDeleteModal}
       />
     );
   };
 
   public score = (result: string) => {
-    console.log(`on swiped ${result}`);
+    console.log(`TODO: handle getting score of ${result}`);
   };
 
   public flipCard = (index: number) => {
@@ -60,14 +66,19 @@ class Stage extends Component<IProps, IState> {
   };
 
   public onSwipedAllCards = () => {
-    console.log('swipedAll');
+    console.log('TODO: handle swiped all');
   };
 
   public render() {
-    return <View style={styles.container}>{this.renderSwiper()}</View>;
+    return (
+      <View style={styles.container}>
+        {this.renderSwiper()}
+        {this.renderDeleteModal()}
+      </View>
+    );
   }
 
-  public renderSwiper = () => {
+  private renderSwiper = () => {
     if (this.state.cardData.length === 0) {
       return;
     }
@@ -110,6 +121,42 @@ class Stage extends Component<IProps, IState> {
           height / 4,
         ]}
         overlayOpacityVerticalThreshold={height / 12}
+      />
+    );
+  };
+
+  private showDeleteModal = (cardData) => {
+    this.setState({
+      confirmDeleteCard: cardData,
+      deleteModalVisible: true,
+    });
+  };
+
+  private hideDeleteModal = () => {
+    this.setState({
+      confirmDeleteCard: null,
+      deleteModalVisible: false,
+    });
+  };
+
+  private deleteCard = () => {
+    this.swiper.swipeBottom();
+    this.hideDeleteModal();
+    console.log(`TODO: delete card ${this.state.confirmDeleteCard.front}`);
+  };
+
+  private renderDeleteModal = () => {
+    const message = this.state.deleteModalVisible
+      ? `Are you sure you want to delete this card?\n\n"${this.state.confirmDeleteCard.front}"`
+      : '';
+    return (
+      <ConfirmationModal
+        message={message}
+        confirmMessage={'Delete'}
+        rejectMessage={'Keep'}
+        onConfirm={this.deleteCard}
+        onReject={this.hideDeleteModal}
+        isVisible={this.state.deleteModalVisible}
       />
     );
   };

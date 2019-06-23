@@ -1,6 +1,6 @@
 # TODO
 
-Current: The first time a card is shown, the user is given the option to skip the card (confirm first)
+Current:
 
 ### Bugs
 
@@ -18,6 +18,7 @@ Current: The first time a card is shown, the user is given the option to skip th
 - When the user reviews a card, the result is saved permanently
 - Review data is backed up to a server
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)
+- deleting a card makes it not come back forever
 - When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
 - Multi-user support (detailed stories are TODO)
 - When a deck is downloaded, the deck styling is also downloaded and used for card display (test with Thai, which needs a bigger font and probably a specific font)

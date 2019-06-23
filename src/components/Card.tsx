@@ -12,6 +12,7 @@ import DeleteButton from './DeleteButton';
 interface IProps {
   cardData: CardData;
   firstTimeSeen?: boolean;
+  onDelete: (cardData: CardData) => void;
 }
 
 export default class Card extends Component<IProps> {
@@ -37,6 +38,7 @@ export default class Card extends Component<IProps> {
   }
 
   public render() {
+    const onDelete = () => this.props.onDelete(this.props.cardData);
     return (
       <CardFlip
         style={styles.cardContainer}
@@ -44,7 +46,7 @@ export default class Card extends Component<IProps> {
       >
         <View style={[styles.card, styles.cardFront]}>
           <View style={styles.deleteButton}>
-            <DeleteButton onPress={() => console.log('buhweeted!')} />
+            <DeleteButton onPress={onDelete} />
           </View>
           {this.renderTopSection(this.props.cardData.front)}
           <View style={styles.cardBottomSection} />
