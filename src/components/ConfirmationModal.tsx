@@ -15,8 +15,12 @@ interface IProps {
 export default class ConfirmationModal extends Component<IProps> {
   public render() {
     return (
-      <Modal isVisible={this.props.isVisible}>
-        <View style={styles.content}>
+      <Modal
+        isVisible={this.props.isVisible}
+        onBackdropPress={this.props.onReject}
+        backdropTransitionOutTiming={0}
+      >
+        <View style={styles.container}>
           <Text style={styles.text}>{this.props.message}</Text>
           <Button danger onPress={this.props.onConfirm} style={styles.buttons}>
             <Text>{this.props.confirmMessage}</Text>
@@ -35,22 +39,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 22,
   },
-  content: {
-    backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
   container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    // marginTop: 22,
-    textAlign: 'center',
     backgroundColor: 'white',
     padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
