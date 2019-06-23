@@ -1,18 +1,11 @@
 import { Text } from 'native-base';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import {
-  NavigationParams,
-  NavigationScreenProp,
-  NavigationState,
-} from 'react-navigation';
 
 import AddDeckButton from './AddDeckButton';
 
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
-
 interface IProps {
-  navigation: Navigation;
+  onPress: () => void;
 }
 
 export default class AddDeckNotice extends Component<IProps> {
@@ -28,7 +21,7 @@ export default class AddDeckNotice extends Component<IProps> {
           <View style={styles.row}>
             <AddDeckButton
               iconStyle={styles.icon}
-              navigation={this.props.navigation}
+              onPress={this.props.onPress}
             />
           </View>
           <View style={styles.row}>

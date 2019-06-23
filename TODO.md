@@ -1,6 +1,6 @@
 # TODO
 
-Current: Move navigation to context/hooks
+Current: Move navigation to context/hooks; few components should know about navigation directly
 
 ### User Stories
 

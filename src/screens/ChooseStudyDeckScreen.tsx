@@ -29,15 +29,26 @@ interface IProps {
 
 @observer
 export default class ChooseStudyDeckScreen extends Component<IProps> {
-  public static navigationOptions = ({ navigation, screenProps }) => ({
-    headerRight: (
-      <AddDeckButton
-        navigation={navigation}
-        iconStyle={{ color: '#D1DCE9', fontSize: 28 }}
-      />
-    ),
-    title: 'Pick a deck',
-  });
+  public static navigationOptions = ({ navigation }) => {
+    const onPress = () =>
+      ChooseStudyDeckScreen.navigateToAddDeckScreen(navigation);
+    return {
+      headerRight: (
+        <AddDeckButton
+          onPress={onPress}
+          iconStyle={{ color: '#D1DCE9', fontSize: 28 }}
+        />
+      ),
+      title: 'Pick a deck',
+    };
+  };
+
+  private static navigateToAddDeckScreen = (nav: Navigation) => {
+    nav.navigate('AddDecks', {
+      deckSource: nav.state.params.deckSource,
+      userData: nav.state.params.userData,
+    });
+  };
 
   get studySources() {
     return this.props.navigation.getParam(
@@ -68,13 +79,17 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     );
   }
 
-  public renderAddDeckNotice = () => (
-    <Container style={styles.container}>
-      <Content contentContainerStyle={styles.container}>
-        <AddDeckNotice navigation={this.props.navigation} />
-      </Content>
-    </Container>
-  );
+  public renderAddDeckNotice = () => {
+    const onPress = () =>
+      ChooseStudyDeckScreen.navigateToAddDeckScreen(this.props.navigation);
+    return (
+      <Container style={styles.container}>
+        <Content contentContainerStyle={styles.container}>
+          <AddDeckNotice onPress={onPress} />
+        </Content>
+      </Container>
+    );
+  };
 
   public readonly identityKeyExtractor = (item) => item;
   public renderDeckList = () => (
