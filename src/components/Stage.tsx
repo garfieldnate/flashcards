@@ -44,12 +44,8 @@ class Stage extends Component<IProps, IState> {
   public renderCard = (cardData: CardData, index: number) => {
     return (
       <Card
-        cardID={cardData.ID}
-        foreignHeadwordAudio={cardData.foreignHeadwordAudio}
-        front={cardData.front}
-        back={cardData.back}
-        exampleForeignLang={cardData.exampleForeignLang}
-        exampleUserLang={cardData.exampleUserLang}
+        cardData={cardData}
+        firstTimeSeen={true}
         ref={(card: Card) => (this.state.renderedCards[index] = card)}
       />
     );

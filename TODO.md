@@ -1,6 +1,6 @@
 # TODO
 
-Current:
+Current: The first time a card is shown, the user is given the option to skip the card (confirm first)
 
 ### Bugs
 
@@ -19,7 +19,6 @@ Current:
 - Review data is backed up to a server
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)
 - When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
-- The first time a card is shown, the user is given the option to skip the card (confirm first)
 - Multi-user support (detailed stories are TODO)
 - When a deck is downloaded, the deck styling is also downloaded and used for card display (test with Thai, which needs a bigger font and probably a specific font)
 - An image associated with a card is shown as its background.
@@ -90,7 +89,7 @@ General TODOs:
 
 ### Card swipe colors
 
-    /* Coolors Exported Palette - coolors.co/53a548-eee82c-d13800-337ca0-3ec300 */
+    /* Coolors Exported Palette - http://coolors.co/53a548-eee82c-d13800-337ca0-3ec300 */
 
     /* HSL */
     $color1: hsla(113%, 39%, 46%, 1);
@@ -104,7 +103,7 @@ General TODOs:
 
 ### Colors for rest of the app
 
-    /* Coolors Exported Palette - coolors.co/1a5493-ffad05-eee82c-91cb3e-53a548 */
+    /* Coolors Exported Palette - http://coolors.co/1a5493-ffad05-eee82c-91cb3e-53a548 */
 
     /* HSL */
     $color1: hsla(211%, 70%, 34%, 1);

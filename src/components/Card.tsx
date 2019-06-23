@@ -2,19 +2,16 @@
 import { Audio } from 'expo-av';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Card as CardData } from '../model/Card';
 import cardLayout from './CardLayout';
 
 import { Sound } from 'expo-av/build/Audio';
 import CardFlip from 'react-native-card-flip';
+import DeleteButton from './DeleteButton';
 
 interface IProps {
-  cardID: number;
-  front: string;
-  back: string;
-  exampleForeignLang?: string;
-  exampleUserLang?: string;
-  // result of asset require() is a number
-  foreignHeadwordAudio?: number;
+  cardData: CardData;
+  firstTimeSeen?: boolean;
 }
 
 export default class Card extends Component<IProps> {
@@ -24,16 +21,16 @@ export default class Card extends Component<IProps> {
 
   constructor(props) {
     super(props);
-    if (this.props.foreignHeadwordAudio) {
+    if (this.props.cardData.foreignHeadwordAudio) {
       this.recording = new Audio.Sound();
       this.recording
-        .loadAsync(this.props.foreignHeadwordAudio)
+        .loadAsync(this.props.cardData.foreignHeadwordAudio)
         .then(() => {
           this.recordingReady = true;
-          // console.log(`loaded audio for ${this.props.back}`);
+          // console.log(`loaded audio for ${this.props.cardData.back}`);
         })
         .catch((error) => {
-          // console.log(`Couldn't load audio for ${this.props.back}`);
+          // console.log(`Couldn't load audio for ${this.props.cardData.back}`);
           // console.log(error);
         });
     }
@@ -46,11 +43,14 @@ export default class Card extends Component<IProps> {
         ref={(card: CardFlip) => (this.card = card)}
       >
         <View style={[styles.card, styles.cardFront]}>
-          {this.renderTopSection(this.props.front)}
+          <View style={styles.deleteButton}>
+            <DeleteButton onPress={() => console.log('buhweeted!')} />
+          </View>
+          {this.renderTopSection(this.props.cardData.front)}
           <View style={styles.cardBottomSection} />
         </View>
         <View style={[styles.card, styles.cardBack]}>
-          {this.renderTopSection(this.props.back)}
+          {this.renderTopSection(this.props.cardData.back)}
           <View style={styles.cardBottomSection}>{this.renderExample()}</View>
         </View>
       </CardFlip>
@@ -80,18 +80,25 @@ export default class Card extends Component<IProps> {
     let foreignExample: JSX.Element;
     let separator: JSX.Element;
     let userLangExample: JSX.Element;
-    if (!this.props.exampleForeignLang && !this.props.exampleUserLang) {
+    if (
+      !this.props.cardData.exampleForeignLang &&
+      !this.props.cardData.exampleUserLang
+    ) {
       return null;
     }
 
-    if (this.props.exampleForeignLang) {
+    if (this.props.cardData.exampleForeignLang) {
       foreignExample = (
-        <Text style={styles.exampleText}>{this.props.exampleForeignLang}</Text>
+        <Text style={styles.exampleText}>
+          {this.props.cardData.exampleForeignLang}
+        </Text>
       );
     }
-    if (this.props.exampleUserLang) {
+    if (this.props.cardData.exampleUserLang) {
       userLangExample = (
-        <Text style={styles.exampleText}>{this.props.exampleUserLang}</Text>
+        <Text style={styles.exampleText}>
+          {this.props.cardData.exampleUserLang}
+        </Text>
       );
     }
     if (foreignExample && userLangExample) {
@@ -109,7 +116,7 @@ export default class Card extends Component<IProps> {
   public flip = () => {
     if (this.card.state.side === 0) {
       if (this.recording) {
-        // console.log(`playing recording ${this.props.back}`);
+        // console.log(`playing recording ${this.props.cardData.back}`);
         this.recording.replayAsync().catch((error) => {
           // console.log('Error while playing mp3');
           // console.log(error);
@@ -147,6 +154,13 @@ const styles = StyleSheet.create({
   },
   cardFront: {
     backgroundColor: '#91CB3E',
+  },
+  deleteButton: {
+    // flex: 1,
+    zIndex: 99999,
+    left: 5,
+    position: 'absolute',
+    top: 5,
   },
   exampleContainer: {
     flexShrink: 1,
