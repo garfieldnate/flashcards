@@ -10,7 +10,7 @@ const decks: Deck[] = [
     cardsDue: 93,
     name: 'Thai',
     thumbnail:
-      'https://atlas.media.mit.edu/static/img/icons/country/country_astha.png',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Thailand_%28non-standard_colours_2%29.svg/120px-Flag_of_Thailand_%28non-standard_colours_2%29.svg.png',
   },
   {
     ID: 'dev-turkish',
