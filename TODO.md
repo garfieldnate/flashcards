@@ -36,6 +36,7 @@ Current:
 
 - types are used everywhere
 - research using MST in place of adding @observer and <Observer> where needed
+- Add storybook
 
 ### Data Stories
 
@@ -66,6 +67,13 @@ General TODOs:
 - Calculate length limit for headword display
 - Flashcard data needs to be checked for length limits
 - integrate jest-snapshots-svg (couldn't install due to https://github.com/foliojs/font-manager/issues/33)
+
+### Design Stories
+
+- Add explicit styling for headers (see how number of cards is not vertically aligned with the rest of the header in StudyScreen?)
+- Flag thumbnails should be shaped like the flag (not square)
+- Better background image for cards without an associated image
+- Better background image for stage background
 
 ## Notes
 
