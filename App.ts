@@ -6,6 +6,8 @@ import StudyScreen from './src/screens/StudyScreen';
 import DummyDeckSource from './src/builtinData/DummyDeckSource';
 import DummyUserData from './src/userData/DummyUserData';
 
+import { colors } from './src/screens/Styles';
+
 const userData = new DummyUserData();
 const deckSource = new DummyDeckSource();
 
@@ -18,12 +20,12 @@ const AppNavigator = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: 'rgba(26, 84, 147, 1)',
+        backgroundColor: colors.headerBackground,
       },
       // colors the back button and text
-      headerTintColor: '#D1DCE9',
+      headerTintColor: colors.headerText,
       headerTitleStyle: {
-        color: '#D1DCE9',
+        color: colors.headerText,
       },
     },
     initialRouteName: 'ChooseStudyDeck',

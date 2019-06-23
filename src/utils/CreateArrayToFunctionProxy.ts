@@ -9,28 +9,28 @@ const createArrayToFunctionProxy = (
   studyManager: StudyManager,
   stackSize: number
 ): Card[] => {
-  const generatedItems = [];
+  const generatedCards = [];
   let length: number;
 
-  // look ahead stackSize items so that we can properly report the array
+  // look ahead stackSize Cards so that we can properly report the array
   // length when it matters to the swiper component
-  const addBufferItems = (index: number) => {
-    const bufferNeeded = Math.max(0, index - generatedItems.length + stackSize);
-    // console.log("generatedItems.length: " + generatedItems.length)
+  const addBufferCards = (index: number) => {
+    const bufferNeeded = Math.max(0, index - generatedCards.length + stackSize);
+    // console.log("generatedCards.length: " + generatedCards.length)
     // console.log("index: " + index)
     // console.log("stackSize: " + stackSize)
     // console.log("adding buffer: " + bufferNeeded)
     for (let i = 0; i < bufferNeeded; i += 1) {
       const newCard = studyManager.getNextCard();
       if (newCard) {
-        generatedItems.push(newCard);
+        generatedCards.push(newCard);
       } else {
-        length = generatedItems.length;
+        length = generatedCards.length;
         break;
       }
     }
   };
-  addBufferItems(0);
+  addBufferCards(0);
 
   const handler = {
     get(target: any, name: 'length' | number) {
@@ -42,20 +42,20 @@ const createArrayToFunctionProxy = (
       if (isNaN(name)) {
         return;
       }
-      addBufferItems(name);
+      addBufferCards(name);
 
-      if (name < generatedItems.length) {
-        // console.log("returning previous: " + generatedItems[name])
-        return generatedItems[name];
+      if (name < generatedCards.length) {
+        // console.log("returning previous: " + generatedCards[name])
+        return generatedCards[name];
       }
       const newCard = studyManager.getNextCard();
       if (newCard) {
-        generatedItems.push(newCard);
+        generatedCards.push(newCard);
         // console.log("returning new: " + newCard)
         return newCard;
       }
 
-      length = generatedItems.length;
+      length = generatedCards.length;
       // console.log("set length to " + length)
       // console.log("returning undefined")
       return;

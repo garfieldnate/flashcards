@@ -1,3 +1,5 @@
+import { Observer } from 'mobx-react/native';
+import { Icon, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
@@ -7,6 +9,8 @@ import {
 } from 'react-navigation';
 import Stage from '../components/Stage';
 import StudyManager from '../logic/StudyManager';
+import { Deck } from '../model/Deck';
+import { colors } from '../screens/Styles';
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
 
@@ -15,14 +19,36 @@ interface IProps {
 }
 
 export default class StudyScreen extends React.Component<IProps> {
-  public static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('deck', {}).name,
-  });
+  public static navigationOptions = ({ navigation }) => {
+    const deck: Deck = navigation.getParam(
+      'deck',
+      'no deck present in navigation properties!'
+    );
+    return {
+      headerRight: StudyScreen.renderRightHeader(deck),
+      title: navigation.getParam('deck', {}).name,
+    };
+  };
+  private static renderRightHeader = (deck) => {
+    const renderer = () => (
+      <Text style={{ color: colors.headerText }}>
+        {deck.cardsDue}
+        <Icon
+          style={{ color: colors.headerText }}
+          type='MaterialCommunityIcons'
+          name='cards-outline'
+        />
+        {'  '}
+      </Text>
+    );
+    return <Observer>{renderer}</Observer>;
+  };
+
   public studyManager: StudyManager;
 
   constructor(props: IProps) {
     super(props);
-    const deck = this.props.navigation.getParam(
+    const deck: Deck = this.props.navigation.getParam(
       'deck',
       'no deck present in navigation properties!'
     );

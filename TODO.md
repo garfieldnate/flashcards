@@ -1,11 +1,16 @@
 # TODO
 
-Current: Move navigation to context/hooks; few components should know about navigation directly
+Current:
+
+### Bugs
+
+- Leaving the study deck screen causes the number of cards to decrease or go to 0
 
 ### User Stories
 
-- When studying a deck, the header shows the number of cards left to study
 - the AddStudyDeck screen shows the decks available from the server
+- decks available from the server are saved permanently
+- decks available from the server are updated once in a while
 - when the user selects a deck, the beginner vocab is downloaded from the server immediately
 - The decks the user selected are saved permanently
 - The decks the user selected are backed up to a server
@@ -30,6 +35,7 @@ Current: Move navigation to context/hooks; few components should know about navi
 ### Developer Stories
 
 - types are used everywhere
+- research using MST in place of adding @observer and <Observer> where needed
 
 ### Data Stories
 
