@@ -60,6 +60,44 @@ exports[`renders a card 1`] = `
       <View
         style={
           Object {
+            "left": 5,
+            "position": "absolute",
+            "top": 5,
+            "zIndex": 99999,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "#D95C2E",
+              "borderColor": "#FAECE7",
+              "borderRadius": 99999,
+              "borderWidth": 4.333333333333333,
+              "height": 65,
+              "justifyContent": "center",
+              "opacity": 1,
+              "textAlign": "center",
+              "width": 65,
+            }
+          }
+        >
+          <Text />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
             "flex": 2,
             "justifyContent": "flex-end",
           }

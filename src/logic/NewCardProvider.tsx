@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
 import { Deck } from '../model/Deck';
+import { UserDeckData } from '../model/UserDeckData';
 // import moment from 'moment';
 
 // TODO: all of the logic for choosing how many new cards to get should reside
@@ -7,9 +8,9 @@ import { Deck } from '../model/Deck';
 
 export default class NewCardProvider {
   // TODO: get rid of anys everywhere
-  private deck: any;
-  private studyState: any;
-  constructor(deck: Deck, studyState) {
+  private deck: Deck;
+  private studyState: UserDeckData['studyState'];
+  constructor(deck: Deck, studyState: UserDeckData['studyState']) {
     // TODO: inject these instead of extracting from deck and userData
     this.deck = deck;
     this.studyState = studyState;

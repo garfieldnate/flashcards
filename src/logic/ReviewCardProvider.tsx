@@ -1,11 +1,16 @@
 import moment from 'moment';
 import shuffle from 'shuffle-array';
+import { Card } from '../model/Card';
+import { UserDeckData } from '../model/UserDeckData';
 
 export default class ReviewCardProvider {
-  private cardData: any;
+  private cardData: UserDeckData['studyState']['cardData'];
   private lastUpdated: number;
-  private nextDue: any;
-  constructor(prefs, studyState) {
+  private nextDue: number;
+  constructor(
+    prefs: UserDeckData['prefs'],
+    studyState: UserDeckData['studyState']
+  ) {
     this.cardData = studyState.cardData;
     this.lastUpdated = 0;
   }

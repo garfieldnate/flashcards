@@ -40,15 +40,15 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   container: {
-    backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 4,
+    backgroundColor: 'white',
     borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 4,
+    justifyContent: 'center',
+    padding: 22,
   },
   text: {
-    textAlign: 'center',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

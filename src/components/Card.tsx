@@ -20,7 +20,7 @@ export default class Card extends Component<IProps> {
   public recordingReady: boolean;
   public card: CardFlip;
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
     if (this.props.cardData.foreignHeadwordAudio) {
       this.recording = new Audio.Sound();
@@ -159,10 +159,10 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     // flex: 1,
-    zIndex: 99999,
     left: 5,
     position: 'absolute',
     top: 5,
+    zIndex: 99999,
   },
   exampleContainer: {
     flexShrink: 1,

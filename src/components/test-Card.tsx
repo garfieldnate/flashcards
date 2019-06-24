@@ -7,11 +7,15 @@ it('renders a card', () => {
   const tree = renderer
     .create(
       <Card
-        cardID={1}
-        front='hello'
-        back='ハロー'
-        exampleForeignLang='例文'
-        exampleUserLang='example'
+        cardData={{
+          ID: 1,
+          back: 'ハロー',
+          category: 'foo',
+          exampleForeignLang: '例文',
+          exampleUserLang: 'example',
+          front: 'hello',
+        }}
+        onDelete={null}
       />
     )
     .toJSON();
