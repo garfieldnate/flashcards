@@ -91,7 +91,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     );
   };
 
-  public readonly identityKeyExtractor = (item) => item;
+  public readonly identityKeyExtractor = (item: any) => item;
   public renderDeckList = () => (
     // disableRightSwipe
     // rightOpenValue={-75}

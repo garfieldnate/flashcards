@@ -4,9 +4,19 @@
     "noEmit": true,
     "lib": ["dom", "esnext"],
     "jsx": "react-native",
+    "typeRoots": ["./node_modules/@types", "./@types"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "extendedDiagnostics": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "strict": true
   }
 }

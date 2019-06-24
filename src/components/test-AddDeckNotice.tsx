@@ -10,7 +10,7 @@ beforeAll(() => {
 });
 
 it('renders icon button', () => {
-  const tree = renderer.create(<AddDeckNotice onPress={null} />).toJSON();
+  const tree = renderer.create(<AddDeckNotice onPress={() => {}} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 

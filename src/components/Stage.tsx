@@ -1,9 +1,9 @@
 // The main animated learning area of the app
 
 import { observer } from 'mobx-react';
-import { Button, Icon, Text } from 'native-base';
+import { Icon } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, Modal, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
 import { Card as CardData } from '../model/Card';
@@ -25,7 +25,7 @@ interface IState {
   renderedCards: Card[];
   swipedAllCards: boolean;
   deleteModalVisible: boolean;
-  confirmDeleteCard: CardData;
+  confirmDeleteCard?: CardData;
 }
 
 @observer
@@ -39,7 +39,6 @@ class Stage extends Component<IProps, IState> {
     );
     this.state = {
       cardData,
-      confirmDeleteCard: null,
       deleteModalVisible: false,
       renderedCards: [],
       swipedAllCards: false,
@@ -125,7 +124,7 @@ class Stage extends Component<IProps, IState> {
     );
   };
 
-  private showDeleteModal = (cardData) => {
+  private showDeleteModal = (cardData: CardData) => {
     this.setState({
       confirmDeleteCard: cardData,
       deleteModalVisible: true,
@@ -134,7 +133,7 @@ class Stage extends Component<IProps, IState> {
 
   private hideDeleteModal = () => {
     this.setState({
-      confirmDeleteCard: null,
+      confirmDeleteCard: undefined,
       deleteModalVisible: false,
     });
   };

@@ -6,7 +6,7 @@ export default class DateTime {
   public static fromUnix = (timeStamp: number) =>
     new DateTime(moment.unix(timeStamp));
 
-  public dateTime: any;
+  public dateTime: moment.Moment;
 
   constructor(momentDateTime: moment.Moment) {
     this.dateTime = momentDateTime;

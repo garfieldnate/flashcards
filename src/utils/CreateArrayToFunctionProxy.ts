@@ -9,7 +9,7 @@ const createArrayToFunctionProxy = (
   studyManager: StudyManager,
   stackSize: number
 ): Card[] => {
-  const generatedCards = [];
+  const generatedCards: Card[] = [];
   let length: number;
 
   // look ahead stackSize Cards so that we can properly report the array
@@ -33,7 +33,7 @@ const createArrayToFunctionProxy = (
   addBufferCards(0);
 
   const handler = {
-    get(target: any, name: 'length' | number) {
+    get(target: [], name: 'length' | number) {
       // console.log("proxying: " + name);
       if (name === 'length') {
         // console.log("returning length: " + length)
@@ -61,7 +61,7 @@ const createArrayToFunctionProxy = (
       return;
     },
   };
-  return new Proxy<[]>([], handler);
+  return new Proxy<Card[]>([], handler);
 };
 
 export default createArrayToFunctionProxy;

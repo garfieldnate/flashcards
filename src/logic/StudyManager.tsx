@@ -1,5 +1,8 @@
 import moment from 'moment';
 import { Card } from '../model/Card';
+import { Deck } from '../model/Deck';
+import { UserDeckData } from '../model/UserDeckData';
+import DummyUserData from '../userData/DummyUserData';
 import NewCardProvider from './NewCardProvider';
 import ReviewCardProvider from './ReviewCardProvider';
 
@@ -8,18 +11,19 @@ function getDateTime() {
 }
 
 class StudyManager {
-  private deck: any;
-  private prefs: any;
-  private studyState: any;
+  private deck: Deck;
+  private prefs: UserDeckData['prefs'];
+  private studyState: UserDeckData['studyState'];
   // TODO: declare these as baser interface type
   private reviewCardProvider: ReviewCardProvider;
   private newCardProvider: NewCardProvider;
   private nextDueTime: number;
-  private newCards: any;
-  private reviewCards: any;
+  private newCards: Card[];
+  private reviewCards: Card[];
   private lastUpdated: moment.Moment;
-  private cards: any;
-  constructor(deck, userData) {
+  private cards: Card[];
+  constructor(deck: Deck, userData: DummyUserData) {
+    this.cards = [];
     this.deck = deck;
     const { prefs, studyState } = userData.getUserDeckData(deck.ID);
     this.prefs = prefs;
@@ -49,17 +53,17 @@ class StudyManager {
   }
 
   // TODO: change to Optional<Card>
-  public getNextCard = (): Card => {
+  public getNextCard = (): Card | undefined => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
     }
     if (this.reviewCards) {
       return this.reviewCards.shift();
     }
-    return null;
+    return;
   };
 
-  public updateStudyData = (currentTime) => {
+  public updateStudyData = (currentTime: moment.Moment) => {
     const today = currentTime.format('YYYYMMDD');
     if (today !== this.studyState.lastStudied) {
       this.studyState.lastStudied = today;

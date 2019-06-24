@@ -15,7 +15,7 @@ it('renders a card', () => {
           exampleUserLang: 'example',
           front: 'hello',
         }}
-        onDelete={null}
+        onDelete={() => {}}
       />
     )
     .toJSON();

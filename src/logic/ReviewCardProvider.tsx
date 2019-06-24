@@ -6,7 +6,7 @@ import { UserDeckData } from '../model/UserDeckData';
 export default class ReviewCardProvider {
   private cardData: UserDeckData['studyState']['cardData'];
   private lastUpdated: number;
-  private nextDue: number;
+  // private nextDue: number;
   constructor(
     prefs: UserDeckData['prefs'],
     studyState: UserDeckData['studyState']
@@ -23,7 +23,7 @@ export default class ReviewCardProvider {
     );
     shuffle(cardsDue);
 
-    this.nextDue = nextDue;
+    // this.nextDue = nextDue;
     this.lastUpdated = now;
     return { reviewCards: cardsDue, nextDueTime: 9999999999 };
   };

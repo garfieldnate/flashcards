@@ -11,7 +11,7 @@ beforeAll(() => {
 
 it('renders icon button', () => {
   const tree = renderer
-    .create(<AddDeckButton iconStyle={{ fontSize: 36 }} onPress={null} />)
+    .create(<AddDeckButton iconStyle={{ fontSize: 36 }} onPress={() => {}} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -19,7 +19,11 @@ interface IProps {
 }
 
 export default class StudyScreen extends React.Component<IProps> {
-  public static navigationOptions = ({ navigation }) => {
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: Navigation;
+  }) => {
     const deck: Deck = navigation.getParam(
       'deck',
       'no deck present in navigation properties!'
@@ -29,7 +33,7 @@ export default class StudyScreen extends React.Component<IProps> {
       title: navigation.getParam('deck', {}).name,
     };
   };
-  private static renderRightHeader = (deck) => {
+  private static renderRightHeader = (deck: Deck) => {
     const renderer = () => (
       <Text style={{ color: colors.headerText }}>
         {deck.cardsDue}
