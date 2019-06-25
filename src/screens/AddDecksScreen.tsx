@@ -9,7 +9,7 @@ import {
   Text,
   Thumbnail,
 } from 'native-base';
-import React, { Component } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { IDeck } from '../model/Deck';
@@ -24,26 +24,18 @@ interface IProps {
   navigation: Navigation;
 }
 
-export default class AddDecksScreen extends Component<IProps> {
-  public static navigationOptions = {
-    title: 'Pick a deck',
-  };
+const AddDecksScreen = (props: IProps) => {
+  const userData = props.navigation.state.params.userData;
 
-  get userData() {
-    return this.props.navigation.state.params.userData;
-  }
+  const deckSource = props.navigation.state.params.deckSource;
 
-  public get deckSource() {
-    return this.props.navigation.state.params.deckSource;
-  }
-
-  public renderDeck = ({ item }: { item: IDeck }) => {
-    const addNewStudySource = () => this.userData.addNewStudySource(item.ID);
+  const renderDeck = ({ item }: { item: IDeck }) => {
+    const addNewStudySource = () => userData.addNewStudySource(item.ID);
     const makeDeckElement = () => (
       <ListItem
         thumbnail
         onPress={addNewStudySource}
-        disabled={this.userData.studySources.has(item.ID)}
+        disabled={userData.studySources.has(item.ID)}
       >
         <Left>
           <Thumbnail
@@ -55,7 +47,7 @@ export default class AddDecksScreen extends Component<IProps> {
         <Body>
           <Text>{item.name}</Text>
         </Body>
-        {this.userData.studySources.has(item.ID) ? (
+        {userData.studySources.has(item.ID) ? (
           <Right>
             <Text>Added!</Text>
           </Right>
@@ -66,20 +58,23 @@ export default class AddDecksScreen extends Component<IProps> {
     return <Observer>{makeDeckElement}</Observer>;
   };
 
-  public render() {
-    const keyExtractor: (item: IDeck, index: number) => string = (item) =>
-      item.ID;
+  const keyExtractor: (item: IDeck, index: number) => string = (item) =>
+    item.ID;
+  return (
+    <Container>
+      <Content>
+        <FlatList
+          data={deckSource.getAvailableDecks()}
+          keyExtractor={keyExtractor}
+          renderItem={renderDeck}
+        />
+      </Content>
+    </Container>
+  );
+};
 
-    return (
-      <Container>
-        <Content>
-          <FlatList
-            data={this.deckSource.getAvailableDecks()}
-            keyExtractor={keyExtractor}
-            renderItem={this.renderDeck}
-          />
-        </Content>
-      </Container>
-    );
-  }
-}
+AddDecksScreen.navigationOptions = {
+  title: 'Pick a deck',
+};
+
+export default AddDecksScreen;

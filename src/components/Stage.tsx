@@ -146,7 +146,7 @@ class Stage extends Component<IProps, IState> {
   private renderDeleteModal = () => {
     const message = this.state.confirmDeleteCard
       ? `Are you sure you want to delete this card?\n\n"${
-          this.state.confirmDeleteCard!.front
+          this.state.confirmDeleteCard!.back
         }"`
       : 'Error! This message is about deleting a card, but no card was selected to be deleted.';
     return (

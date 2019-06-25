@@ -9,7 +9,7 @@ import {
   Text,
   Thumbnail,
 } from 'native-base';
-import React, { Component } from 'react';
+import React from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 
@@ -30,73 +30,12 @@ interface IProps {
   navigation: Navigation;
 }
 
-@observer
-export default class ChooseStudyDeckScreen extends Component<IProps> {
-  public static navigationOptions = ({
-    navigation,
-  }: {
-    navigation: Navigation;
-  }) => {
-    const onPress = () =>
-      ChooseStudyDeckScreen.navigateToAddDeckScreen(navigation);
-    return {
-      headerRight: (
-        <AddDeckButton
-          onPress={onPress}
-          iconStyle={{ color: '#D1DCE9', fontSize: 28 }}
-        />
-      ),
-      title: 'Pick a deck',
-    };
-  };
+const ChooseStudyDeckScreen = observer((props: IProps) => {
+  const userData = props.navigation.state.params.userData;
+  const deckSource = props.navigation.state.params.deckSource;
 
-  private static navigateToAddDeckScreen = (nav: Navigation): void => {
-    nav.navigate(
-      'AddDecks',
-      asAddDecksScreenNavParams({
-        deckSource: nav.state.params.deckSource,
-        userData: nav.state.params.userData,
-      })
-    );
-  };
-
-  get studySources(): Set<string> {
-    return this.props.navigation.state.params.userData.studySources;
-  }
-
-  get deckSource(): IDeckSource {
-    return this.props.navigation.state.params.deckSource;
-  }
-
-  public render() {
-    let contents: JSX.Element;
-    if (this.studySources.size === 0) {
-      contents = this.renderAddDeckNotice();
-    } else {
-      contents = this.renderDeckList();
-    }
-
-    return (
-      <Container>
-        <Content>{contents}</Content>
-      </Container>
-    );
-  }
-
-  public renderAddDeckNotice = () => {
-    const onPress = () =>
-      ChooseStudyDeckScreen.navigateToAddDeckScreen(this.props.navigation);
-    return (
-      <Container style={styles.container}>
-        <Content contentContainerStyle={styles.container}>
-          <AddDeckNotice onPress={onPress} />
-        </Content>
-      </Container>
-    );
-  };
-
-  public readonly identityKeyExtractor = (item: any) => item;
-  public renderDeckList = () => (
+  const identityKeyExtractor = (item: any) => item;
+  const renderDeckList = () => (
     // disableRightSwipe
     // rightOpenValue={-75}
     // renderRightHiddenRow={data =>
@@ -106,22 +45,22 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     <Container>
       <Content>
         <FlatList<string>
-          data={Array.from(this.studySources).slice()}
-          renderItem={this.renderItem}
-          keyExtractor={this.identityKeyExtractor}
+          data={Array.from(userData.studySources).slice()}
+          renderItem={renderItem}
+          keyExtractor={identityKeyExtractor}
         />
       </Content>
     </Container>
   );
 
-  public renderItem = (listItem: ListRenderItemInfo<string>) => {
-    const deck = this.deckSource.getDeck(listItem.item);
+  const renderItem = (listItem: ListRenderItemInfo<string>) => {
+    const deck = deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
-      this.props.navigation.navigate(
+      props.navigation.navigate(
         'Study',
         asStudyScreenNavParams({
           deck,
-          userData: this.props.navigation.state.params.userData,
+          userData,
         })
       );
     return (
@@ -143,7 +82,59 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
       </ListItem>
     );
   };
-}
+
+  const renderAddDeckNotice = () => {
+    const onPress = () => navigateToAddDeckScreen(props.navigation);
+    return (
+      <Container style={styles.container}>
+        <Content contentContainerStyle={styles.container}>
+          <AddDeckNotice onPress={onPress} />
+        </Content>
+      </Container>
+    );
+  };
+
+  let contents: JSX.Element;
+  if (userData.studySources.size === 0) {
+    contents = renderAddDeckNotice();
+  } else {
+    contents = renderDeckList();
+  }
+
+  return (
+    <Container>
+      <Content>{contents}</Content>
+    </Container>
+  );
+});
+
+const navigateToAddDeckScreen = (nav: Navigation): void => {
+  nav.navigate(
+    'AddDecks',
+    asAddDecksScreenNavParams({
+      deckSource: nav.state.params.deckSource,
+      userData: nav.state.params.userData,
+    })
+  );
+};
+
+ChooseStudyDeckScreen.navigationOptions = ({
+  navigation,
+}: {
+  navigation: Navigation;
+}) => {
+  const onPress = () => navigateToAddDeckScreen(navigation);
+  return {
+    headerRight: (
+      <AddDeckButton
+        onPress={onPress}
+        iconStyle={{ color: '#D1DCE9', fontSize: 28 }}
+      />
+    ),
+    title: 'Pick a deck',
+  };
+};
+export default ChooseStudyDeckScreen;
 
 const styles = StyleSheet.create({
   container: {
