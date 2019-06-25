@@ -10,13 +10,13 @@ export default class DeleteButton extends Component<IProps> {
   public render() {
     return (
       <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
-        <Icon style={styles.icon} name='trash' type='EvilIcons' />
+        <Icon style={styles.icon} name='ios-trash' type='Ionicons' />
       </TouchableOpacity>
     );
   }
 }
 
-const size = 65;
+const size = 60;
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: '#FAECE7',
-    fontSize: 45,
+    fontSize: 40,
   },
 });
