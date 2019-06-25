@@ -16,12 +16,13 @@ interface IProps {
 }
 
 export default class Card extends Component<IProps> {
-  public recording: Sound;
-  public recordingReady: boolean;
-  public card: CardFlip;
+  private recording?: Sound;
+  private recordingReady: boolean;
+  private cardRef = React.createRef<CardFlip>();
 
   constructor(props: IProps) {
     super(props);
+    this.recordingReady = false;
     if (this.props.cardData.foreignHeadwordAudio) {
       this.recording = new Audio.Sound();
       this.recording
@@ -40,10 +41,7 @@ export default class Card extends Component<IProps> {
   public render() {
     const onDelete = () => this.props.onDelete(this.props.cardData);
     return (
-      <CardFlip
-        style={styles.cardContainer}
-        ref={(card: CardFlip) => (this.card = card)}
-      >
+      <CardFlip style={styles.cardContainer} ref={this.cardRef}>
         <View style={[styles.card, styles.cardFront]}>
           <View style={styles.deleteButton}>
             <DeleteButton onPress={onDelete} />
@@ -59,7 +57,7 @@ export default class Card extends Component<IProps> {
     );
   }
 
-  public renderTopSection = (headwordText) => {
+  public renderTopSection = (headwordText: string) => {
     return (
       <View style={{ flex: 2, justifyContent: 'flex-end' }}>
         <View style={styles.textContainer}>
@@ -79,9 +77,9 @@ export default class Card extends Component<IProps> {
   // and a separating line between them. Adjusts for missing sentence
   // data by omitting elements as needed.
   public renderExample = () => {
-    let foreignExample: JSX.Element;
-    let separator: JSX.Element;
-    let userLangExample: JSX.Element;
+    let foreignExample: JSX.Element | undefined;
+    let separator: JSX.Element | undefined;
+    let userLangExample: JSX.Element | undefined;
     if (
       !this.props.cardData.exampleForeignLang &&
       !this.props.cardData.exampleUserLang
@@ -116,8 +114,9 @@ export default class Card extends Component<IProps> {
   };
 
   public flip = () => {
-    if (this.card.state.side === 0) {
-      if (this.recording) {
+    const card = this.cardRef.current!;
+    if (card.state.side === 0) {
+      if (this.recording && this.recordingReady) {
         // console.log(`playing recording ${this.props.cardData.back}`);
         this.recording.replayAsync().catch((error) => {
           // console.log('Error while playing mp3');
@@ -125,11 +124,11 @@ export default class Card extends Component<IProps> {
         });
       }
     }
-    this.card.flip();
+    card.flip();
   };
 }
 
-const countLines = (text) => {
+const countLines = (text: string) => {
   return (text.match(/\r?\n/g) || []).length + 1;
 };
 

@@ -4,7 +4,6 @@
     "noEmit": true,
     "lib": ["dom", "esnext"],
     "jsx": "react-native",
-    "typeRoots": ["./node_modules/@types", "./@types"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,

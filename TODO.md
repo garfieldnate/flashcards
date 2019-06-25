@@ -1,6 +1,6 @@
 # TODO
 
-Current:
+Current: types are used everywhere
 
 ### Bugs
 
@@ -34,7 +34,6 @@ Current:
 
 ### Developer Stories
 
-- types are used everywhere
 - research using MST in place of adding @observer and <Observer> where needed
 - Add storybook
 
@@ -52,21 +51,12 @@ Current:
 
 General TODOs:
 
-- Continue testing!
-- model interface, with mock for testing
-- real model class
-- model synch with server (PouchDB?)
-- TDD the card providers
-- color pallette for whole app
-- typography for whole app (choose and bundle fonts)
-- navigation parameter validation
-- validation in general (TypeScript?)
+- send PR to get current side from CardFlip. Ask for a release, too :)
 - how to handle assets generally? require() doesn't work with dynamic strings, and we're certainly not going to load thousands of images and audios into memory just in case
-- card background pictures
 - Calculate length limit for example sentence display
 - Calculate length limit for headword display
 - Flashcard data needs to be checked for length limits
-- integrate jest-snapshots-svg (couldn't install due to https://github.com/foliojs/font-manager/issues/33)
+- update and release my own fork of jest-snapshots-svg; only have PNG support, make usage ergonomic.
 
 ### Design Stories
 
@@ -74,6 +64,8 @@ General TODOs:
 - Flag thumbnails should be shaped like the flag (not square)
 - Better background image for cards without an associated image
 - Better background image for stage background
+- Unified color pallette for whole app
+- Unified typography for whole app
 
 ## Notes
 

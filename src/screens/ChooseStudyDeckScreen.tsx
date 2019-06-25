@@ -10,7 +10,7 @@ import {
   Thumbnail,
 } from 'native-base';
 import React, { Component } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import {
   NavigationParams,
   NavigationScreenProp,
@@ -19,6 +19,7 @@ import {
 
 import AddDeckButton from '../components/AddDeckButton';
 import AddDeckNotice from '../components/AddDeckNotice';
+import IDeckSource from '../model/DeckSource';
 
 // TODO: this type declaration is duplicated everywhere.
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
@@ -29,7 +30,11 @@ interface IProps {
 
 @observer
 export default class ChooseStudyDeckScreen extends Component<IProps> {
-  public static navigationOptions = ({ navigation }) => {
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: Navigation;
+  }) => {
     const onPress = () =>
       ChooseStudyDeckScreen.navigateToAddDeckScreen(navigation);
     return {
@@ -43,21 +48,22 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     };
   };
 
-  private static navigateToAddDeckScreen = (nav: Navigation) => {
+  private static navigateToAddDeckScreen = (nav: Navigation): void => {
     nav.navigate('AddDecks', {
       deckSource: nav.state.params.deckSource,
       userData: nav.state.params.userData,
     });
   };
 
-  get studySources() {
-    return this.props.navigation.getParam(
+  get studySources(): Set<string> {
+    const studySources: Set<string> = this.props.navigation.getParam(
       'userData',
       'no user data present in navigation properties!'
     ).studySources;
+    return studySources;
   }
 
-  get deckSource() {
+  get deckSource(): IDeckSource {
     return this.props.navigation.getParam(
       'deckSource',
       'no deck source present in navigation properties!'
@@ -101,7 +107,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     //   </Button>}
     <Container>
       <Content>
-        <FlatList
+        <FlatList<string>
           data={Array.from(this.studySources).slice()}
           renderItem={this.renderItem}
           keyExtractor={this.identityKeyExtractor}
@@ -110,7 +116,7 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
     </Container>
   );
 
-  public renderItem = (listItem) => {
+  public renderItem = (listItem: ListRenderItemInfo<string>) => {
     const deck = this.deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
       this.props.navigation.navigate('Study', {

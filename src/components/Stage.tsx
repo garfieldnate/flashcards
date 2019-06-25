@@ -30,7 +30,7 @@ interface IState {
 
 @observer
 class Stage extends Component<IProps, IState> {
-  private swiper: Swiper;
+  private swiperRef = React.createRef<Swiper>();
   constructor(props: Readonly<IProps>) {
     super(props);
     const cardData = createArrayToFunctionProxy(
@@ -84,13 +84,12 @@ class Stage extends Component<IProps, IState> {
     const badScore = () => this.score('bad');
     const okScore = () => this.score('ok');
     const greatScore = () => this.score('great');
-    const flipTopCard = () => this.flipCard(this.swiper.state.firstCardIndex);
+    const flipTopCard = () =>
+      this.flipCard(this.swiperRef.current!.state.firstCardIndex);
     return (
       <Swiper
         containerStyle={styles.swiper}
-        ref={(swiper: Swiper) => {
-          this.swiper = swiper;
-        }}
+        ref={this.swiperRef}
         disableBottomSwipe
         onSwipedLeft={badScore}
         onSwipedRight={greatScore}
@@ -139,15 +138,17 @@ class Stage extends Component<IProps, IState> {
   };
 
   private deleteCard = () => {
-    this.swiper.swipeBottom();
+    this.swiperRef.current!.swipeBottom();
     this.hideDeleteModal();
-    console.log(`TODO: delete card ${this.state.confirmDeleteCard.front}`);
+    console.log(`TODO: delete card ${this.state.confirmDeleteCard!.front}`);
   };
 
   private renderDeleteModal = () => {
-    const message = this.state.deleteModalVisible
-      ? `Are you sure you want to delete this card?\n\n"${this.state.confirmDeleteCard.front}"`
-      : '';
+    const message = this.state.confirmDeleteCard
+      ? `Are you sure you want to delete this card?\n\n"${
+          this.state.confirmDeleteCard!.front
+        }"`
+      : 'Error! This message is about deleting a card, but no card was selected to be deleted.';
     return (
       <ConfirmationModal
         message={message}
