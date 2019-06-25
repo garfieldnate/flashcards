@@ -98,7 +98,7 @@ const cards: Card[] = [
     exampleForeignLang: 'Neque porro quisquam est',
     exampleUserLang: 'qui dolorem ipsum quia dolor sit amet',
     foreignHeadwordAudio: require('../../assets/sounds/decks/dev-turkish/headword_foreign_10.mp3'),
-    front: 'Grey',
+    front: 'Gray',
   },
   {
     ID: 11,

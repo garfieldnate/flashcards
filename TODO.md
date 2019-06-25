@@ -1,10 +1,8 @@
 # TODO
 
-Current: Global state store (don't pass around in navigator)
+Current:
 
 ### Bugs
-
-- Leaving the study deck screen causes the number of cards to decrease or go to 0
 
 ### User Stories
 
@@ -33,9 +31,6 @@ Current: Global state store (don't pass around in navigator)
 - multi-user support/login
 
 ### Developer Stories
-
-- research using MST in place of adding @observer and <Observer> where needed
-- Add storybook
 
 ### Data Stories
 

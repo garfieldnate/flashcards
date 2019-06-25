@@ -23,6 +23,6 @@ export default class NewCardProvider {
     // grab 10 cards from a category at a time;
     // cover more basic vocab categories first
 
-    return this.deck.cards;
+    return this.deck.cards.slice();
   };
 }

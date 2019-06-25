@@ -25,6 +25,7 @@ class StudyManager {
   constructor(deck: IDeck, userData: DummyUserData) {
     this.cards = [];
     this.deck = deck;
+    // console.log(`created studyManager with ${deck.cards.length} cards`);
     const { prefs, studyState } = userData.getUserDeckData(deck.ID);
     this.prefs = prefs;
     this.studyState = studyState;
