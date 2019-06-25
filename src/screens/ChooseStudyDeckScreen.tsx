@@ -9,7 +9,7 @@ import {
   Text,
   Thumbnail,
 } from 'native-base';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 
@@ -18,8 +18,7 @@ import AddDeckNotice from '../components/AddDeckNotice';
 import IDeckSource from '../model/DeckSource';
 import DummyUserData from '../userData/DummyUserData';
 
-import { NavParams as AddDecksScreenNavParams } from './AddDecksScreen';
-const asAddDecksScreenNavParams = (params: AddDecksScreenNavParams) => params;
+import { AppGlobalsContext } from '../globals/GlobalsContext';
 import { NavParams as StudyScreenNavParams } from './StudyScreen';
 const asStudyScreenNavParams = (params: StudyScreenNavParams) => params;
 export type NavParams = { userData: DummyUserData; deckSource: IDeckSource };
@@ -31,8 +30,7 @@ interface IProps {
 }
 
 const ChooseStudyDeckScreen = observer((props: IProps) => {
-  const userData = props.navigation.state.params.userData;
-  const deckSource = props.navigation.state.params.deckSource;
+  const globals = useContext(AppGlobalsContext);
 
   const identityKeyExtractor = (item: any) => item;
   const renderDeckList = () => (
@@ -45,7 +43,7 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
     <Container>
       <Content>
         <FlatList<string>
-          data={Array.from(userData.studySources).slice()}
+          data={Array.from(globals.userData.studySources).slice()}
           renderItem={renderItem}
           keyExtractor={identityKeyExtractor}
         />
@@ -54,13 +52,12 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
   );
 
   const renderItem = (listItem: ListRenderItemInfo<string>) => {
-    const deck = deckSource.getDeck(listItem.item);
+    const deck = globals.deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
       props.navigation.navigate(
         'Study',
         asStudyScreenNavParams({
           deck,
-          userData,
         })
       );
     return (
@@ -95,7 +92,7 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
   };
 
   let contents: JSX.Element;
-  if (userData.studySources.size === 0) {
+  if (globals.userData.studySources.size === 0) {
     contents = renderAddDeckNotice();
   } else {
     contents = renderDeckList();
@@ -109,13 +106,7 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
 });
 
 const navigateToAddDeckScreen = (nav: Navigation): void => {
-  nav.navigate(
-    'AddDecks',
-    asAddDecksScreenNavParams({
-      deckSource: nav.state.params.deckSource,
-      userData: nav.state.params.userData,
-    })
-  );
+  nav.navigate('AddDecks');
 };
 
 ChooseStudyDeckScreen.navigationOptions = ({

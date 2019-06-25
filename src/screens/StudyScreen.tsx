@@ -1,15 +1,15 @@
 import { Observer } from 'mobx-react';
 import { Icon, Text } from 'native-base';
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import Stage from '../components/Stage';
+import { AppGlobalsContext } from '../globals/GlobalsContext';
 import StudyManager from '../logic/StudyManager';
 import { IDeck } from '../model/Deck';
 import { colors } from '../screens/Styles';
-import DummyUserData from '../userData/DummyUserData';
 
-export type NavParams = { deck: IDeck; userData: DummyUserData };
+export type NavParams = { deck: IDeck };
 
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
@@ -18,9 +18,11 @@ interface IProps {
 }
 
 const StudyScreen = (props: IProps) => {
+  const globals = useContext(AppGlobalsContext);
+
   const studyManager = new StudyManager(
     props.navigation.state.params.deck,
-    props.navigation.state.params.userData
+    globals.userData
   );
 
   return (
