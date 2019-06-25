@@ -1,4 +1,4 @@
-import { Observer } from 'mobx-react/native';
+import { Observer } from 'mobx-react';
 import {
   Body,
   Container,

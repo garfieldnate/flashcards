@@ -1,4 +1,4 @@
-import { Observer } from 'mobx-react/native';
+import { Observer } from 'mobx-react';
 import { Icon, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
