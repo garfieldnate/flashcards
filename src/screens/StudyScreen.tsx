@@ -9,10 +9,13 @@ import {
 } from 'react-navigation';
 import Stage from '../components/Stage';
 import StudyManager from '../logic/StudyManager';
-import { Deck } from '../model/Deck';
+import { IDeck } from '../model/Deck';
 import { colors } from '../screens/Styles';
+import DummyUserData from '../userData/DummyUserData';
 
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+export type NavParams = { deck: IDeck; userData: DummyUserData };
+
+type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
 interface IProps {
   navigation: Navigation;
@@ -24,16 +27,13 @@ export default class StudyScreen extends React.Component<IProps> {
   }: {
     navigation: Navigation;
   }) => {
-    const deck: Deck = navigation.getParam(
-      'deck',
-      'no deck present in navigation properties!'
-    );
+    const deck: IDeck = navigation.state.params.deck;
     return {
       headerRight: StudyScreen.renderRightHeader(deck),
-      title: navigation.getParam('deck', {}).name,
+      title: deck.name,
     };
   };
-  private static renderRightHeader = (deck: Deck) => {
+  private static renderRightHeader = (deck: IDeck) => {
     const renderer = () => (
       <Text style={{ color: colors.headerText }}>
         {deck.cardsDue}
@@ -52,14 +52,8 @@ export default class StudyScreen extends React.Component<IProps> {
 
   constructor(props: IProps) {
     super(props);
-    const deck: Deck = this.props.navigation.getParam(
-      'deck',
-      'no deck present in navigation properties!'
-    );
-    const userData = this.props.navigation.getParam(
-      'userData',
-      'no user data present in navigation properties!'
-    );
+    const deck: IDeck = this.props.navigation.state.params.deck;
+    const userData = this.props.navigation.state.params.userData;
     this.studyManager = new StudyManager(deck, userData);
   }
 

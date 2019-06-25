@@ -1,6 +1,6 @@
-import { Deck } from './Deck';
+import { IDeck } from './Deck';
 export default interface IDeckSource {
   // TODO: return the object here instead of an array
-  getAvailableDecks(): Deck[];
-  getDeck(deckID: string): Deck;
+  getAvailableDecks(): IDeck[];
+  getDeck(deckID: string): IDeck;
 }

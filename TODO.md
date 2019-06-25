@@ -1,6 +1,6 @@
 # TODO
 
-Current: types are used everywhere
+Current: Global state store (don't pass around in navigator)
 
 ### Bugs
 
@@ -69,6 +69,7 @@ General TODOs:
 
 ## Notes
 
+- Inline type annotations for TypeScript don't exist. Follow https://github.com/microsoft/TypeScript/issues/7481 to see when we can remove our workarounds (`asChooseStudyDeckScreenProps()`, etc.)
 - I really dislike Prettier putting JSX atts on the same line. It's much easier to read them quickly in a column. Watching https://github.com/prettier/prettier/issues/3101. Why the heck does it put import destructuring in columns but JSX atts all on one line?
 - Linting doesn't work if you call a file Types.ts, DataTypes.ts, etc. I got "cannot find file Datapes" when I tried that second one.
 - Update jest-expo-preset once this PR is released with it: https://github.com/expo/expo/pull/4520/commits/bbbe9e2603d6713ebc2b98ec330af825811296fd.

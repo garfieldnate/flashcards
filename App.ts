@@ -1,6 +1,8 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import AddDecksScreen from './src/screens/AddDecksScreen';
-import ChooseStudyDeckScreen from './src/screens/ChooseStudyDeckScreen';
+import ChooseStudyDeckScreen, {
+  NavParams as ChooseStudyDeckScreenParams,
+} from './src/screens/ChooseStudyDeckScreen';
 import StudyScreen from './src/screens/StudyScreen';
 
 import DummyDeckSource from './src/builtinData/DummyDeckSource';
@@ -11,6 +13,8 @@ import { colors } from './src/screens/Styles';
 const userData = new DummyUserData();
 const deckSource = new DummyDeckSource();
 
+const asChooseStudyDeckScreenParams = (params: ChooseStudyDeckScreenParams) =>
+  params;
 const AppNavigator = createStackNavigator(
   {
     AddDecks: AddDecksScreen,
@@ -29,7 +33,10 @@ const AppNavigator = createStackNavigator(
       },
     },
     initialRouteName: 'ChooseStudyDeck',
-    initialRouteParams: { userData, deckSource },
+    initialRouteParams: asChooseStudyDeckScreenParams({
+      deckSource,
+      userData,
+    }),
   }
 );
 

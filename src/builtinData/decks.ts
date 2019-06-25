@@ -1,9 +1,9 @@
-import { Deck } from '../model/Deck';
+import { IDeck } from '../model/Deck';
 import thaiDeck from './cards-dev-thai';
 import turkishDeck from './cards-dev-turkish';
 
 // we have to explicitly require all of our files; dynamic require will not compile
-const decks: Deck[] = [
+const decks: IDeck[] = [
   {
     ID: 'dev-thai',
     cards: thaiDeck,

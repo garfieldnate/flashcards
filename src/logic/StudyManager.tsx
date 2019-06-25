@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { Card } from '../model/Card';
-import { Deck } from '../model/Deck';
+import { IDeck } from '../model/Deck';
 import { UserDeckData } from '../model/UserDeckData';
 import DummyUserData from '../userData/DummyUserData';
 import NewCardProvider from './NewCardProvider';
@@ -11,7 +11,7 @@ function getDateTime() {
 }
 
 class StudyManager {
-  private deck: Deck;
+  private deck: IDeck;
   private prefs: UserDeckData['prefs'];
   private studyState: UserDeckData['studyState'];
   // TODO: declare these as baser interface type
@@ -22,7 +22,7 @@ class StudyManager {
   private reviewCards: Card[];
   private lastUpdated: moment.Moment;
   private cards: Card[];
-  constructor(deck: Deck, userData: DummyUserData) {
+  constructor(deck: IDeck, userData: DummyUserData) {
     this.cards = [];
     this.deck = deck;
     const { prefs, studyState } = userData.getUserDeckData(deck.ID);

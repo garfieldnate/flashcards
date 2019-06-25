@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { Deck } from '../model/Deck';
+import { IDeck } from '../model/Deck';
 import { UserDeckData } from '../model/UserDeckData';
 // import moment from 'moment';
 
@@ -8,9 +8,9 @@ import { UserDeckData } from '../model/UserDeckData';
 
 export default class NewCardProvider {
   // TODO: get rid of anys everywhere
-  private deck: Deck;
+  private deck: IDeck;
   private studyState: UserDeckData['studyState'];
-  constructor(deck: Deck, studyState: UserDeckData['studyState']) {
+  constructor(deck: IDeck, studyState: UserDeckData['studyState']) {
     // TODO: inject these instead of extracting from deck and userData
     this.deck = deck;
     this.studyState = studyState;

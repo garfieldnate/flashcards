@@ -11,18 +11,20 @@ import {
 } from 'native-base';
 import React, { Component } from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
-import {
-  NavigationParams,
-  NavigationScreenProp,
-  NavigationState,
-} from 'react-navigation';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 
 import AddDeckButton from '../components/AddDeckButton';
 import AddDeckNotice from '../components/AddDeckNotice';
 import IDeckSource from '../model/DeckSource';
+import DummyUserData from '../userData/DummyUserData';
 
+import { NavParams as AddDecksScreenNavParams } from './AddDecksScreen';
+const asAddDecksScreenNavParams = (params: AddDecksScreenNavParams) => params;
+import { NavParams as StudyScreenNavParams } from './StudyScreen';
+const asStudyScreenNavParams = (params: StudyScreenNavParams) => params;
+export type NavParams = { userData: DummyUserData; deckSource: IDeckSource };
 // TODO: this type declaration is duplicated everywhere.
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
 interface IProps {
   navigation: Navigation;
@@ -49,25 +51,21 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
   };
 
   private static navigateToAddDeckScreen = (nav: Navigation): void => {
-    nav.navigate('AddDecks', {
-      deckSource: nav.state.params.deckSource,
-      userData: nav.state.params.userData,
-    });
+    nav.navigate(
+      'AddDecks',
+      asAddDecksScreenNavParams({
+        deckSource: nav.state.params.deckSource,
+        userData: nav.state.params.userData,
+      })
+    );
   };
 
   get studySources(): Set<string> {
-    const studySources: Set<string> = this.props.navigation.getParam(
-      'userData',
-      'no user data present in navigation properties!'
-    ).studySources;
-    return studySources;
+    return this.props.navigation.state.params.userData.studySources;
   }
 
   get deckSource(): IDeckSource {
-    return this.props.navigation.getParam(
-      'deckSource',
-      'no deck source present in navigation properties!'
-    );
+    return this.props.navigation.state.params.deckSource;
   }
 
   public render() {
@@ -119,10 +117,13 @@ export default class ChooseStudyDeckScreen extends Component<IProps> {
   public renderItem = (listItem: ListRenderItemInfo<string>) => {
     const deck = this.deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
-      this.props.navigation.navigate('Study', {
-        deck,
-        userData: this.props.navigation.state.params.userData,
-      });
+      this.props.navigation.navigate(
+        'Study',
+        asStudyScreenNavParams({
+          deck,
+          userData: this.props.navigation.state.params.userData,
+        })
+      );
     return (
       <ListItem thumbnail onPress={navigateToStudyScreen}>
         <Left>

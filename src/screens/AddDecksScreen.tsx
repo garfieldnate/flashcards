@@ -12,10 +12,13 @@ import {
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { Deck } from '../model/Deck';
+import { IDeck } from '../model/Deck';
 import IDeckSource from '../model/DeckSource';
+import DummyUserData from '../userData/DummyUserData';
 
-type Navigation = NavigationScreenProp<NavigationState>;
+export type NavParams = { userData: DummyUserData; deckSource: IDeckSource };
+
+type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
 interface IProps {
   navigation: Navigation;
@@ -27,20 +30,14 @@ export default class AddDecksScreen extends Component<IProps> {
   };
 
   get userData() {
-    return this.props.navigation.getParam(
-      'userData',
-      'no user data present in navigation properties!'
-    );
+    return this.props.navigation.state.params.userData;
   }
 
-  public get deckSource(): IDeckSource {
-    return this.props.navigation.getParam(
-      'deckSource',
-      'no deck source present in navigation properties!'
-    );
+  public get deckSource() {
+    return this.props.navigation.state.params.deckSource;
   }
 
-  public renderDeck = ({ item }: { item: Deck }) => {
+  public renderDeck = ({ item }: { item: IDeck }) => {
     const addNewStudySource = () => this.userData.addNewStudySource(item.ID);
     const makeDeckElement = () => (
       <ListItem
@@ -70,7 +67,7 @@ export default class AddDecksScreen extends Component<IProps> {
   };
 
   public render() {
-    const keyExtractor: (item: Deck, index: number) => string = (item) =>
+    const keyExtractor: (item: IDeck, index: number) => string = (item) =>
       item.ID;
 
     return (
