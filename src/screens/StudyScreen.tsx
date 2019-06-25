@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import Stage from '../components/Stage';
 import { AppGlobalsContext } from '../globals/GlobalsContext';
+import { useNavigation } from '../globals/NavigationUtils';
 import StudyManager from '../logic/StudyManager';
 import { IDeck } from '../model/Deck';
 import { colors } from '../screens/Styles';
@@ -13,15 +14,12 @@ export type NavParams = { deck: IDeck };
 
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
-interface IProps {
-  navigation: Navigation;
-}
-
-const StudyScreen = (props: IProps) => {
+const StudyScreen = () => {
   const globals = useContext(AppGlobalsContext);
+  const navigation = useNavigation<NavParams>();
 
   const studyManager = new StudyManager(
-    props.navigation.state.params.deck,
+    navigation.state.params!.deck,
     globals.userData
   );
 

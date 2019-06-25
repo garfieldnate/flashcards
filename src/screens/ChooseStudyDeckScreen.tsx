@@ -11,26 +11,22 @@ import {
 } from 'native-base';
 import React, { useContext } from 'react';
 import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
-import { NavigationScreenProp, NavigationState } from 'react-navigation';
+import { NavigationScreenProps } from 'react-navigation';
 
 import AddDeckButton from '../components/AddDeckButton';
 import AddDeckNotice from '../components/AddDeckNotice';
-import IDeckSource from '../model/DeckSource';
-import DummyUserData from '../userData/DummyUserData';
 
 import { AppGlobalsContext } from '../globals/GlobalsContext';
+import {
+  INavStatelessComponent,
+  useNavigation,
+} from '../globals/NavigationUtils';
 import { NavParams as StudyScreenNavParams } from './StudyScreen';
 const asStudyScreenNavParams = (params: StudyScreenNavParams) => params;
-export type NavParams = { userData: DummyUserData; deckSource: IDeckSource };
-// TODO: this type declaration is duplicated everywhere.
-type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
-interface IProps {
-  navigation: Navigation;
-}
-
-const ChooseStudyDeckScreen = observer((props: IProps) => {
+const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
   const globals = useContext(AppGlobalsContext);
+  const navigation = useNavigation<{}>();
 
   const identityKeyExtractor = (item: any) => item;
   const renderDeckList = () => (
@@ -54,7 +50,7 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
   const renderItem = (listItem: ListRenderItemInfo<string>) => {
     const deck = globals.deckSource.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
-      props.navigation.navigate(
+      navigation.navigate(
         'Study',
         asStudyScreenNavParams({
           deck,
@@ -81,7 +77,7 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
   };
 
   const renderAddDeckNotice = () => {
-    const onPress = () => navigateToAddDeckScreen(props.navigation);
+    const onPress = () => navigation.navigate('AddDecks');
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.container}>
@@ -105,16 +101,10 @@ const ChooseStudyDeckScreen = observer((props: IProps) => {
   );
 });
 
-const navigateToAddDeckScreen = (nav: Navigation): void => {
-  nav.navigate('AddDecks');
-};
-
 ChooseStudyDeckScreen.navigationOptions = ({
   navigation,
-}: {
-  navigation: Navigation;
-}) => {
-  const onPress = () => navigateToAddDeckScreen(navigation);
+}: NavigationScreenProps) => {
+  const onPress = () => navigation.navigate('AddDecks');
   return {
     headerRight: (
       <AddDeckButton
