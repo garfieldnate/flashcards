@@ -52,7 +52,7 @@ const AddDecksScreen = () => {
     <Container>
       <Content>
         <FlatList
-          data={globals.deckSource.getAvailableDecks()}
+          data={globals.deckProvider.getAvailableDecks()}
           keyExtractor={keyExtractor}
           renderItem={renderDeck}
         />

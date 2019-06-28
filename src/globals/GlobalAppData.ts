@@ -1,10 +1,10 @@
 import { observable } from 'mobx';
-import DummyDeckSource from '../builtinData/DummyDeckSource';
+import DummyDeckProvider from '../builtinData/DummyDeckProvider';
 import DummyUserData from '../userData/DummyUserData';
 import { IGlobalAppData } from './IGlobalAppData';
 export class GlobalAppData implements IGlobalAppData {
   @observable
   public userData = new DummyUserData();
   @observable
-  public deckSource = new DummyDeckSource();
+  public deckProvider = new DummyDeckProvider();
 }

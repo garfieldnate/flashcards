@@ -83,12 +83,12 @@ exports[`renders a card 1`] = `
               "backgroundColor": "#D95C2E",
               "borderColor": "#FAECE7",
               "borderRadius": 99999,
-              "borderWidth": 4.333333333333333,
-              "height": 65,
+              "borderWidth": 4,
+              "height": 60,
               "justifyContent": "center",
               "opacity": 1,
               "textAlign": "center",
-              "width": 65,
+              "width": 60,
             }
           }
         >

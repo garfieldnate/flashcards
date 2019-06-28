@@ -1,10 +1,10 @@
 import { IDeck } from '../model/Deck';
-import DeckSource from '../model/DeckSource';
+import DeckProvider from '../model/DeckProvider';
 import hardcodedDecks from './decks';
 
 // all data from here is hardcoded
 
-export default class DummyDeckSource implements DeckSource {
+export default class DummyDeckProvider implements DeckProvider {
   private decks: { [id: string]: IDeck };
   constructor() {
     this.decks = {};

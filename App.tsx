@@ -27,10 +27,6 @@ const Stack = createStackNavigator(
       },
     },
     initialRouteName: 'ChooseStudyDeck',
-    // initialRouteParams: asChooseStudyDeckScreenParams({
-    //   deckSource,
-    //   userData,
-    // }),
   }
 );
 

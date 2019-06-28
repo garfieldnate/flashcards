@@ -48,7 +48,7 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
   );
 
   const renderItem = (listItem: ListRenderItemInfo<string>) => {
-    const deck = globals.deckSource.getDeck(listItem.item);
+    const deck = globals.deckProvider.getDeck(listItem.item);
     const navigateToStudyScreen = () =>
       navigation.navigate(
         'Study',

@@ -1,13 +1,13 @@
 import { createContext } from 'react';
 
-import DummyDeckSource from '../builtinData/DummyDeckSource';
-import IDeckSource from '../model/DeckSource';
+import DummyDeckProvider from '../builtinData/DummyDeckProvider';
+import IDeckProvider from '../model/DeckProvider';
 import DummyUserData from '../userData/DummyUserData';
 import { IGlobalAppData } from './IGlobalAppData';
 
-class DummyGlobalAppData {
+class DummyGlobalAppData implements IGlobalAppData {
   public userData = new DummyUserData();
-  public deckSource: IDeckSource = new DummyDeckSource();
+  public deckProvider: IDeckProvider = new DummyDeckProvider();
 }
 
 export const AppGlobalsContext = createContext<IGlobalAppData>(
