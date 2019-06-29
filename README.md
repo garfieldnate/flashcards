@@ -22,3 +22,9 @@ After that you should install dependencies and run the app with expo:
     yarn
     expo start
 
+## Other Stuff
+
+* `yarn test`: run unit tests
+* `yarn prettier`: format all of the tyescript files
+* `yarn tsc`: typecheck all of the typescript files
+* `fix-jest-expo`: you may need to run this if the tests don't work for a mysterious reason
