@@ -10,6 +10,7 @@
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
     "lint": "tslint -p tsconfig.json ./*.{ts,tsx} src/**/*.{ts,tsx}",
     "fix-jest-expo": "curl https://raw.githubusercontent.com/expo/expo/master/packages/jest-expo/src/preset/setup.js > node_modules/jest-expo/src/preset/setup.js",
+    "format": "prettier --write *.ts src/**/*.{ts,tsx}",
     "postinstall": "npm run fix-jest-expo"
   },
   "dependencies": {

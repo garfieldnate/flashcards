@@ -23,6 +23,7 @@ export default class DummyUserData {
         },
         studyState: {
           cardData: {
+            getCardsDue: () => -1,
             getCardsDueBetween: (start, end) => ({
               cardsDue: [],
               nextDue: 9999999999999,

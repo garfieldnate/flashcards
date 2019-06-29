@@ -2,7 +2,8 @@ import { Card } from './Card';
 export interface IDeck {
   ID: string;
   name: string;
-  thumbnail: string;
-  cardsDue: number;
+  // result of 'require()' is a number
+  thumbnail: number;
+  // cardsDue: number;
   cards: Card[];
 }

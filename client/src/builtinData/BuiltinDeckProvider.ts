@@ -1,14 +1,14 @@
 import { IDeck } from '../model/Deck';
-import DeckProvider from '../model/DeckProvider';
-import hardcodedDecks from './decks';
+import IDeckProvider from '../model/DeckProvider';
+import builtinDecks from './BuiltinDecks';
 
-// all data from here is hardcoded
+// Decks from this provider are short previews of full decks available from the server
 
-export default class DummyDeckProvider implements DeckProvider {
+export default class BuiltinDeckProvider implements IDeckProvider {
   private decks: { [id: string]: IDeck };
   constructor() {
     this.decks = {};
-    hardcodedDecks.forEach((deck) => (this.decks[deck.ID] = deck));
+    builtinDecks.forEach((deck) => (this.decks[deck.ID] = deck));
   }
 
   // TODO: return the object here instead of an array

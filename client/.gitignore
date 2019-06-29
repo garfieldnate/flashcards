@@ -7,3 +7,5 @@ npm-debug.*
 *.mobileprovision
 .jest/
 .vscode/
+assets/deckPreviews/
+src/builtinData/cards-*

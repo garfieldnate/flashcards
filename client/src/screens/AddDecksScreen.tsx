@@ -28,7 +28,7 @@ const AddDecksScreen = () => {
         <Left>
           <Thumbnail
             square
-            source={{ uri: item.thumbnail }}
+            source={item.thumbnail}
             style={{ width: 49, height: 49 }}
           />
         </Left>

@@ -2,19 +2,16 @@
 
 Current: Generate initial deck Javascript from server deck data.
 
-- generate an x-cards.ts file for first 10 beginner cards of each available deck
-- generate png file for each card
-- generate mp3 file for each card
-- copy x-cards-thumbnail.png for each available deck
-- generate an InitialDeckProvider.ts file for all available decks
+Cleanups:
+
+- the server should just return the first category for a card
+- return ALL textual vocab data from server in one request (cats, examples)
+- card structure should not have front and back but rather foreign headword and english headword, etc. Same goes for structure returned by server
 
 ### Bugs
 
 ### User Stories
 
-- the AddStudyDeck screen shows the decks available from the server
-- decks available from the server are saved permanently
-- decks available from the server are updated once in a while
 - when the user selects a deck, the beginner vocab is downloaded from the server immediately
 - The decks the user selected are saved permanently
 - The decks the user selected are backed up to a server
@@ -22,6 +19,7 @@ Current: Generate initial deck Javascript from server deck data.
 - When the user reviews a card, the result is saved permanently
 - Review data is backed up to a server
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)
+- the number of cards due is displayed in the upper right header of StudyScreen
 - deleting a card makes it not come back forever
 - When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
 - Multi-user support (detailed stories are TODO)

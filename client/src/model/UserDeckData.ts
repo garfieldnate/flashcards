@@ -13,6 +13,7 @@ export type UserDeckData = {
         cardsDue: Card[];
         nextDue: number;
       };
+      getCardsDue: () => number;
     };
     lastStudied: string;
     numAddedToday: number;

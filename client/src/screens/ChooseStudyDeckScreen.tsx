@@ -49,11 +49,15 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
 
   const renderItem = (listItem: ListRenderItemInfo<string>) => {
     const deck = globals.deckProvider.getDeck(listItem.item);
+    const numDue = globals.userData
+      .getUserDeckData(listItem.item)
+      .studyState.cardData.getCardsDue();
     const navigateToStudyScreen = () =>
       navigation.navigate(
         'Study',
         asStudyScreenNavParams({
           deck,
+          numDue,
         })
       );
     return (
@@ -62,7 +66,7 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
           {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
           <Thumbnail
             square
-            source={{ uri: deck.thumbnail }}
+            source={deck.thumbnail}
             style={{ width: 49, height: 49 }}
           />
         </Left>
@@ -70,7 +74,7 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
           <Text>{deck.name}</Text>
         </Body>
         <Right>
-          <Text>{deck.cardsDue}</Text>
+          <Text>{numDue}</Text>
         </Right>
       </ListItem>
     );

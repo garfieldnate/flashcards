@@ -5,19 +5,23 @@ import sys
 import threading
 import urllib
 
-from flask import Flask, jsonify, Response, url_for
+from flask import Flask, jsonify, Response, url_for, redirect
 
 app = Flask(__name__)
 
 db_file = None
 manifests = None
 vocab = None
+beginner_vocab = None
 cats = None
 examples = None
 
 lang_to_beginner_cats = {
     # beginner phrases for Thai
-    1: [76, 77, 78]
+    1: set([76, 77, 78])
+}
+lang_to_deck_thumbnail = {
+    1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Thailand_%28non-standard_colours_2%29.svg/120px-Flag_of_Thailand_%28non-standard_colours_2%29.svg.png'
 }
 
 thread_local_data = threading.local()
@@ -46,7 +50,7 @@ def load_vocab():
     global vocab
     vocab = {}
     db = get_or_create_db()
-    result = db.cursor().execute("SELECT id, foreign_word, english_word, pronunciation, pos, frequency, language_id, foreign_audio_id FROM vocab").fetchall()
+    result = db.cursor().execute("SELECT id, foreign_word, english_word, pronunciation, pos, frequency, language_id, foreign_audio_id, image_id FROM vocab").fetchall()
     for row in result:
         vocab.setdefault(row['language_id'], {})
         row['cats'] = []
@@ -60,6 +64,18 @@ def load_vocab():
     result = db.cursor().execute('SELECT v.language_id, v.id vocab_id, e2v.example_id FROM example_2_vocab e2v JOIN vocab v ON v.id = e2v.vocab_id').fetchall()
     for row in result:
         vocab[row['language_id']][row['vocab_id']]['examples'].append(row['example_id'])
+
+    determine_beginner_vocab()
+
+def determine_beginner_vocab():
+    global vocab;
+    global beginner_vocab;
+    beginner_vocab = {};
+    for lang_id, cats in lang_to_beginner_cats.items():
+        beginner_vocab[lang_id] = [];
+        for vid, v in vocab[lang_id].items():
+            if cats & set(v['cats']):
+                beginner_vocab[lang_id].append(vid)
 
 def load_cats():
     global cats
@@ -99,6 +115,10 @@ def endpoints():
 def manifests():
     return jsonify(manifests)
 
+@app.route('/api/v1/lang/<int:lang_id>/thumbnail')
+def deck_thumbnail(lang_id):
+    return redirect(lang_to_deck_thumbnail[lang_id], code=302)
+
 @app.route('/api/v1/lang/<int:lang_id>/vocab')
 def all_vocab(lang_id):
     # TODO: check for bad lang id
@@ -129,12 +149,13 @@ def image(image_id):
 def audio(audio_id):
     return binary_resource('audio', audio_id, 'audio/mpeg')
 
-@app.route('/api/v1/lang/<int:lang_id>/initial_list')
-def initial_list(lang_id):
-    db = get_or_create_db()
-    query = f'SELECT DISTINCT v.* FROM vocab v JOIN cat_2_vocab c2v ON v.id = c2v.vocab_id WHERE v.language_id={lang_id} AND c2v.cat_id IN ({",".join(str(x) for x in lang_to_beginner_cats[lang_id])}) LIMIT 10'
-    result = db.cursor().execute(query).fetchall()
-    return jsonify(result)
+@app.route('/api/v1/lang/<int:lang_id>/initial_vocab')
+def initial_vocab(lang_id):
+    """Return the first 10 beginner vocab objects"""
+    initial_vocab_ids = list(beginner_vocab[lang_id][:10])
+    values = [vocab[lang_id][vid] for vid in initial_vocab_ids]
+    print(values)
+    return jsonify(values)
 
 if __name__ == '__main__':
     db_file = sys.argv[1]

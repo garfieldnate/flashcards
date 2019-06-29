@@ -10,7 +10,7 @@ import StudyManager from '../logic/StudyManager';
 import { IDeck } from '../model/Deck';
 import { colors } from '../screens/Styles';
 
-export type NavParams = { deck: IDeck };
+export type NavParams = { deck: IDeck; numDue: number };
 
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
@@ -31,10 +31,10 @@ const StudyScreen = () => {
 };
 export default StudyScreen;
 
-const renderRightHeader = (deck: IDeck) => {
+const renderRightHeader = (numDue: number) => {
   const renderer = () => (
     <Text style={{ color: colors.headerText }}>
-      {deck.cardsDue}
+      {numDue}
       <Icon
         style={{ color: colors.headerText }}
         type='MaterialCommunityIcons'
@@ -51,8 +51,9 @@ StudyScreen.navigationOptions = ({
   navigation: Navigation;
 }) => {
   const deck: IDeck = navigation.state.params.deck;
+  const numDue = navigation.state.params.numDue;
   return {
-    headerRight: renderRightHeader(deck),
+    headerRight: renderRightHeader(numDue),
     title: deck.name,
   };
 };

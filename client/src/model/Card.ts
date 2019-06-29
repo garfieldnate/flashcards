@@ -7,4 +7,5 @@ export type Card = {
   exampleUserLang?: string;
   // result of asset require() is a number
   foreignHeadwordAudio?: number;
+  image?: number;
 };
