@@ -9,11 +9,11 @@ it('renders a card', () => {
       <Card
         cardData={{
           ID: 1,
-          back: 'ハロー',
+          headwordForeignLang: 'ハロー',
           category: 'foo',
           exampleForeignLang: '例文',
           exampleUserLang: 'example',
-          front: 'hello',
+          headwordUserLang: 'hello',
         }}
         onDelete={() => {}}
       />

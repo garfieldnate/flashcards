@@ -23,12 +23,12 @@ export default cards;
 card_template = Template(
 """  {
     ID: $id,
-    back: '$foreign_word',
+    headwordForeignLang: '$foreign_word',
+    headwordUserLang: '$english_word',
     category: '$category',
     exampleForeignLang: '$exampleForeignLang',
     exampleUserLang: '$exampleUserLang',
     foreignHeadwordAudio: require('../../assets/deckPreviews/sounds/$lang/headword_foreign_$id.mp3'),
-    front: '$english_word',
     image: require('../../assets/deckPreviews/images/$lang/$id.png'),
   },
 """)

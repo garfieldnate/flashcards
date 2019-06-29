@@ -1,21 +1,12 @@
 # TODO
 
-Current: Generate initial deck Javascript from server deck data.
-
-Cleanups:
-
-- the server should just return the first category for a card
-- return ALL textual vocab data from server in one request (cats, examples)
-- card structure should not have front and back but rather foreign headword and english headword, etc. Same goes for structure returned by server
-
 ### Bugs
 
 ### User Stories
 
 - when the user selects a deck, the beginner vocab is downloaded from the server immediately
-- The decks the user selected are saved permanently
-- The decks the user selected are backed up to a server
-- The data the user downloaded is available offline
+- The decks the user selected are saved permanently/available offline
+- Which decks the user selected are backed up to a server
 - When the user reviews a card, the result is saved permanently
 - Review data is backed up to a server
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)

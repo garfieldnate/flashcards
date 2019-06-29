@@ -140,13 +140,15 @@ class Stage extends Component<IProps, IState> {
   private deleteCard = () => {
     this.swiperRef.current!.swipeBottom();
     this.hideDeleteModal();
-    console.log(`TODO: delete card ${this.state.confirmDeleteCard!.front}`);
+    console.log(
+      `TODO: delete card ${this.state.confirmDeleteCard!.headwordUserLang}`
+    );
   };
 
   private renderDeleteModal = () => {
     const message = this.state.confirmDeleteCard
       ? `Are you sure you want to delete this card?\n\n"${
-          this.state.confirmDeleteCard!.back
+          this.state.confirmDeleteCard!.headwordForeignLang
         }"`
       : 'Error! This message is about deleting a card, but no card was selected to be deleted.';
     return (

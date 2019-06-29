@@ -46,11 +46,11 @@ export default class Card extends Component<IProps> {
           <View style={styles.deleteButton}>
             <DeleteButton onPress={onDelete} />
           </View>
-          {this.renderTopSection(this.props.cardData.front)}
+          {this.renderTopSection(this.props.cardData.headwordUserLang)}
           <View style={styles.cardBottomSection} />
         </View>
         <View style={[styles.card, styles.cardBack]}>
-          {this.renderTopSection(this.props.cardData.back)}
+          {this.renderTopSection(this.props.cardData.headwordForeignLang)}
           <View style={styles.cardBottomSection}>{this.renderExample()}</View>
         </View>
       </CardFlip>

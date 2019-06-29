@@ -1,7 +1,7 @@
 export type Card = {
   ID: number;
-  front: string;
-  back: string;
+  headwordUserLang: string;
+  headwordForeignLang: string;
   category: string;
   exampleForeignLang?: string;
   exampleUserLang?: string;
