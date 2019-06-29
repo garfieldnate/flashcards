@@ -2,8 +2,9 @@
 
 Current: Generate initial deck Javascript from server deck data.
 
-- add server endpoint to get beginner card IDs
 - generate an x-cards.ts file for first 10 beginner cards of each available deck
+- generate png file for each card
+- generate mp3 file for each card
 - copy x-cards-thumbnail.png for each available deck
 - generate an InitialDeckProvider.ts file for all available decks
 

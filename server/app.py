@@ -15,6 +15,11 @@ vocab = None
 cats = None
 examples = None
 
+lang_to_beginner_cats = {
+    # beginner phrases for Thai
+    1: [76, 77, 78]
+}
+
 thread_local_data = threading.local()
 
 # We use regular dictionaries instead of Sqlite3.Row because they can be used with cursor.execute()
@@ -123,6 +128,13 @@ def image(image_id):
 @app.route('/api/v1/audio/<int:audio_id>')
 def audio(audio_id):
     return binary_resource('audio', audio_id, 'audio/mpeg')
+
+@app.route('/api/v1/lang/<int:lang_id>/initial_list')
+def initial_list(lang_id):
+    db = get_or_create_db()
+    query = f'SELECT DISTINCT v.* FROM vocab v JOIN cat_2_vocab c2v ON v.id = c2v.vocab_id WHERE v.language_id={lang_id} AND c2v.cat_id IN ({",".join(str(x) for x in lang_to_beginner_cats[lang_id])}) LIMIT 10'
+    result = db.cursor().execute(query).fetchall()
+    return jsonify(result)
 
 if __name__ == '__main__':
     db_file = sys.argv[1]
