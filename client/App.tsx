@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import './src/globals/polyfills.js';
 import AddDecksScreen from './src/screens/AddDecksScreen';
 import ChooseStudyDeckScreen from './src/screens/ChooseStudyDeckScreen';
 import StudyScreen from './src/screens/StudyScreen';
