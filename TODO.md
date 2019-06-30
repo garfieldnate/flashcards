@@ -1,10 +1,19 @@
 # TODO
 
+Current: when the user selects a deck, the beginner vocab is downloaded from the server immediately
+
+Epic: PouchDB integration.
+
+- https://github.com/iriscouch/manage_couchdb
+- https://dev.to/craftzdog/hacking-pouchdb-to-use-on-react-native-1gjh
+
+- Spike: simple CouchDB db with a value on a card being updated as the admin updates it on the server
+-
+
 ### Bugs
 
 ### User Stories
 
-- when the user selects a deck, the beginner vocab is downloaded from the server immediately
 - The decks the user selected are saved permanently/available offline
 - Which decks the user selected are backed up to a server
 - When the user reviews a card, the result is saved permanently
@@ -58,6 +67,20 @@ General TODOs:
 - Unified typography for whole app
 
 ## Notes
+
+- Could turn unhandled promise rejections into errors:
+
+      	import RejectionTracking from 'promise/setimmediate/rejection-tracking';
+
+      	let db
+
+      	RejectionTracking.enable({
+      		allRejections: true,
+      		onUnhandled: (id, error = {}) => {
+      		console.error(error)
+      		},
+      		onHandled: () => {},
+      	})
 
 - Inline type annotations for TypeScript don't exist. Follow https://github.com/microsoft/TypeScript/issues/7481 to see when we can remove our workarounds (`asChooseStudyDeckScreenProps()`, etc.)
 - I really dislike Prettier putting JSX atts on the same line. It's much easier to read them quickly in a column. Watching https://github.com/prettier/prettier/issues/3101. Why the heck does it put import destructuring in columns but JSX atts all on one line?
