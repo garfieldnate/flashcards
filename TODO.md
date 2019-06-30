@@ -2,13 +2,25 @@
 
 Current: when the user selects a deck, the beginner vocab is downloaded from the server immediately
 
-Epic: PouchDB integration.
+Epic: Rxdb integration.
 
-- https://github.com/iriscouch/manage_couchdb
-- https://dev.to/craftzdog/hacking-pouchdb-to-use-on-react-native-1gjh
-
+- Waiting for issue fix: https://github.com/pubkey/rxdb/pull/1268
 - Spike: simple CouchDB db with a value on a card being updated as the admin updates it on the server
--
+- Spike: single card shown from downloaded server data
+- Spike: mp3 on card downloaded from server
+- Script to convert from SQLite DB to couchDB
+- Script to dump card previews to builtinData
+- when user adds a deck, connect to DB and start downloading
+- make sure DB is read-only!
+- display downloaded cards after the builtin ones (new NewCardProvider)
+- fork or do whatever it takes to get SQLite version working?
+
+How it works:
+
+- use web async storage plugin; the RN sqlite one from crazy dog doesn't work with Expo
+- use http plugin
+- polyfill FileReader.readAsArrayBuffer
+- Sqlite adapter would be faster, but this is what we have to work with for now. So many bugs in this thing!
 
 ### Bugs
 
@@ -35,6 +47,8 @@ Epic: PouchDB integration.
 - multi-user support/login
 
 ### Developer Stories
+
+- travis integration
 
 ### Data Stories
 
