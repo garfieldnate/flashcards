@@ -4,16 +4,20 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Epic: Rxdb integration.
 
-- Waiting for issue fix: https://github.com/pubkey/rxdb/pull/1268
-- Spike: simple CouchDB db with a value on a card being updated as the admin updates it on the server
-- Spike: single card shown from downloaded server data
-- Spike: mp3 on card downloaded from server
-- Script to convert from SQLite DB to couchDB
-- Script to dump card previews to builtinData
+Spike:
+
+- single card shown from downloaded server data
+- mp3 or image on card downloaded from server (attachments)
+- card updates when admin updates server (mobx integration)
+- JSON schema for card
+- script to generate typescript defs from json design doc
+- (Script to) dump SQLite DB into couchDB
+- Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading
-- make sure DB is read-only!
 - display downloaded cards after the builtin ones (new NewCardProvider)
-- fork or do whatever it takes to get SQLite version working?
+- make sure DB is read-only!
+- dockerize DB setup
+- ?fork or do whatever it takes to get SQLite version working?
 
 How it works:
 
