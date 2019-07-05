@@ -8,6 +8,7 @@ import cardLayout from './CardLayout';
 import { Sound } from 'expo-av/build/Audio';
 import CardFlip from 'react-native-card-flip';
 import DeleteButton from './DeleteButton';
+// import createCardCollection from '../db/CardsDB';
 
 interface IProps {
   cardData: CardData;
@@ -15,13 +16,18 @@ interface IProps {
   onDelete: (cardData: CardData) => void;
 }
 
-export default class Card extends Component<IProps> {
+interface IState {
+  dbCard?: string;
+}
+
+export default class Card extends Component<IProps, IState> {
   private recording?: Sound;
   private recordingReady: boolean;
   private cardRef = React.createRef<CardFlip>();
 
   constructor(props: IProps) {
     super(props);
+
     this.recordingReady = false;
     if (this.props.cardData.foreignHeadwordAudio) {
       this.recording = new Audio.Sound();

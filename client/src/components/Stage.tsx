@@ -1,15 +1,18 @@
 // The main animated learning area of the app
 
 import { observer } from 'mobx-react';
+import { fromStream } from 'mobx-utils';
 import { Icon } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
 import { Card as CardData } from '../model/Card';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import ConfirmationModal from './ConfirmationModal';
 
+import { RxCollection } from 'rxdb';
+import createCardCollection from '../db/CardsDB';
 import Card from './Card';
 import cardLayout from './CardLayout';
 
@@ -26,6 +29,7 @@ interface IState {
   swipedAllCards: boolean;
   deleteModalVisible: boolean;
   confirmDeleteCard?: CardData;
+  dbEnglishHeadword?: string;
 }
 
 @observer
@@ -43,9 +47,37 @@ class Stage extends Component<IProps, IState> {
       renderedCards: [],
       swipedAllCards: false,
     };
+
+    createCardCollection().then((collection) => {
+      collection
+        .findOne()
+        .exec()
+        .then((doc) => {
+          if (doc) {
+            const headword = doc.get$('englishHeadword');
+            headword.subscribe((newHeadword: string) => {
+              this.setState({
+                dbEnglishHeadword: newHeadword,
+              });
+            });
+            // console.log(headword);
+            // const thing = fromStream(headword, '');
+            // console.log(headword.current);
+            // this.setState({
+            //   dbEnglishHeadword: headword.current,
+            // });
+          }
+        });
+    });
   }
 
   public renderCard = (cardData: CardData, index: number) => {
+    if (this.state.dbEnglishHeadword) {
+      cardData = {
+        ...cardData,
+        headwordUserLang: this.state.dbEnglishHeadword,
+      };
+    }
     return (
       <Card
         cardData={cardData}

@@ -10,6 +10,17 @@ import { AppGlobalsContext } from './src/globals/GlobalsContext';
 
 import { colors } from './src/screens/Styles';
 
+import RejectionTracking from 'promise/setimmediate/rejection-tracking';
+
+// for debugging. TODO: fix types, only use in DEV mode
+RejectionTracking.enable({
+  allRejections: true,
+  onUnhandled: (id, error = {}) => {
+    console.error(error);
+  },
+  onHandled: () => {},
+});
+
 const Stack = createStackNavigator(
   {
     AddDecks: AddDecksScreen,

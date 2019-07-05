@@ -1849,6 +1849,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.49.tgz#ab4df6e505db088882c8ce5417ae0bc8cbb7a8a6"
   integrity sha512-YY0Okyn4QXC4ugJI+Kng5iWjK8A6eIHiQVaGIhJkyn0YL6Iqo0E0tBC8BuhvYcBK87vykBijM5FtMnCqaa5anA==
 
+"@types/promise@^7.1.30":
+  version "7.1.30"
+  resolved "https://registry.yarnpkg.com/@types/promise/-/promise-7.1.30.tgz#1b6714b321fdfc54d1527e7a17116a0e1f2ab810"
+  integrity sha1-G2cUsyH9/FTRUn56FxFqDh8quBA=
+
 "@types/prop-types@*":
   version "15.7.1"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
@@ -10572,6 +10577,11 @@ mobx-react@^6.1.1:
   dependencies:
     mobx-react-lite "1.4.0"
 
+mobx-utils@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-5.4.1.tgz#18ff5f9723b27e1ff50ae0b362938a4792eb077a"
+  integrity sha512-u5BSvFiSx1ZkzBz/7V96RB7xWn7oOFwczI+AVi1v8TV8HbT8rXLco1Aqb87tEA8Jsc2e5uvTwHdYoiv81qspaA==
+
 mobx@^5.10.1:
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.10.1.tgz#eb0e2ff76fe376d0a42c941533260deeae5956d8"
@@ -14275,7 +14285,7 @@ rxjs@^5.5.2:
   dependencies:
     symbol-observable "1.0.1"
 
-rxjs@^6.1.0:
+rxjs@^6.1.0, rxjs@^6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
   integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
