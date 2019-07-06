@@ -4,13 +4,12 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Epic: Rxdb integration.
 
-Spike:
+Continuing:
 
-- single card shown from downloaded server data
-- mp3 or image on card downloaded from server (attachments)
-- card updates when admin updates server (mobx integration)
 - JSON schema for card
 - script to generate typescript defs from json design doc
+- decide storage schema
+- create view function for card?
 - (Script to) dump SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading
