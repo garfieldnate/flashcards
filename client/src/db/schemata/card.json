@@ -1,0 +1,33 @@
+{
+  "version": 0,
+  "title": "Card schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "primary": true,
+      "type": "string"
+    },
+    "headwordUserLang": {
+      "type": "string"
+    },
+    "headwordForeignLang": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "exampleForeignLang": {
+      "type": "string"
+    },
+    "exampleUserLang": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["id", "headwordUserLang", "headwordForeignLang", "category"],
+  "//": ["foreignHeadwordAudio", "image"],
+  "attachments": {
+    "//": "TODO: encrypt later?",
+    "encrypted": false
+  }
+}
