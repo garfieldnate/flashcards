@@ -2,14 +2,12 @@
 
 Current: when the user selects a deck, the beginner vocab is downloaded from the server immediately
 
-Epic: Rxdb integration.
-
 Continuing:
 
-- JSON schema for card
-- script to generate typescript defs from json design doc
-- decide storage schema
-- create view function for card?
+- Create one textual card on server and display it
+- Create one card image/audio on server and display it
+- Wrap database layer with another that returns card objects by ID
+- ReviewCardProvider that for now just returns the one card from the server
 - (Script to) dump SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading
