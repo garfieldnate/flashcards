@@ -4,9 +4,12 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Continuing:
 
+- Refactoring: unify database-sourced card and builtin-sourced card; put sound-loading and image-src grabbing logic in the card type.
+- Function to get cards by ID.
+- Ordered card ID list to show users
+- StudySource based on this ordered list and the database query layer
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it
-- Wrap database layer with another that returns card objects by ID
 - ReviewCardProvider that for now just returns the one card from the server
 - (Script to) dump SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData

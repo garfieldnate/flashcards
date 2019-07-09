@@ -8,7 +8,14 @@
       "type": "string"
     },
     "headwordUserLang": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "english": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["english"]
     },
     "headwordForeignLang": {
       "type": "string"
@@ -20,7 +27,14 @@
       "type": "string"
     },
     "exampleUserLang": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "english": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["english"]
     }
   },
   "additionalProperties": false,
