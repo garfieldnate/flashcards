@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Card } from '../model/Card';
+import { ICard } from '../model/Card';
 import { IDeck } from '../model/Deck';
 import { UserDeckData } from '../model/UserDeckData';
 import DummyUserData from '../userData/DummyUserData';
@@ -18,10 +18,10 @@ class StudyManager {
   private reviewCardProvider: ReviewCardProvider;
   private newCardProvider: NewCardProvider;
   private nextDueTime: number;
-  private newCards: Card[];
-  private reviewCards: Card[];
+  private newCards: ICard[];
+  private reviewCards: ICard[];
   private lastUpdated: moment.Moment;
-  private cards: Card[];
+  private cards: ICard[];
   constructor(deck: IDeck, userData: DummyUserData) {
     this.cards = [];
     this.deck = deck;
@@ -54,7 +54,7 @@ class StudyManager {
   }
 
   // TODO: change to Optional<Card>
-  public getNextCard = (): Card | undefined => {
+  public getNextCard = (): ICard | undefined => {
     if (this.newCards) {
       return this.newCards.shift(); // technically not efficient but whatevs for now :)
     }

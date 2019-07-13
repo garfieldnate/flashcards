@@ -1,4 +1,4 @@
-import { Card } from './Card';
+import { ICard } from './Card';
 
 export type UserDeckData = {
   prefs: {
@@ -10,7 +10,7 @@ export type UserDeckData = {
         start: number,
         end: number
       ) => {
-        cardsDue: Card[];
+        cardsDue: ICard[];
         nextDue: number;
       };
       getCardsDue: () => number;

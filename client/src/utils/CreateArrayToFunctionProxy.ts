@@ -1,5 +1,5 @@
 import StudyManager from '../logic/StudyManager';
-import { Card } from '../model/Card';
+import { ICard } from '../model/Card';
 
 // the swiper library takes an array of cards and stores an internal pointer to
 // the current card. Since we are generating cards as we go, this is really
@@ -8,8 +8,8 @@ import { Card } from '../model/Card';
 const createArrayToFunctionProxy = (
   studyManager: StudyManager,
   stackSize: number
-): Card[] => {
-  const generatedCards: Card[] = [];
+): ICard[] => {
+  const generatedCards: ICard[] = [];
   let length: number;
 
   // look ahead stackSize Cards so that we can properly report the array
@@ -61,7 +61,7 @@ const createArrayToFunctionProxy = (
       return;
     },
   };
-  return new Proxy<Card[]>([], handler);
+  return new Proxy<ICard[]>([], handler);
 };
 
 export default createArrayToFunctionProxy;

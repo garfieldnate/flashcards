@@ -1,11 +1,14 @@
-export type Card = {
-  ID: number;
-  headwordUserLang: string;
-  headwordForeignLang: string;
-  category: string;
-  exampleForeignLang?: string;
-  exampleUserLang?: string;
-  // result of asset require() is a number
-  foreignHeadwordAudio?: number;
-  image?: number;
-};
+import { Sound } from 'expo-av/build/Audio';
+import { Result } from 'neverthrow';
+import { ImageURISource } from 'react-native';
+
+export interface ICard {
+  getId(): string;
+  getHeadwordForeignLang(): string;
+  getCategory(): string;
+  getExampleForeignLang(): string | undefined;
+  getExampleUserLang(userLang: string): string | undefined;
+  getHeadwordUserLang(userLang: string): string;
+  getForeignHeadwordAudio(): Promise<Result<Sound | undefined, any>>;
+  getImage(): Promise<Result<ImageURISource | undefined, any>>;
+}

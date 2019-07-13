@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
-import { Card as CardData } from '../model/Card';
+import { ICard as CardData } from '../model/Card';
 import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import ConfirmationModal from './ConfirmationModal';
 

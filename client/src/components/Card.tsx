@@ -2,7 +2,7 @@
 import { Audio } from 'expo-av';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Card as CardData } from '../model/Card';
+import { ICard as CardData } from '../model/Card';
 import cardLayout from './CardLayout';
 
 import { Sound } from 'expo-av/build/Audio';

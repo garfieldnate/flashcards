@@ -1,6 +1,5 @@
 import moment from 'moment';
 import shuffle from 'shuffle-array';
-import { Card } from '../model/Card';
 import { UserDeckData } from '../model/UserDeckData';
 
 export default class ReviewCardProvider {

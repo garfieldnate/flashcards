@@ -1,8 +1,8 @@
-import { Audio } from 'expo-av';
 import { Sound } from 'expo-av/build/Audio';
 import { err, ok, Result } from 'neverthrow';
 import { ImageURISource } from 'react-native';
 import { RxCollection, RxDocument, RxJsonSchema } from 'rxdb';
+import { loadAudio } from '../utils/Audio';
 import { CollectionOpts } from './CollectionOpts';
 import { CardSchema as CardDocType } from './schemata/card';
 
@@ -10,19 +10,20 @@ import { CardSchema as CardDocType } from './schemata/card';
 // tslint:disable-next-line: no-var-requires
 const cardSchema: RxJsonSchema<CardDocType> = require('./schemata/card.json');
 type CardDocMethods = {
-  getForeignHeadwordAudio: () => Promise<Result<Sound, any>>;
-  getImage: () => Promise<Result<ImageURISource, any>>;
+  getForeignHeadwordAudio: () => Promise<Result<Sound | undefined, any>>;
+  getImage: () => Promise<Result<ImageURISource | undefined, any>>;
 };
 type CardDocument = RxDocument<CardDocType, CardDocMethods>;
 
 const cardDocMethods: CardDocMethods = {
   async getForeignHeadwordAudio(this: CardDocument) {
     try {
-      const dataBlob = await this.getAttachment(
-        'foreignHeadwordAudio'
-      ).getData();
-      const sound = new Audio.Sound();
-      await sound.loadAsync({ uri: URL.createObjectURL(dataBlob) });
+      const attachment = await this.getAttachment('foreignHeadwordAudio');
+      if (!attachment) {
+        return ok(undefined);
+      }
+      const dataBlob = attachment.getData();
+      const sound = await loadAudio({ uri: URL.createObjectURL(dataBlob) });
       return ok(sound);
     } catch (e) {
       return err(err);
@@ -30,7 +31,11 @@ const cardDocMethods: CardDocMethods = {
   },
   async getImage(this: CardDocument) {
     try {
-      const dataBlob = await this.getAttachment('image').getData();
+      const attachment = await this.getAttachment('image');
+      if (!attachment) {
+        return ok(undefined);
+      }
+      const dataBlob = attachment.getData();
       return ok({ uri: URL.createObjectURL(dataBlob) });
     } catch (e) {
       return err(e);
