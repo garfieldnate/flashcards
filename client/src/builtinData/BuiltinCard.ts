@@ -1,4 +1,5 @@
-import { err, ok, Result } from 'neverthrow';
+import { Sound } from 'expo-av/build/Audio';
+import { ok, Result } from 'neverthrow';
 import { ImageSourcePropType, ImageURISource } from 'react-native';
 import { ICard } from '../model/Card';
 import { loadAudio } from '../utils/Audio';
@@ -40,14 +41,10 @@ export default class BuiltinCard implements ICard {
     // For now we only support English
     return this.cardData.headwordUserLang;
   }
-  public async getForeignHeadwordAudio(): Promise<
-    Result<import('expo-av/build/Audio').Sound, any>
-  > {
-    try {
-      const sound = await loadAudio(this.cardData.foreignHeadwordAudio);
-      return ok(sound);
+  public async getForeignHeadwordAudio(): Promise<Sound> {
+    return loadAudio(this.cardData.foreignHeadwordAudio);
   }
-  public getImage(): Promise<Result<ImageSourcePropType, any>> {
-    return Promise.resolve(ok(this.cardData.image));
+  public getImage(): Promise<ImageSourcePropType> {
+    return Promise.resolve(this.cardData.image);
   }
 }

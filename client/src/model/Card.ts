@@ -1,6 +1,5 @@
 import { Sound } from 'expo-av/build/Audio';
-import { Result } from 'neverthrow';
-import { ImageURISource } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 
 export interface ICard {
   getId(): string;
@@ -9,6 +8,6 @@ export interface ICard {
   getExampleForeignLang(): string | undefined;
   getExampleUserLang(userLang: string): string | undefined;
   getHeadwordUserLang(userLang: string): string;
-  getForeignHeadwordAudio(): Promise<Result<Sound | undefined, any>>;
-  getImage(): Promise<Result<ImageURISource | undefined, any>>;
+  getForeignHeadwordAudio(): Promise<Sound | undefined>;
+  getImage(): Promise<ImageSourcePropType | undefined>;
 }
