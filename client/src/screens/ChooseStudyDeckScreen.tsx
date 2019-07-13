@@ -17,6 +17,7 @@ import AddDeckButton from '../components/AddDeckButton';
 import AddDeckNotice from '../components/AddDeckNotice';
 
 import { AppGlobalsContext } from '../globals/GlobalsContext';
+import { IGlobalAppData } from '../globals/IGlobalAppData';
 import {
   INavStatelessComponent,
   useNavigation,
@@ -25,7 +26,7 @@ import { NavParams as StudyScreenNavParams } from './StudyScreen';
 const asStudyScreenNavParams = (params: StudyScreenNavParams) => params;
 
 const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
-  const globals = useContext(AppGlobalsContext);
+  const globals: IGlobalAppData = useContext(AppGlobalsContext);
   const navigation = useNavigation<{}>();
 
   const identityKeyExtractor = (item: any) => item;

@@ -12,10 +12,11 @@ import {
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 import { AppGlobalsContext } from '../globals/GlobalsContext';
+import { IGlobalAppData } from '../globals/IGlobalAppData';
 import { IDeck } from '../model/Deck';
 
 const AddDecksScreen = () => {
-  const globals = useContext(AppGlobalsContext);
+  const globals: IGlobalAppData = useContext(AppGlobalsContext);
 
   const renderDeck = ({ item }: { item: IDeck }) => {
     const addNewStudySource = () => globals.userData.addNewStudySource(item.ID);

@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import Stage from '../components/Stage';
 import { AppGlobalsContext } from '../globals/GlobalsContext';
+import { IGlobalAppData } from '../globals/IGlobalAppData';
 import { useNavigation } from '../globals/NavigationUtils';
 import StudyManager from '../logic/StudyManager';
 import { IDeck } from '../model/Deck';
@@ -15,7 +16,7 @@ export type NavParams = { deck: IDeck; numDue: number };
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
 const StudyScreen = () => {
-  const globals = useContext(AppGlobalsContext);
+  const globals: IGlobalAppData = useContext(AppGlobalsContext);
   const navigation = useNavigation<NavParams>();
 
   const studyManager = new StudyManager(

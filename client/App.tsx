@@ -15,10 +15,12 @@ import RejectionTracking from 'promise/setimmediate/rejection-tracking';
 // for debugging. TODO: fix types, only use in DEV mode
 RejectionTracking.enable({
   allRejections: true,
-  onUnhandled: (id, error = {}) => {
+  // tslint:disable-next-line
+  onHandled: () => {},
+  onUnhandled: (id: any, error = {}) => {
+    // tslint:disable-next-line
     console.error(error);
   },
-  onHandled: () => {},
 });
 
 const Stack = createStackNavigator(

@@ -1,6 +1,5 @@
 import { Sound } from 'expo-av/build/Audio';
-import { ok, Result } from 'neverthrow';
-import { ImageSourcePropType, ImageURISource } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 import { ICard } from '../model/Card';
 import { loadAudio } from '../utils/Audio';
 

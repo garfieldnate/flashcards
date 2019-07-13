@@ -8,7 +8,7 @@ import { IGlobalAppData } from './IGlobalAppData';
 class DummyGlobalAppData implements IGlobalAppData {
   public userData = new DummyUserData();
   public deckProvider: IDeckProvider = new BuiltinDeckProvider();
-  public database = null; // TODO: mock DB here
+  public database = Promise.reject(); // TODO: mock DB here
 }
 
 export const AppGlobalsContext = createContext<IGlobalAppData>(

@@ -22,26 +22,22 @@ interface IState {
 
 export default class Card extends Component<IProps, IState> {
   private recording?: Sound;
-  private recordingReady: boolean;
+  private recordingReady: boolean = false;
   private cardRef = React.createRef<CardFlip>();
 
   constructor(props: IProps) {
     super(props);
-
-    this.recordingReady = false;
-    if (this.props.cardData.foreignHeadwordAudio) {
-      this.recording = new Audio.Sound();
-      this.recording
-        .loadAsync(this.props.cardData.foreignHeadwordAudio)
-        .then(() => {
-          this.recordingReady = true;
-          // console.log(`loaded audio for ${this.props.cardData.back}`);
-        })
-        .catch((error) => {
-          // console.log(`Couldn't load audio for ${this.props.cardData.back}`);
-          // console.log(error);
-        });
-    }
+    this.props.cardData
+      .getForeignHeadwordAudio()
+      .then((result) => {
+        this.recording = result;
+        this.recordingReady = true;
+        // console.log(`loaded audio for ${this.props.cardData.back}`);
+      })
+      .catch((error) => {
+        // console.log(`Couldn't load audio for ${this.props.cardData.back}`);
+        // console.log(error);
+      });
   }
 
   public render() {
@@ -52,11 +48,13 @@ export default class Card extends Component<IProps, IState> {
           <View style={styles.deleteButton}>
             <DeleteButton onPress={onDelete} />
           </View>
-          {this.renderTopSection(this.props.cardData.headwordUserLang)}
+          {this.renderTopSection(
+            this.props.cardData.getHeadwordUserLang('TODO: user lang here')
+          )}
           <View style={styles.cardBottomSection} />
         </View>
         <View style={[styles.card, styles.cardBack]}>
-          {this.renderTopSection(this.props.cardData.headwordForeignLang)}
+          {this.renderTopSection(this.props.cardData.getHeadwordForeignLang())}
           <View style={styles.cardBottomSection}>{this.renderExample()}</View>
         </View>
       </CardFlip>
@@ -87,23 +85,23 @@ export default class Card extends Component<IProps, IState> {
     let separator: JSX.Element | undefined;
     let userLangExample: JSX.Element | undefined;
     if (
-      !this.props.cardData.exampleForeignLang &&
-      !this.props.cardData.exampleUserLang
+      !this.props.cardData.getExampleForeignLang() &&
+      !this.props.cardData.getExampleUserLang('TODO: user lang here')
     ) {
       return null;
     }
 
-    if (this.props.cardData.exampleForeignLang) {
+    if (this.props.cardData.getExampleForeignLang()) {
       foreignExample = (
         <Text style={styles.exampleText}>
-          {this.props.cardData.exampleForeignLang}
+          {this.props.cardData.getExampleForeignLang()}
         </Text>
       );
     }
-    if (this.props.cardData.exampleUserLang) {
+    if (this.props.cardData.getExampleUserLang('TODO: user lang here')) {
       userLangExample = (
         <Text style={styles.exampleText}>
-          {this.props.cardData.exampleUserLang}
+          {this.props.cardData.getExampleUserLang('TODO: user lang here')}
         </Text>
       );
     }

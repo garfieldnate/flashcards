@@ -1,9 +1,10 @@
 import { Sound } from 'expo-av/build/Audio';
-import { err, ok, Result } from 'neverthrow';
 import { ImageURISource } from 'react-native';
 import { RxCollection, RxDocument, RxJsonSchema } from 'rxdb';
+import { ICard } from '../model/Card';
 import { loadAudio } from '../utils/Audio';
 import { CollectionOpts } from './CollectionOpts';
+import DBCard from './DBCard';
 import { CardSchema as CardDocType } from './schemata/card';
 
 // TypeScript can't give the correct type if we import and *then* type annotate
@@ -13,7 +14,7 @@ type CardDocMethods = {
   getForeignHeadwordAudio: () => Promise<Sound | undefined>;
   getImage: () => Promise<ImageURISource | undefined>;
 };
-type CardDocument = RxDocument<CardDocType, CardDocMethods>;
+export type CardDocument = RxDocument<CardDocType, CardDocMethods>;
 
 const cardDocMethods: CardDocMethods = {
   async getForeignHeadwordAudio(this: CardDocument) {
@@ -35,9 +36,17 @@ const cardDocMethods: CardDocMethods = {
   },
 };
 type CardCollectionMethods = {
-  // getCardsForDeck: (deckId: string) => Promise<...>;
+  getCardsById: (this: CardCollection, ids: string[]) => Promise<ICard[]>;
 };
-const cardCollectionMethods: CardCollectionMethods = {};
+const cardCollectionMethods: CardCollectionMethods = {
+  async getCardsById(this: CardCollection, ids: string[]): Promise<ICard[]> {
+    const query = this.find()
+      .where('id')
+      .in(ids);
+    const docs = await query.exec();
+    return docs.map((d) => new DBCard(d));
+  },
+};
 
 export type CardCollection = RxCollection<
   CardDocType,
