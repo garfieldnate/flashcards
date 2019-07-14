@@ -8,10 +8,10 @@ import { AppGlobalsContext } from '../globals/GlobalsContext';
 import { IGlobalAppData } from '../globals/IGlobalAppData';
 import { useNavigation } from '../globals/NavigationUtils';
 import StudyManager from '../logic/StudyManager';
-import { IDeck } from '../model/Deck';
+import { IDeckInfo } from '../model/Deck';
 import { colors } from '../screens/Styles';
 
-export type NavParams = { deck: IDeck; numDue: number };
+export type NavParams = { deck: IDeckInfo; numDue: number };
 
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
@@ -51,7 +51,7 @@ StudyScreen.navigationOptions = ({
 }: {
   navigation: Navigation;
 }) => {
-  const deck: IDeck = navigation.state.params.deck;
+  const deck: IDeckInfo = navigation.state.params.deck;
   const numDue = navigation.state.params.numDue;
   return {
     headerRight: renderRightHeader(numDue),

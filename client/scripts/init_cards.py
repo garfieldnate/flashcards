@@ -12,8 +12,8 @@ script_dir = Path(__file__).parents[0].resolve()
 cards_file_template = Template(
     """
 // Generated automatically with init_cards.py. EDITS WILL BE LOST!
-import { Card } from '../model/Card';
-const cards: Card[] = [
+import { BuiltinCardData } from './BuiltinCard';
+const cards: BuiltinCardData[] = [
   $cards
 ];
 
@@ -22,13 +22,13 @@ export default cards;
 
 card_template = Template(
     """  {
-    category: '$category',
     ID: '$lang-$id',
-    headwordForeignLang: '$foreign_word',
-    headwordUserLang: '$english_word',
+    category: '$category',
     exampleForeignLang: '$exampleForeignLang',
     exampleUserLang: '$exampleUserLang',
     foreignHeadwordAudio: require('../../assets/deckPreviews/sounds/$lang/headword_foreign_$id.mp3'),
+    headwordForeignLang: '$foreign_word',
+    headwordUserLang: '$english_word',
     image: require('../../assets/deckPreviews/images/$lang/$id.png'),
   },
 """)
@@ -52,23 +52,28 @@ def card_to_js(vocab, lang):
     return s
 
 
-def decks_to_js(langs):
+def decks_to_js(langs, presentation_order):
     lines = []
     lines.append(
         "// Generated automatically with init_cards.py. EDITS WILL BE LOST!")
-    lines.append("import { IDeck } from '../model/Deck';")
+    lines.append("import { IDeckInfo } from '../model/Deck';")
+    lines.append("import BuiltinCard from './BuiltinCard';")
     for lang in langs:
         name = lang['english_name'].lower()
         lines.append(f"import {name}Deck from './cards-{name}'")
     lines.append(
         "// we have to explicitly require all of our files; dynamic require will not compile with Expo :(")
-    lines.append("const decks: IDeck[] = [")
+    lines.append("const decks: IDeckInfo[] = [")
     for lang in langs:
         name = lang['english_name']
+        po = [f'{name.lower()}-{vid}' for vid in presentation_order[lang['id']]]
         lines.append("  {")
         lines.append(f"    ID: '{name.lower()}',")
         lines.append(
-            f"    cards: {name.lower()}Deck.map((c) => new BuiltinCard(c)),")
+            f"    builtinCards: {name.lower()}Deck.map((c) => new BuiltinCard(c)),")
+        lines.append("    getPresentationOrder() {")
+        lines.append(f"      return {po};")
+        lines.append("    },")
         lines.append(f"    name: '{name}',")
         lines.append(
             f"    thumbnail: require('../../assets/deckPreviews/images/{name.lower()}/thumbnail.png'),")
@@ -76,6 +81,7 @@ def decks_to_js(langs):
     lines.append("];")
     lines.append("")
     lines.append("export default decks;")
+    lines.append("")
 
     return "\n".join(lines)
 
@@ -106,6 +112,12 @@ def get_initial_vocab(server_url, lang_id):
                 v['examples'][0])]['english_text']
 
     return vocab
+
+
+def get_presentation_order(server_url, lang_id):
+    ids = requests.get(
+        server_url + f'/api/v1/lang/{lang_id}/presentation_order').json()
+    return ids
 
 
 def write_vocab_file(vocab, lang):
@@ -160,8 +172,8 @@ def download_resources(server_url, vocab, lang):
         print(f'wrote {file_name}')
 
 
-def write_decks_file(langs):
-    decks_string = decks_to_js(langs)
+def write_decks_file(langs, presentation_order):
+    decks_string = decks_to_js(langs, presentation_order)
     file_name = script_dir.parent.parent.joinpath(
         'client', 'src', 'builtinData', 'BuiltinDecks.ts')
     file_name.parent.mkdir(parents=True, exist_ok=True)
@@ -173,12 +185,15 @@ def write_decks_file(langs):
 def main(args):
     server_url = args[0]
     langs = get_manifests(server_url)
+    presentation_order = {}
     for lang in langs:
         vocab = get_initial_vocab(server_url, lang['id'])
         write_vocab_file(vocab, lang)
         download_resources(server_url, vocab, lang)
+        presentation_order[lang['id']] = get_presentation_order(
+            server_url, lang['id'])
 
-    write_decks_file(langs)
+    write_decks_file(langs, presentation_order)
 
 
 if __name__ == '__main__':

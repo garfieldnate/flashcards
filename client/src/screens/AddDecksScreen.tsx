@@ -13,12 +13,12 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 import { AppGlobalsContext } from '../globals/GlobalsContext';
 import { IGlobalAppData } from '../globals/IGlobalAppData';
-import { IDeck } from '../model/Deck';
+import { IDeckInfo } from '../model/Deck';
 
 const AddDecksScreen = () => {
   const globals: IGlobalAppData = useContext(AppGlobalsContext);
 
-  const renderDeck = ({ item }: { item: IDeck }) => {
+  const renderDeck = ({ item }: { item: IDeckInfo }) => {
     const addNewStudySource = () => globals.userData.addNewStudySource(item.ID);
     const makeDeckElement = () => (
       <ListItem
@@ -47,7 +47,7 @@ const AddDecksScreen = () => {
     return <Observer>{makeDeckElement}</Observer>;
   };
 
-  const keyExtractor: (item: IDeck, index: number) => string = (item) =>
+  const keyExtractor: (item: IDeckInfo, index: number) => string = (item) =>
     item.ID;
   return (
     <Container>

@@ -1,8 +1,10 @@
 import { Sound } from 'expo-av/build/Audio';
 import { ImageSourcePropType } from 'react-native';
 
+export type CardId = string;
+
 export interface ICard {
-  getId(): string;
+  getId(): CardId;
   getHeadwordForeignLang(): string;
   getCategory(): string;
   getExampleForeignLang(): string | undefined;

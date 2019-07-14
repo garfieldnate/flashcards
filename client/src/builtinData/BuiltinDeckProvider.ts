@@ -1,11 +1,11 @@
-import { IDeck } from '../model/Deck';
+import { IDeckInfo } from '../model/Deck';
 import IDeckProvider from '../model/DeckProvider';
 import builtinDecks from './BuiltinDecks';
 
 // Decks from this provider are short previews of full decks available from the server
 
 export default class BuiltinDeckProvider implements IDeckProvider {
-  private decks: { [id: string]: IDeck };
+  private decks: { [id: string]: IDeckInfo };
   constructor() {
     this.decks = {};
     builtinDecks.forEach((deck) => (this.decks[deck.ID] = deck));

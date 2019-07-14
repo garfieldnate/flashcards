@@ -4,7 +4,7 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Continuing:
 
-- Ordered card ID list to show users
+- Figure out API. Should CardProviders really be returning Cards, or just IDs and StudyManager queries for cards? But then StudyManager has to handle built-in vs DB
 - StudySource based on this ordered list and the database query layer
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it

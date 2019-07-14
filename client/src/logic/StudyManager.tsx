@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { ICard } from '../model/Card';
-import { IDeck } from '../model/Deck';
+import { CardId, ICard } from '../model/Card';
+import { IDeckInfo } from '../model/Deck';
 import { UserDeckData } from '../model/UserDeckData';
 import DummyUserData from '../userData/DummyUserData';
 import NewCardProvider from './NewCardProvider';
@@ -11,18 +11,18 @@ function getDateTime() {
 }
 
 class StudyManager {
-  private deck: IDeck;
+  private deck: IDeckInfo;
   private prefs: UserDeckData['prefs'];
   private studyState: UserDeckData['studyState'];
   // TODO: declare these as baser interface type
   private reviewCardProvider: ReviewCardProvider;
   private newCardProvider: NewCardProvider;
   private nextDueTime: number;
-  private newCards: ICard[];
+  private newCards: CardId[];
   private reviewCards: ICard[];
   private lastUpdated: moment.Moment;
   private cards: ICard[];
-  constructor(deck: IDeck, userData: DummyUserData) {
+  constructor(deck: IDeckInfo, userData: DummyUserData) {
     this.cards = [];
     this.deck = deck;
     // console.log(`created studyManager with ${deck.cards.length} cards`);
@@ -56,7 +56,7 @@ class StudyManager {
   // TODO: change to Optional<Card>
   public getNextCard = (): ICard | undefined => {
     if (this.newCards) {
-      return this.newCards.shift(); // technically not efficient but whatevs for now :)
+      return this.newCards.shift(); // TODO technically not efficient but whatevs for now :)
     }
     if (this.reviewCards) {
       return this.reviewCards.shift();
