@@ -4,8 +4,8 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Continuing:
 
-- Figure out API. Should CardProviders really be returning Cards, or just IDs and StudyManager queries for cards? But then StudyManager has to handle built-in vs DB
-- StudySource based on this ordered list and the database query layer
+- Method in IDeck for determining if a card is built-in
+- StudyManager should get the actual card objects from either the DB or the built-ins
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it
 - ReviewCardProvider that for now just returns the one card from the server
