@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { CardId, ICard } from '../model/Card';
-import { IDeckInfo } from '../model/Deck';
+import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
 import DummyUserData from '../userData/DummyUserData';
 import NewCardChooser from './NewCardChooser';

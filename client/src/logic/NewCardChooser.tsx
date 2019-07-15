@@ -1,5 +1,5 @@
 import { CardId } from '../model/Card';
-import { IDeckInfo } from '../model/Deck';
+import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
 import { ICardChooser } from './CardChooser';
 

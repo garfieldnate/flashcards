@@ -8,7 +8,7 @@ import { AppGlobalsContext } from '../globals/GlobalsContext';
 import { IGlobalAppData } from '../globals/IGlobalAppData';
 import { useNavigation } from '../globals/NavigationUtils';
 import StudyManager from '../logic/StudyManager';
-import { IDeckInfo } from '../model/Deck';
+import { IDeckInfo } from '../model/DeckInfo';
 import { colors } from '../screens/Styles';
 
 export type NavParams = { deck: IDeckInfo; numDue: number };

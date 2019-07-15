@@ -4,7 +4,6 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Continuing:
 
-- Method in IDeck for determining if a card is built-in
 - StudyManager should get the actual card objects from either the DB or the built-ins
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it

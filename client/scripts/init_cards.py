@@ -56,14 +56,14 @@ def decks_to_js(langs, presentation_order):
     lines = []
     lines.append(
         "// Generated automatically with init_cards.py. EDITS WILL BE LOST!")
-    lines.append("import { IDeckInfo } from '../model/Deck';")
     lines.append("import BuiltinCard from './BuiltinCard';")
+    lines.append("import { BuiltinDeckData } from './BuiltinDeck';")
     for lang in langs:
         name = lang['english_name'].lower()
         lines.append(f"import {name}Deck from './cards-{name}'")
     lines.append(
         "// we have to explicitly require all of our files; dynamic require will not compile with Expo :(")
-    lines.append("const decks: IDeckInfo[] = [")
+    lines.append("const decks: BuiltinDeckData[] = [")
     for lang in langs:
         name = lang['english_name']
         po = [f'{name.lower()}-{vid}' for vid in presentation_order[lang['id']]]
@@ -71,9 +71,7 @@ def decks_to_js(langs, presentation_order):
         lines.append(f"    ID: '{name.lower()}',")
         lines.append(
             f"    builtinCards: {name.lower()}Deck.map((c) => new BuiltinCard(c)),")
-        lines.append("    getPresentationOrder() {")
-        lines.append(f"      return {po};")
-        lines.append("    },")
+        lines.append(f"    presentationOrder: {po},")
         lines.append(f"    name: '{name}',")
         lines.append(
             f"    thumbnail: require('../../assets/deckPreviews/images/{name.lower()}/thumbnail.png'),")

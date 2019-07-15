@@ -13,7 +13,7 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 import { AppGlobalsContext } from '../globals/GlobalsContext';
 import { IGlobalAppData } from '../globals/IGlobalAppData';
-import { IDeckInfo } from '../model/Deck';
+import { IDeckInfo } from '../model/DeckInfo';
 
 const AddDecksScreen = () => {
   const globals: IGlobalAppData = useContext(AppGlobalsContext);
