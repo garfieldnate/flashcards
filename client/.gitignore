@@ -9,4 +9,5 @@ npm-debug.*
 .vscode/
 assets/deckPreviews/
 src/builtinData/cards-*
+src/builtinData/BuiltinDecks.ts
 src/db/schemata/*.ts
