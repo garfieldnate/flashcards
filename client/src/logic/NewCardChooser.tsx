@@ -15,13 +15,16 @@ export default class NewCardChooser implements ICardChooser<number> {
     this.studyState = studyState;
   }
 
-  public getNewCards = (numLeft: number): CardId[] => {
+  public getNewCards = (numLeft: number) => {
     // TODO:
     // select a maximum of this.numLeft cards;
     // do not grab cards that have already been studied;
     // grab 10 cards from a category at a time;
     // cover more basic vocab categories first
 
-    return this.deck.getPresentationOrder().slice(0, 20);
+    return {
+      cardIds: this.deck.getPresentationOrder().slice(0, 20),
+      nextDueTime: 999999999,
+    };
   };
 }

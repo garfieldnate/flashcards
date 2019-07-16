@@ -17,7 +17,10 @@ export default class ReviewCardChooser implements ICardChooser<number> {
 
   // TODO: wouldn't a real DateTime type be better here?
   public getNewCards = (now: number) => {
-    return [];
+    return {
+      cardIds: [],
+      nextDueTime: 99999999,
+    };
     // const { cardsDue, nextDue } = this.cardData.getCardsDueBetween(
     //   this.lastUpdated,
     //   now

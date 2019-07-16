@@ -35,15 +35,20 @@ class StudyManager {
     // fill cards initially:
 
     const now = getDateTime();
-    const { reviewCards, nextDueTime } = this.reviewCardChooser.getNewCards(
-      now.unix()
-    );
-    this.nextDueTime = nextDueTime;
+    const {
+      cardIds: reviewCards,
+      nextDueTime: nextReviewTime,
+    } = this.reviewCardChooser.getNewCards(now.unix());
+    this.nextDueTime = nextReviewTime;
     this.updateStudyData(now);
 
     // TODO: max with number of cards left to study in deck
     const numLeft = this.getNumNewCardsLeftToday();
-    this.newCards = this.newCardChooser.getNewCards(numLeft);
+    const {
+      cardIds: newCards,
+      nextDueTime: nextNewTime,
+    } = this.newCardChooser.getNewCards(numLeft);
+    this.newCards = newCards;
     this.reviewCards = reviewCards;
 
     this.lastUpdated = now;
