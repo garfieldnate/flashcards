@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from 'react-native';
+import { Optional } from 'typescript-optional';
 import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 
@@ -33,7 +34,7 @@ export class BuiltinDeckInfo implements IDeckInfo {
   public isBuiltin(id: string): boolean {
     return this.builtinCards.has(id);
   }
-  public getBuiltin(id: string): ICard | undefined {
-    return this.builtinCards.get(id);
+  public getBuiltin(id: string): Optional<ICard> {
+    return Optional.ofNullable(this.builtinCards.get(id));
   }
 }

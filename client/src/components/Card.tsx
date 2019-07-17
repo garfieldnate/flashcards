@@ -27,9 +27,11 @@ export default class Card extends Component<IProps> {
     this.props.cardData
       .getForeignHeadwordAudio()
       .then((result) => {
-        this.recording = result;
-        this.recordingReady = true;
-        // console.log(`loaded audio for ${this.props.cardData.back}`);
+        result.ifPresent((sound) => {
+          this.recording = sound;
+          this.recordingReady = true;
+          // console.log(`loaded audio for ${this.props.cardData.back}`);
+        });
       })
       .catch((error) => {
         // console.log(`Couldn't load audio for ${this.props.cardData.back}`);

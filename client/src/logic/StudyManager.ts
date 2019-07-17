@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Optional } from 'typescript-optional';
 import { Database } from '../db/Database';
 import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
@@ -62,7 +63,7 @@ class StudyManager {
   }
 
   // TODO: change to a stream of cards
-  public getNextCard = async (): Promise<ICard | undefined> => {
+  public getNextCard = async (): Promise<Optional<ICard>> => {
     let newCardId;
     if (this.newCards) {
       newCardId = this.newCards.shift(); // TODO technically not efficient but whatevs for now :)
@@ -77,11 +78,11 @@ class StudyManager {
         const db = await this.database;
         const cards = await db.cards.getCardsById([newCardId]);
         if (cards) {
-          return cards[0];
+          return Optional.of(cards[0]);
         }
       }
     }
-    return;
+    return Optional.empty();
   };
 
   public updateStudyData = (currentTime: moment.Moment) => {

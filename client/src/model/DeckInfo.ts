@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from 'react-native';
+import { Optional } from 'typescript-optional';
 import { CardId, ICard } from './Card';
 
 export interface IDeckInfo {
@@ -11,5 +12,5 @@ export interface IDeckInfo {
    * @param id of card to retrieve
    * @returns the card if it is built-in, or undefined if it is not
    */
-  getBuiltin(id: CardId): ICard | undefined;
+  getBuiltin(id: CardId): Optional<ICard>;
 }

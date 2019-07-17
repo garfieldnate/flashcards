@@ -1,6 +1,7 @@
 import { Sound } from 'expo-av/build/Audio';
 import { ImageURISource } from 'react-native';
 import { RxCollection, RxDocument, RxJsonSchema } from 'rxdb';
+import { Optional } from 'typescript-optional';
 import { ICard } from '../model/Card';
 import { loadAudio } from '../utils/Audio';
 import { CollectionOpts } from './CollectionOpts';
@@ -11,8 +12,8 @@ import { CardSchema as CardDocType } from './schemata/card';
 // tslint:disable-next-line: no-var-requires
 const cardSchema: RxJsonSchema<CardDocType> = require('./schemata/card.json');
 type CardDocMethods = {
-  getForeignHeadwordAudio: () => Promise<Sound | undefined>;
-  getImage: () => Promise<ImageURISource | undefined>;
+  getForeignHeadwordAudio: () => Promise<Optional<Sound>>;
+  getImage: () => Promise<Optional<ImageURISource>>;
 };
 export type CardDocument = RxDocument<CardDocType, CardDocMethods>;
 
@@ -20,19 +21,19 @@ const cardDocMethods: CardDocMethods = {
   async getForeignHeadwordAudio(this: CardDocument) {
     const attachment = await this.getAttachment('foreignHeadwordAudio');
     if (!attachment) {
-      return undefined;
+      return Optional.empty();
     }
     const dataBlob = attachment.getData();
     const sound = await loadAudio({ uri: URL.createObjectURL(dataBlob) });
-    return sound;
+    return Optional.of(sound);
   },
   async getImage(this: CardDocument) {
     const attachment = await this.getAttachment('image');
     if (!attachment) {
-      return undefined;
+      return Optional.empty();
     }
     const dataBlob = attachment.getData();
-    return { uri: URL.createObjectURL(dataBlob) };
+    return Optional.of({ uri: URL.createObjectURL(dataBlob) });
   },
 };
 type CardCollectionMethods = {
