@@ -12,7 +12,6 @@ function getDateTime() {
 }
 
 class StudyManager {
-  private deck: IDeckInfo;
   private prefs: UserDeckData['prefs'];
   private studyState: UserDeckData['studyState'];
   // TODO: declare these as baser interface type
@@ -23,11 +22,12 @@ class StudyManager {
   private reviewCards: CardId[];
   private lastUpdated: moment.Moment;
   private cards: ICard[];
-  private database: Promise<Database>;
-  constructor(deck: IDeckInfo, userData: DummyUserData, db: Promise<Database>) {
+  constructor(
+    public deck: IDeckInfo,
+    userData: DummyUserData,
+    private database: Promise<Database>
+  ) {
     this.cards = [];
-    this.deck = deck;
-    this.database = db;
     // console.log(`created studyManager with ${deck.cards.length} cards`);
     const { prefs, studyState } = userData.getUserDeckData(deck.getId());
     this.prefs = prefs;

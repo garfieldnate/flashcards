@@ -4,10 +4,7 @@ import { ICard } from '../model/Card';
 import { CardDocument } from './CardCollection';
 
 export default class DBCard implements ICard {
-  public doc: CardDocument;
-  constructor(doc: CardDocument) {
-    this.doc = doc;
-  }
+  constructor(private doc: CardDocument) {}
   public getId(): string {
     return this.doc.id;
   }

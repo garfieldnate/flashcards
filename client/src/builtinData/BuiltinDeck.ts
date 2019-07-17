@@ -11,10 +11,8 @@ export type BuiltinDeckData = {
 };
 
 export class BuiltinDeckInfo implements IDeckInfo {
-  private data: BuiltinDeckData;
   private builtinCards: Map<string, ICard>;
-  constructor(data: BuiltinDeckData) {
-    this.data = data;
+  constructor(private data: BuiltinDeckData) {
     this.builtinCards = data.builtinCards.reduce((map, c) => {
       map.set(c.getId(), c);
       return map;

@@ -16,10 +16,7 @@ export type BuiltinCardData = {
 };
 
 export default class BuiltinCard implements ICard {
-  private cardData: BuiltinCardData;
-  constructor(cardData: BuiltinCardData) {
-    this.cardData = cardData;
-  }
+  constructor(private cardData: BuiltinCardData) {}
   public getId(): string {
     return this.cardData.ID;
   }
