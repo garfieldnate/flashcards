@@ -14,14 +14,14 @@ const createArrayToFunctionProxy = (
 
   // look ahead stackSize Cards so that we can properly report the array
   // length when it matters to the swiper component
-  const addBufferCards = (index: number) => {
+  const addBufferCards = async (index: number) => {
     const bufferNeeded = Math.max(0, index - generatedCards.length + stackSize);
     // console.log("generatedCards.length: " + generatedCards.length)
     // console.log("index: " + index)
     // console.log("stackSize: " + stackSize)
     // console.log("adding buffer: " + bufferNeeded)
     for (let i = 0; i < bufferNeeded; i += 1) {
-      const newCard = studyManager.getNextCard();
+      const newCard = await studyManager.getNextCard();
       if (newCard) {
         generatedCards.push(newCard);
       } else {
@@ -48,7 +48,7 @@ const createArrayToFunctionProxy = (
         // console.log("returning previous: " + generatedCards[name])
         return generatedCards[name];
       }
-      const newCard = studyManager.getNextCard();
+      const newCard = await studyManager.getNextCard();
       if (newCard) {
         generatedCards.push(newCard);
         // console.log("returning new: " + newCard)

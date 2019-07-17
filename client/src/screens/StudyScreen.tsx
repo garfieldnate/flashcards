@@ -21,7 +21,8 @@ const StudyScreen = () => {
 
   const studyManager = new StudyManager(
     navigation.state.params!.deck,
-    globals.userData
+    globals.userData,
+    globals.database
   );
 
   return (
@@ -55,7 +56,7 @@ StudyScreen.navigationOptions = ({
   const numDue = navigation.state.params.numDue;
   return {
     headerRight: renderRightHeader(numDue),
-    title: deck.name,
+    title: deck.getName(),
   };
 };
 const styles = StyleSheet.create({

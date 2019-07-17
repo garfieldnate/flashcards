@@ -16,17 +16,14 @@ interface IProps {
   onDelete: (cardData: CardData) => void;
 }
 
-interface IState {
-  dbCard?: string;
-}
-
-export default class Card extends Component<IProps, IState> {
+export default class Card extends Component<IProps> {
   private recording?: Sound;
   private recordingReady: boolean = false;
   private cardRef = React.createRef<CardFlip>();
 
   constructor(props: IProps) {
     super(props);
+    console.log(`cardData is ${this.props.cardData.getHeadwordUserLang('')}`);
     this.props.cardData
       .getForeignHeadwordAudio()
       .then((result) => {

@@ -67,12 +67,12 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
           {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
           <Thumbnail
             square
-            source={deck.thumbnail}
+            source={deck.getThumbnail()}
             style={{ width: 49, height: 49 }}
           />
         </Left>
         <Body>
-          <Text>{deck.name}</Text>
+          <Text>{deck.getName()}</Text>
         </Body>
         <Right>
           <Text>{numDue}</Text>

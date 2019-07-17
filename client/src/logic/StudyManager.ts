@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Database } from '../db/Database';
 import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
@@ -19,14 +20,16 @@ class StudyManager {
   private newCardChooser: NewCardChooser;
   private nextDueTime: number;
   private newCards: CardId[];
-  private reviewCards: ICard[];
+  private reviewCards: CardId[];
   private lastUpdated: moment.Moment;
   private cards: ICard[];
-  constructor(deck: IDeckInfo, userData: DummyUserData) {
+  private database: Promise<Database>;
+  constructor(deck: IDeckInfo, userData: DummyUserData, db: Promise<Database>) {
     this.cards = [];
     this.deck = deck;
+    this.database = db;
     // console.log(`created studyManager with ${deck.cards.length} cards`);
-    const { prefs, studyState } = userData.getUserDeckData(deck.ID);
+    const { prefs, studyState } = userData.getUserDeckData(deck.getId());
     this.prefs = prefs;
     this.studyState = studyState;
     this.reviewCardChooser = new ReviewCardChooser(prefs, studyState);
@@ -58,13 +61,25 @@ class StudyManager {
     // this.interval = setInterval(this.update, 60000);
   }
 
-  // TODO: change to Optional<Card>
-  public getNextCard = (): ICard | undefined => {
+  // TODO: change to a stream of cards
+  public getNextCard = async (): Promise<ICard | undefined> => {
+    let newCardId;
     if (this.newCards) {
-      return this.newCards.shift(); // TODO technically not efficient but whatevs for now :)
+      newCardId = this.newCards.shift(); // TODO technically not efficient but whatevs for now :)
+    } else if (this.reviewCards) {
+      newCardId = this.reviewCards.shift();
     }
-    if (this.reviewCards) {
-      return this.reviewCards.shift();
+    if (newCardId) {
+      const newCard = this.deck.getBuiltin(newCardId);
+      if (newCard) {
+        return newCard;
+      } else {
+        const db = await this.database;
+        const cards = await db.cards.getCardsById([newCardId]);
+        if (cards) {
+          return cards[0];
+        }
+      }
     }
     return;
   };
@@ -86,9 +101,10 @@ class StudyManager {
     // get review cards that are due now
     const now = getDateTime();
     if (now.unix() > this.nextDueTime) {
-      const { reviewCards, nextDueTime } = this.reviewCardChooser.getNewCards(
-        now.unix()
-      );
+      const {
+        cardIds: reviewCards,
+        nextDueTime,
+      } = this.reviewCardChooser.getNewCards(now.unix());
       reviewCards.forEach((c) => this.cards.push(c));
       this.lastUpdated = now;
       this.nextDueTime = nextDueTime;

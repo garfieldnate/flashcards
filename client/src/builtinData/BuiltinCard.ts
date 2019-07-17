@@ -3,7 +3,7 @@ import { ImageSourcePropType } from 'react-native';
 import { ICard } from '../model/Card';
 import { loadAudio } from '../utils/Audio';
 
-type BuiltinCardData = {
+export type BuiltinCardData = {
   ID: string;
   headwordForeignLang: string;
   headwordUserLang: string;

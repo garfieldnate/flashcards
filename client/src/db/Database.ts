@@ -25,6 +25,17 @@ export const database: Promise<Database> = RxDB.create<DatabaseCollections>({
   multiInstance: false,
   name: dbName,
 }).then(async (db) => {
+  // deletes the whole DB if needed. Only for development when changing a collection's schema!
+  // const colPouch = db._collectionsPouch;
+  // const docsRes = await colPouch.allDocs();
+  // await Promise.all(
+  //   docsRes.rows
+  //     .map((row) => ({
+  //       _id: row.key,
+  //       _rev: row.value.rev,
+  //     }))
+  //     .map((doc) => colPouch.remove(doc._id, doc._rev))
+  // );
   await createCollections(db);
   return db;
 });

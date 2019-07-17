@@ -1,5 +1,7 @@
 // import React from 'react';
+import { Sound } from 'expo-av/build/Audio';
 import * as React from 'react';
+import { ImageURISource } from 'react-native';
 import * as renderer from 'react-test-renderer';
 import { ICard } from '../model/Card';
 import Card from './Card';
@@ -23,16 +25,11 @@ class DummyCard implements ICard {
   public getHeadwordUserLang(userLang: string): string {
     return 'hello';
   }
-  public getForeignHeadwordAudio(): Promise<
-    import('expo-av/build/Audio').Sound | undefined
-  > {
+  public getForeignHeadwordAudio(): Promise<Sound | undefined> {
     return Promise.resolve(undefined);
   }
   public getImage(): Promise<
-    | number
-    | import('react-native').ImageURISource
-    | Array<import('react-native').ImageURISource>
-    | undefined
+    number | ImageURISource | ImageURISource[] | undefined
   > {
     return Promise.resolve(undefined);
   }

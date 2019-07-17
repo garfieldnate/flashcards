@@ -4,10 +4,24 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Continuing:
 
-- StudyManager should get the actual card objects from either the DB or the built-ins
+- CreateArrayToFunctionProxy.ts doesn't really work anymore, does it? Fork the card swiper and make it take a stream instead.
+- run without DB cards to make sure everything works
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it
-- ReviewCardProvider that for now just returns the one card from the server
+
+Refactoring: get rid of | undefined types. Apparently it's considered attrocious. Do like this instead:
+
+export interface ICard {
+getId(): CardId;
+getHeadwordForeignLang(): string;
+getCategory(): string;
+getExampleForeignLang(): {example?: string, present: boolean};
+getExampleUserLang(userLang: string): {example?: string, present: boolean};
+getHeadwordUserLang(userLang: string): string;
+getForeignHeadwordAudio(): Promise<{sound: Sound, present: boolean}>;
+getImage(): Promise<{source: mageSourcePropType, present: boolean}>;
+}
+
 - (Script to) dump SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading

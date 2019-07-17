@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from 'react-native';
 import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 
@@ -25,7 +26,7 @@ export class BuiltinDeckInfo implements IDeckInfo {
   public getName(): string {
     return this.data.name;
   }
-  public getThumbnail(): import('react-native').ImageSourcePropType {
+  public getThumbnail(): ImageSourcePropType {
     return this.data.thumbnail;
   }
   public getPresentationOrder(): string[] {
