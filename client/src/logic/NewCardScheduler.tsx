@@ -1,12 +1,12 @@
 import { CardId } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
-import { ICardChooser } from './CardChooser';
+import { ICardScheduler } from './CardScheduler';
 
 // TODO: all of the logic for choosing how many new cards to get should reside
 // in the parent StudyManager. This class should only concern itself with which new cards to pick.
 
-export default class NewCardChooser implements ICardChooser<number> {
+export default class NewCardScheduler implements ICardScheduler<number> {
   private deck: IDeckInfo;
   private studyState: UserDeckData['studyState'];
   constructor(deck: IDeckInfo, studyState: UserDeckData['studyState']) {

@@ -1,9 +1,9 @@
 import moment from 'moment';
 import shuffle from 'shuffle-array';
 import { UserDeckData } from '../model/UserDeckData';
-import { ICardChooser } from './CardChooser';
+import { ICardScheduler } from './CardScheduler';
 
-export default class ReviewCardChooser implements ICardChooser<number> {
+export default class ReviewCardScheduler implements ICardScheduler<number> {
   private cardData: UserDeckData['studyState']['cardData'];
   private lastUpdated: number;
   // private nextDue: number;

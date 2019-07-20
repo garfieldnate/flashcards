@@ -5,8 +5,8 @@ import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
 import DummyUserData from '../userData/DummyUserData';
-import NewCardChooser from './NewCardChooser';
-import ReviewCardChooser from './ReviewCardChooser';
+import NewCardScheduler from './NewCardScheduler';
+import ReviewCardScheduler from './ReviewCardScheduler';
 
 function getDateTime() {
   return moment();
@@ -16,8 +16,8 @@ class StudyManager {
   private prefs: UserDeckData['prefs'];
   private studyState: UserDeckData['studyState'];
   // TODO: declare these as baser interface type
-  private reviewCardChooser: ReviewCardChooser;
-  private newCardChooser: NewCardChooser;
+  private reviewCardChooser: ReviewCardScheduler;
+  private newCardChooser: NewCardScheduler;
   private nextDueTime: number;
   private newCards: CardId[];
   private reviewCards: CardId[];
@@ -33,8 +33,8 @@ class StudyManager {
     const { prefs, studyState } = userData.getUserDeckData(deck.getId());
     this.prefs = prefs;
     this.studyState = studyState;
-    this.reviewCardChooser = new ReviewCardChooser(prefs, studyState);
-    this.newCardChooser = new NewCardChooser(deck, studyState);
+    this.reviewCardChooser = new ReviewCardScheduler(prefs, studyState);
+    this.newCardChooser = new NewCardScheduler(deck, studyState);
 
     // fill cards initially:
 

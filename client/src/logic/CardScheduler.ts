@@ -5,6 +5,6 @@ export type GetNewCardsReturnType = {
   nextDueTime: number;
 };
 
-export interface ICardChooser<GetNewCardsParam> {
+export interface ICardScheduler<GetNewCardsParam> {
   getNewCards(arg: GetNewCardsParam): GetNewCardsReturnType;
 }

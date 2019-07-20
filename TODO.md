@@ -4,7 +4,6 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Game plan:
 
-- Choosers renamed to Schedulers
 - Choosers contain a function that returns an observable array
 - StudyManager has a function that returns an observable array of cards to be studied. The array is not an instance variable, it's made every time the function is called. It is only ever added to.
 - StudyManager exposes a registerStudyResult() method that removes the card from the beginning of future calls to getObservableArrayOfCardsToStudy(). This has to know which scheduler provided the card, or it has to call remove on all of them.
