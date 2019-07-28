@@ -7,7 +7,7 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
 import { ICard as CardData } from '../model/Card';
-import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
+// import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
 import ConfirmationModal from './ConfirmationModal';
 
 import Card from './Card';
@@ -33,10 +33,7 @@ class Stage extends Component<IProps, IState> {
   private swiperRef = React.createRef<Swiper>();
   constructor(props: Readonly<IProps>) {
     super(props);
-    const cardData = createArrayToFunctionProxy(
-      this.props.studyManager,
-      STACK_SIZE
-    );
+    const cardData = this.props.studyManager.getCardsDue();
     this.state = {
       cardData,
       deleteModalVisible: false,
@@ -46,6 +43,7 @@ class Stage extends Component<IProps, IState> {
   }
 
   public renderCard = (cardData: CardData, index: number) => {
+    console.log(`Rendering card ${cardData.getId()}`);
     return (
       <Card
         cardData={cardData}
@@ -86,6 +84,7 @@ class Stage extends Component<IProps, IState> {
     const greatScore = () => this.score('great');
     const flipTopCard = () =>
       this.flipCard(this.swiperRef.current!.state.firstCardIndex);
+    console.log(`rendering swiper; ${this.state.cardData.length}`);
     return (
       <Swiper
         containerStyle={styles.swiper}
@@ -97,7 +96,7 @@ class Stage extends Component<IProps, IState> {
         onTapCard={this.flipCard}
         onSwipedAborted={flipTopCard}
         onSwipedAll={this.onSwipedAllCards}
-        cards={this.state.cardData}
+        cards={this.state.cardData.slice()}
         renderCard={this.renderCard}
         stackSize={STACK_SIZE}
         stackSeparation={15}

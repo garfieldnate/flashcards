@@ -84,23 +84,25 @@ export default class Card extends Component<IProps> {
     let separator: JSX.Element | undefined;
     let userLangExample: JSX.Element | undefined;
     if (
-      !this.props.cardData.getExampleForeignLang() &&
-      !this.props.cardData.getExampleUserLang('TODO: user lang here')
+      this.props.cardData.getExampleForeignLang().isEmpty() &&
+      this.props.cardData.getExampleUserLang('TODO: user lang here').isEmpty()
     ) {
       return null;
     }
 
-    if (this.props.cardData.getExampleForeignLang()) {
+    if (this.props.cardData.getExampleForeignLang().isPresent()) {
       foreignExample = (
         <Text style={styles.exampleText}>
-          {this.props.cardData.getExampleForeignLang()}
+          {this.props.cardData.getExampleForeignLang().get()}
         </Text>
       );
     }
-    if (this.props.cardData.getExampleUserLang('TODO: user lang here')) {
+    if (
+      this.props.cardData.getExampleUserLang('TODO: user lang here').isPresent()
+    ) {
       userLangExample = (
         <Text style={styles.exampleText}>
-          {this.props.cardData.getExampleUserLang('TODO: user lang here')}
+          {this.props.cardData.getExampleUserLang('TODO: user lang here').get()}
         </Text>
       );
     }

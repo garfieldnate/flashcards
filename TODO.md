@@ -4,8 +4,8 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Game plan:
 
+- StudyManager should be permanent object created and stored globally for all decks user is studying. Then we can keep track of the number of cards due and also display it.
 - StudyManager tracks number of cards due in an instance variable subscribed to all card schedulers. registerStudyResult() function minuses a card, streams plus a card.
-- StudyManager has a function that returns an observable array of cards to be studied. The array is not an instance variable, it's made every time the function is called. It is only ever added to.
 
 Continuing:
 
@@ -29,6 +29,19 @@ How it works:
 - Sqlite adapter would be faster, but this is what we have to work with for now. So many bugs in this thing!
 
 ### Bugs
+
+- Await for resolution of https://github.com/alexbrillant/react-native-deck-swiper/pull/245. Until then, we have to patch react-native-deck-swiper with the following:
+
+      	static getDerivedStateFromProps(props, state) {
+      	if (props.cards !== state.cards) {
+      		return {
+      		cards: props.cards,
+      		...calculateCardIndexes(props.cardIndex, props.cards),
+      		};
+      	}
+      	// no state change
+      	return null;
+      	}
 
 ### User Stories
 
