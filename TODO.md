@@ -4,12 +4,8 @@ Current: when the user selects a deck, the beginner vocab is downloaded from the
 
 Game plan:
 
-- Choosers contain a function that returns an observable array
+- StudyManager tracks number of cards due in an instance variable subscribed to all card schedulers. registerStudyResult() function minuses a card, streams plus a card.
 - StudyManager has a function that returns an observable array of cards to be studied. The array is not an instance variable, it's made every time the function is called. It is only ever added to.
-- StudyManager exposes a registerStudyResult() method that removes the card from the beginning of future calls to getObservableArrayOfCardsToStudy(). This has to know which scheduler provided the card, or it has to call remove on all of them.
-- card schedulers do not need a remove function.
-
-This lets us use a push model: schedulers push to studymanager, which pushes to Stage, which pushes to the swiper, etc. The pull model, i.e. studyManager.getNext() was awkward because it meant that the presentational components had to take care of initiating the update, which is not what we want. It also required major workarounds, since the swiper requires an array as input.
 
 Continuing:
 

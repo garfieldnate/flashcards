@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { CardId } from '../model/Card';
 
 export type GetNewCardsReturnType = {
@@ -5,6 +6,7 @@ export type GetNewCardsReturnType = {
   nextDueTime: number;
 };
 
-export interface ICardScheduler<GetNewCardsParam> {
-  getNewCards(arg: GetNewCardsParam): GetNewCardsReturnType;
+export interface ICardScheduler {
+  // TODO: change type to {cards, nextDue}
+  getNewCardObservable(): Observable<CardId>;
 }
