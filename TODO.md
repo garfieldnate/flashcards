@@ -9,7 +9,6 @@ Game plan:
 
 Continuing:
 
-- CreateArrayToFunctionProxy.ts doesn't really work anymore, does it? Fork the card swiper and make it take a stream instead.
 - run without DB cards to make sure everything works
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it
