@@ -6,9 +6,9 @@ import DummyUserData from '../userData/DummyUserData';
 import { IGlobalAppData } from './IGlobalAppData';
 
 class DummyGlobalAppData implements IGlobalAppData {
-  public userData = new DummyUserData();
   public deckProvider: IDeckProvider = new BuiltinDeckProvider();
   public database = Promise.reject(); // TODO: mock DB here
+  public userData = new DummyUserData(this.database);
 }
 
 export const AppGlobalsContext = createContext<IGlobalAppData>(

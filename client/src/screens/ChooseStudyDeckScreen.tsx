@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react';
+import { Observer, observer } from 'mobx-react';
 import {
   Body,
   Container,
@@ -22,6 +22,7 @@ import {
   INavStatelessComponent,
   useNavigation,
 } from '../globals/NavigationUtils';
+import StudyManager from '../logic/StudyManager';
 import { NavParams as StudyScreenNavParams } from './StudyScreen';
 const asStudyScreenNavParams = (params: StudyScreenNavParams) => params;
 
@@ -29,7 +30,7 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
   const globals: IGlobalAppData = useContext(AppGlobalsContext);
   const navigation = useNavigation<{}>();
 
-  const identityKeyExtractor = (item: any) => item;
+  const deckNameKeyExtractor = (s: StudyManager) => s.deck.getId();
   const renderDeckList = () => (
     // disableRightSwipe
     // rightOpenValue={-75}
@@ -39,46 +40,44 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
     //   </Button>}
     <Container>
       <Content>
-        <FlatList<string>
-          data={Array.from(globals.userData.studySources).slice()}
+        <FlatList<StudyManager>
+          data={Array.from(globals.userData.getStudySources()).slice()}
           renderItem={renderItem}
-          keyExtractor={identityKeyExtractor}
+          keyExtractor={deckNameKeyExtractor}
         />
       </Content>
     </Container>
   );
 
-  const renderItem = (listItem: ListRenderItemInfo<string>) => {
-    const deck = globals.deckProvider.getDeck(listItem.item);
-    const numDue = globals.userData
-      .getUserDeckData(listItem.item)
-      .studyState.cardData.getCardsDue();
+  const renderItem = (listItem: ListRenderItemInfo<StudyManager>) => {
+    const studyManager = listItem.item;
+    console.log(studyManager.deck.getId());
     const navigateToStudyScreen = () =>
       navigation.navigate(
         'Study',
         asStudyScreenNavParams({
-          deck,
-          numDue,
+          studyManager,
         })
       );
-    return (
+    const renderer = () => (
       <ListItem thumbnail onPress={navigateToStudyScreen}>
         <Left>
           {/*https://github.com/GeekyAnts/NativeBase/issues/2513*/}
           <Thumbnail
             square
-            source={deck.getThumbnail()}
+            source={studyManager.deck.getThumbnail()}
             style={{ width: 49, height: 49 }}
           />
         </Left>
         <Body>
-          <Text>{deck.getName()}</Text>
+          <Text>{studyManager.deck.getName()}</Text>
         </Body>
         <Right>
-          <Text>{numDue}</Text>
+          <Text>{studyManager.getNumDue().get()}</Text>
         </Right>
       </ListItem>
     );
+    return <Observer>{renderer}</Observer>;
   };
 
   const renderAddDeckNotice = () => {
@@ -93,7 +92,7 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
   };
 
   let contents: JSX.Element;
-  if (globals.userData.studySources.size === 0) {
+  if (globals.userData.getStudyDecks().size === 0) {
     contents = renderAddDeckNotice();
   } else {
     contents = renderDeckList();

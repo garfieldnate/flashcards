@@ -1,18 +1,41 @@
-import { ObservableMap, ObservableSet } from 'mobx';
+import { observable, ObservableMap, ObservableSet } from 'mobx';
 import moment from 'moment';
+import { Database } from '../db/Database';
+import StudyManager from '../logic/StudyManager';
+import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
 
 export default class DummyUserData {
-  private STUDY_SOURCES = new ObservableSet<string>();
+  private studyDecks = new ObservableSet<string>();
+  @observable
+  private studyManagers: StudyManager[] = [];
   private allUserDeckData = new ObservableMap<string, UserDeckData>();
 
-  public addNewStudySource = (sourceID: string) => {
-    this.STUDY_SOURCES.add(sourceID);
-  };
+  constructor(private database: Promise<Database>) {}
 
-  get studySources() {
-    return this.STUDY_SOURCES;
+  public getStudyDecks() {
+    return this.studyDecks;
   }
+
+  // Next: change studySources to observableArray of studymanagers;
+  // add method to studymanager that returns deckinfo;
+  // also created UserData interface
+  public getStudySources() {
+    return this.studyManagers;
+  }
+
+  public addNewStudySource = (sourceDeck: IDeckInfo) => {
+    if (!this.studyDecks.has(sourceDeck.getId())) {
+      this.studyDecks.add(sourceDeck.getId());
+      this.studyManagers.push(
+        new StudyManager(
+          sourceDeck,
+          this.getUserDeckData(sourceDeck.getId()),
+          this.database
+        )
+      );
+    }
+  };
 
   public getUserDeckData = (sourceID: string): UserDeckData => {
     let userDeckData = this.allUserDeckData.get(sourceID);

@@ -19,13 +19,12 @@ const AddDecksScreen = () => {
   const globals: IGlobalAppData = useContext(AppGlobalsContext);
 
   const renderDeck = ({ item }: { item: IDeckInfo }) => {
-    const addNewStudySource = () =>
-      globals.userData.addNewStudySource(item.getId());
+    const addNewStudySource = () => globals.userData.addNewStudySource(item);
     const makeDeckElement = () => (
       <ListItem
         thumbnail
         onPress={addNewStudySource}
-        disabled={globals.userData.studySources.has(item.getId())}
+        disabled={globals.userData.getStudyDecks().has(item.getId())}
       >
         <Left>
           <Thumbnail
@@ -37,7 +36,7 @@ const AddDecksScreen = () => {
         <Body>
           <Text>{item.getName()}</Text>
         </Body>
-        {globals.userData.studySources.has(item.getId()) ? (
+        {globals.userData.getStudyDecks().has(item.getId()) ? (
           <Right>
             <Text>Added!</Text>
           </Right>

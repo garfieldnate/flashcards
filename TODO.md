@@ -1,11 +1,8 @@
 # TODO
 
-Current: when the user selects a deck, the beginner vocab is downloaded from the server immediately
+Current:
 
-Game plan:
-
-- StudyManager should be permanent object created and stored globally for all decks user is studying. Then we can keep track of the number of cards due and also display it.
-- StudyManager tracks number of cards due in an instance variable subscribed to all card schedulers. registerStudyResult() function minuses a card, streams plus a card.
+- when the user selects a deck, the beginner vocab is downloaded from the server immediately
 
 Continuing:
 
@@ -44,17 +41,16 @@ How it works:
 
 ### User Stories
 
+- An image associated with a card is shown as its background.
 - The decks the user selected are saved permanently/available offline
 - Which decks the user selected are backed up to a server
 - When the user reviews a card, the result is saved permanently
 - Review data is backed up to a server
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)
-- the number of cards due is displayed in the upper right header of StudyScreen
 - deleting a card makes it not come back forever
 - When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
 - Multi-user support (detailed stories are TODO)
 - When a deck is downloaded, the deck styling is also downloaded and used for card display (test with Thai, which needs a bigger font and probably a specific font)
-- An image associated with a card is shown as its background.
 - When a card is displayed and the image is too small or too big in one dimension, the picture is scaled gracefully and a background coloring is applied to the empty space
 - User can undo last card swipe
 
@@ -91,6 +87,7 @@ General TODOs:
 
 ### Design Stories
 
+- Real UI/styling for "some cards could not be retrieved" notice (similar to AddDeckNotice in style)
 - Add explicit styling for headers (see how number of cards is not vertically aligned with the rest of the header in StudyScreen?)
 - Flag thumbnails should be shaped like the flag (not square)
 - Better background image for cards without an associated image

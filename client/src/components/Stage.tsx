@@ -3,13 +3,14 @@
 import { observer } from 'mobx-react';
 import { Icon } from 'native-base';
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import StudyManager from '../logic/StudyManager';
-import { ICard as CardData } from '../model/Card';
-// import createArrayToFunctionProxy from '../utils/CreateArrayToFunctionProxy';
+import { CardId, ICard as CardData } from '../model/Card';
 import ConfirmationModal from './ConfirmationModal';
 
+import { IObservableValue } from 'mobx';
+import { StudyResult } from '../logic/StudyResult';
 import Card from './Card';
 import cardLayout from './CardLayout';
 
@@ -21,7 +22,8 @@ interface IProps {
 }
 
 interface IState {
-  cardData: CardData[]; // is actually a CardData[], but we are using a Proxy for now, so we have to do this
+  cardData: CardData[];
+  hadRetrievalError: IObservableValue<boolean>;
   renderedCards: Card[];
   swipedAllCards: boolean;
   deleteModalVisible: boolean;
@@ -33,10 +35,14 @@ class Stage extends Component<IProps, IState> {
   private swiperRef = React.createRef<Swiper>();
   constructor(props: Readonly<IProps>) {
     super(props);
-    const cardData = this.props.studyManager.getCardsDue();
+    const {
+      cardsDue: cardData,
+      hadRetrievalError,
+    } = this.props.studyManager.getCardsDue();
     this.state = {
       cardData,
       deleteModalVisible: false,
+      hadRetrievalError,
       renderedCards: [],
       swipedAllCards: false,
     };
@@ -54,8 +60,8 @@ class Stage extends Component<IProps, IState> {
     );
   };
 
-  public score = (result: string) => {
-    console.log(`TODO: handle getting score of ${result}`);
+  public score = (cardId: CardId, result: StudyResult) => {
+    this.props.studyManager.registerStudyResult(cardId, result);
   };
 
   public flipCard = (index: number) => {
@@ -79,12 +85,22 @@ class Stage extends Component<IProps, IState> {
     if (this.state.cardData.length === 0) {
       return;
     }
-    const badScore = () => this.score('bad');
-    const okScore = () => this.score('ok');
-    const greatScore = () => this.score('great');
+    const getTopCardId = () =>
+      this.state.renderedCards[
+        this.swiperRef.current!.state.firstCardIndex
+      ].props.cardData.getId();
+    const badScore = () => this.score(getTopCardId(), StudyResult.Bad);
+    const okScore = () => this.score(getTopCardId(), StudyResult.Ok);
+    const greatScore = () => this.score(getTopCardId(), StudyResult.Good);
     const flipTopCard = () =>
       this.flipCard(this.swiperRef.current!.state.firstCardIndex);
     console.log(`rendering swiper; ${this.state.cardData.length}`);
+    let retrievalErrorEl = null;
+    if (this.state.hadRetrievalError) {
+      retrievalErrorEl = (
+        <Text>Some card data could not be retrieved from the server :(</Text>
+      );
+    }
     return (
       <Swiper
         containerStyle={styles.swiper}
@@ -118,7 +134,9 @@ class Stage extends Component<IProps, IState> {
           height / 4,
         ]}
         overlayOpacityVerticalThreshold={height / 12}
-      />
+      >
+        {retrievalErrorEl}
+      </Swiper>
     );
   };
 

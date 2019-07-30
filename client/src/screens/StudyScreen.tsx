@@ -1,4 +1,5 @@
-import { Observer } from 'mobx-react';
+import { IObservableValue } from 'mobx';
+import { Observer, observer } from 'mobx-react';
 import { Icon, Text } from 'native-base';
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -11,32 +12,24 @@ import StudyManager from '../logic/StudyManager';
 import { IDeckInfo } from '../model/DeckInfo';
 import { colors } from '../screens/Styles';
 
-export type NavParams = { deck: IDeckInfo; numDue: number };
+export type NavParams = { studyManager: StudyManager };
 
 type Navigation = NavigationScreenProp<NavigationState, NavParams>;
 
 const StudyScreen = () => {
-  const globals: IGlobalAppData = useContext(AppGlobalsContext);
   const navigation = useNavigation<NavParams>();
-
-  const studyManager = new StudyManager(
-    navigation.state.params!.deck,
-    globals.userData,
-    globals.database
-  );
-
   return (
     <View style={styles.container}>
-      <Stage studyManager={studyManager} />
+      <Stage studyManager={navigation.state.params!.studyManager} />
     </View>
   );
 };
 export default StudyScreen;
 
-const renderRightHeader = (numDue: number) => {
+const renderRightHeader = (numDue: IObservableValue<number>) => {
   const renderer = () => (
     <Text style={{ color: colors.headerText }}>
-      {numDue}
+      {numDue.get()}
       <Icon
         style={{ color: colors.headerText }}
         type='MaterialCommunityIcons'
@@ -52,11 +45,10 @@ StudyScreen.navigationOptions = ({
 }: {
   navigation: Navigation;
 }) => {
-  const deck: IDeckInfo = navigation.state.params.deck;
-  const numDue = navigation.state.params.numDue;
+  const studyManager: StudyManager = navigation.state.params!.studyManager;
   return {
-    headerRight: renderRightHeader(numDue),
-    title: deck.getName(),
+    headerRight: renderRightHeader(studyManager.getNumDue()),
+    title: studyManager.deck.getName(),
   };
 };
 const styles = StyleSheet.create({
