@@ -6,7 +6,6 @@ Current:
 
 Continuing:
 
-- run without DB cards to make sure everything works
 - Create one textual card on server and display it
 - Create one card image/audio on server and display it
 - (Script to) dump SQLite DB into couchDB
