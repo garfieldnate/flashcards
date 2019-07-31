@@ -1,0 +1,20 @@
+--- node_modules/react-native-deck-swiper/Swiper.js
++++ node_modules/react-native-deck-swiper/Swiper.js
+@@ -81,6 +81,17 @@
+     return propsChanged || stateChanged
+   }
+
++  static getDerivedStateFromProps(props, state) {
++    if (props.cards !== state.cards) {
++      return {
++        cards: props.cards,
++        ...calculateCardIndexes(props.cardIndex, props.cards),
++      };
++    }
++    // no state change
++    return null;
++  }
++
+   componentWillUnmount = () => {
+     this._mounted = false
+     this.state.pan.x.removeAllListeners()

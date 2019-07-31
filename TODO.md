@@ -6,12 +6,10 @@ Current:
 
 Continuing:
 
-- Create one textual card on server and display it
 - Create one card image/audio on server and display it
 - (Script to) dump SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading
-- display downloaded cards after the builtin ones (new NewCardProvider)
 - make sure DB is read-only!
 - dockerize DB setup
 - ?fork or do whatever it takes to get SQLite version working?
@@ -25,18 +23,8 @@ How it works:
 
 ### Bugs
 
-- Await for resolution of https://github.com/alexbrillant/react-native-deck-swiper/pull/245. Until then, we have to patch react-native-deck-swiper with the following:
-
-      	static getDerivedStateFromProps(props, state) {
-      	if (props.cards !== state.cards) {
-      		return {
-      		cards: props.cards,
-      		...calculateCardIndexes(props.cardIndex, props.cards),
-      		};
-      	}
-      	// no state change
-      	return null;
-      	}
+- Await for resolution of https://github.com/alexbrillant/react-native-deck-swiper/pull/245. Until then, we have to patch react-native-deck-swiper (done automatically with postinstall hook)
+- Also awaiting update of jest-expo (https://github.com/expo/expo/issues/4503). Fixed via postinstall hook.
 
 ### User Stories
 
@@ -48,7 +36,7 @@ How it works:
 - The review schedule is adjusted based on previous review results (detailed stories are TODO)
 - deleting a card makes it not come back forever
 - When there are no cards that need to be reviewed, the review screen shows a clock counting down to the next review time.
-- Multi-user support (detailed stories are TODO)
+- Multi-user support (detailed stories are TODO) - SuperLogin - pass auth settings as pouchSettings to RxDatabase.collection()
 - When a deck is downloaded, the deck styling is also downloaded and used for card display (test with Thai, which needs a bigger font and probably a specific font)
 - When a card is displayed and the image is too small or too big in one dimension, the picture is scaled gracefully and a background coloring is applied to the empty space
 - User can undo last card swipe
