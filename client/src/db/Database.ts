@@ -45,14 +45,36 @@ const createCollections = async (db: Database) => {
   await (Object.keys(collections) as Array<keyof Collections>).map(
     async (name) => {
       if (db[name]) {
+        console.log(`db name already found: ${db[name]}`);
         return;
       }
       const collectionOpts = collections[name];
       const collection = await db.collection(collectionOpts.creationOpts);
-      await collection.sync({
+      const replicationState = await collection.sync({
         ...collectionOpts.syncOpts,
         remote: syncURL + dbName + '/',
       });
+      replicationState.change$.subscribe((change) =>
+        console.log(`change: ${change}`)
+      );
+      replicationState.docs$.subscribe((docData) =>
+        console.log(`docData: ${docData}`)
+      );
+      replicationState.denied$.subscribe((docData) =>
+        console.log(`docData: ${docData}`)
+      );
+      replicationState.active$.subscribe((active) =>
+        console.log(`active: ${active}`)
+      );
+      replicationState.alive$.subscribe((alive) =>
+        console.log(`alive: ${alive}`)
+      );
+      replicationState.complete$.subscribe((completed) =>
+        console.log(`completed: ${completed}`)
+      );
+      replicationState.error$.subscribe((error) =>
+        console.log(`error: ${error}`)
+      );
     }
   );
 };
