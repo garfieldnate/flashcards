@@ -131,6 +131,7 @@ def load_examples():
 
 # Thanks to John Jiang: https://stackoverflow.com/a/22651263/474819
 @app.route("/endpoints")
+@app.route("/")
 def endpoints():
     output = []
     for rule in sorted(app.url_map.iter_rules(), key=lambda r: r.endpoint):
