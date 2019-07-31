@@ -1,22 +1,17 @@
 import { observable } from 'mobx';
 import { IObservableArray, IObservableValue } from 'mobx/lib/internal';
-import moment from 'moment';
-import { merge, Observable, Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { Optional } from 'typescript-optional';
 import { Database } from '../db/Database';
+import { CardSchema } from '../db/schemata/card';
 import { CardId, ICard } from '../model/Card';
 import { IDeckInfo } from '../model/DeckInfo';
 import { UserDeckData } from '../model/UserDeckData';
-import DummyUserData from '../userData/DummyUserData';
 import { ICardScheduler } from './CardScheduler';
 import NewCardScheduler from './NewCardScheduler';
 import ReviewCardScheduler from './ReviewCardScheduler';
 import { StudyResult } from './StudyResult';
-
-// function getDateTime() {
-//   return moment();
-// }
 
 enum AddSubtract {
   Add,
@@ -79,6 +74,29 @@ class StudyManager {
 
   private getCardById = async (cardId: CardId): Promise<Optional<ICard>> => {
     const builtinCard = this.deck.getBuiltin(cardId);
+    // builtinCard.ifPresent(async (card) => {
+    //   const db = await this.database;
+
+    //   const schemaCard: CardSchema = {
+    //     id: card.getId(),
+    //     headwordUserLang: {
+    //       english: card.getHeadwordUserLang('TODO'),
+    //     },
+    //     headwordForeignLang: card.getHeadwordForeignLang(),
+    //     category: card.getCategory(),
+    //     exampleForeignLang: card.getExampleForeignLang().orUndefined(),
+    //   };
+    //   card
+    //     .getExampleUserLang('TODO')
+    //     .ifPresent(
+    //       (example) => (schemaCard.exampleUserLang = { english: example })
+    //     );
+    //   try {
+    //     await db.cards.insert(schemaCard);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // });
     if (builtinCard.isPresent()) {
       return builtinCard;
     }
