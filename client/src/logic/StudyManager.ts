@@ -74,29 +74,29 @@ class StudyManager {
 
   private getCardById = async (cardId: CardId): Promise<Optional<ICard>> => {
     const builtinCard = this.deck.getBuiltin(cardId);
-    // builtinCard.ifPresent(async (card) => {
-    //   const db = await this.database;
+    builtinCard.ifPresent(async (card) => {
+      const db = await this.database;
 
-    //   const schemaCard: CardSchema = {
-    //     id: card.getId(),
-    //     headwordUserLang: {
-    //       english: card.getHeadwordUserLang('TODO'),
-    //     },
-    //     headwordForeignLang: card.getHeadwordForeignLang(),
-    //     category: card.getCategory(),
-    //     exampleForeignLang: card.getExampleForeignLang().orUndefined(),
-    //   };
-    //   card
-    //     .getExampleUserLang('TODO')
-    //     .ifPresent(
-    //       (example) => (schemaCard.exampleUserLang = { english: example })
-    //     );
-    //   try {
-    //     await db.cards.insert(schemaCard);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // });
+      const schemaCard: CardSchema = {
+        id: card.getId(),
+        headwordUserLang: {
+          english: card.getHeadwordUserLang('TODO'),
+        },
+        headwordForeignLang: card.getHeadwordForeignLang(),
+        category: card.getCategory(),
+        exampleForeignLang: card.getExampleForeignLang().orUndefined(),
+      };
+      card
+        .getExampleUserLang('TODO')
+        .ifPresent(
+          (example) => (schemaCard.exampleUserLang = { english: example })
+        );
+      try {
+        await db.cards.insert(schemaCard);
+      } catch (error) {
+        console.log(error);
+      }
+    });
     if (builtinCard.isPresent()) {
       return builtinCard;
     }

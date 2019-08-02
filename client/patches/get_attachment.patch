@@ -1,0 +1,11 @@
+--- node_modules/pouchdb-adapter-asyncstorage/src/get_attachment.js
++++ node_modules/pouchdb-adapter-asyncstorage/src/get_attachment.js
+@@ -16,7 +16,7 @@
+     }
+
+     const data = attachmentData.data
+-    if (opts.binary) {
++    if (false) {
+       callback(null, base64StringToBlobOrBuffer(data, type))
+     } else {
+       callback(null, data)

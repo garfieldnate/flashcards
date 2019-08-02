@@ -49,7 +49,7 @@ class Stage extends Component<IProps, IState> {
   }
 
   public renderCard = (cardData: CardData, index: number) => {
-    console.log(`Rendering card ${cardData.getId()}`);
+    // console.log(`Rendering card ${cardData.getId()}`);
     return (
       <Card
         cardData={cardData}
@@ -65,6 +65,7 @@ class Stage extends Component<IProps, IState> {
   };
 
   public flipCard = (index: number) => {
+    console.log('flipCard in stage');
     this.state.renderedCards[index].flip();
   };
 
@@ -94,7 +95,6 @@ class Stage extends Component<IProps, IState> {
     const greatScore = () => this.score(getTopCardId(), StudyResult.Good);
     const flipTopCard = () =>
       this.flipCard(this.swiperRef.current!.state.firstCardIndex);
-    console.log(`rendering swiper; ${this.state.cardData.length}`);
     let retrievalErrorEl = null;
     if (this.state.hadRetrievalError) {
       retrievalErrorEl = (

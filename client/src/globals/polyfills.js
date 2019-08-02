@@ -17,6 +17,9 @@ FileReader.prototype.readAsArrayBuffer = function(blob) {
   fr.readAsDataURL(blob);
 };
 
+// make sure pouchdb-adapter-http uses .blob() instead of .buffer()
+process.browser = true;
+
 // import Promise from 'bluebird';
 // // We use the "Bluebird" lib for Promises, because it shows good perf
 // // and it implements the "unhandledrejection" event:

@@ -23,19 +23,28 @@ export default class Card extends Component<IProps> {
 
   constructor(props: IProps) {
     super(props);
-    console.log(`cardData is ${this.props.cardData.getHeadwordUserLang('')}`);
+    // console.log(`cardData is ${this.props.cardData.getHeadwordUserLang('')}`);
     this.props.cardData
       .getForeignHeadwordAudio()
       .then((result) => {
-        result.ifPresent((sound) => {
-          this.recording = sound;
-          this.recordingReady = true;
-          // console.log(`loaded audio for ${this.props.cardData.back}`);
-        });
+        result.ifPresentOrElse(
+          (sound) => {
+            this.recording = sound;
+            this.recordingReady = true;
+            console.log(
+              `loaded audio for ${this.props.cardData.getHeadwordForeignLang()}`
+            );
+          },
+          () => {
+            'Sound was not present';
+          }
+        );
       })
       .catch((error) => {
-        // console.log(`Couldn't load audio for ${this.props.cardData.back}`);
-        // console.log(error);
+        console.log(
+          `Couldn't load audio for ${this.props.cardData.getHeadwordForeignLang()}`
+        );
+        console.log(error);
       });
   }
 
@@ -119,15 +128,24 @@ export default class Card extends Component<IProps> {
   };
 
   public flip = () => {
+    console.log('flipping!');
     const card = this.cardRef.current!;
     if (card.state.side === 0) {
       if (this.recording && this.recordingReady) {
-        // console.log(`playing recording ${this.props.cardData.back}`);
+        console.log(
+          `playing recording ${this.props.cardData.getHeadwordForeignLang()}`
+        );
         this.recording.replayAsync().catch((error) => {
-          // console.log('Error while playing mp3');
-          // console.log(error);
+          console.log('Error while playing mp3');
+          console.log(error);
         });
+      } else {
+        console.log(
+          `Didn't play because ${this.recording} and ${this.recordingReady}`
+        );
       }
+    } else {
+      console.log(`Didn't play because side is ${card.state.side}`);
     }
     card.flip();
   };

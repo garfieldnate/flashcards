@@ -19,12 +19,25 @@ export type CardDocument = RxDocument<CardDocType, CardDocMethods>;
 
 const cardDocMethods: CardDocMethods = {
   async getForeignHeadwordAudio(this: CardDocument) {
-    const attachment = await this.getAttachment('foreignHeadwordAudio');
+    // const attachments = await this.allAttachments();
+    // console.log(`num attachments: ${attachments.length}`);
+    console.log('getting attachment...');
+    const attachment = await this.getAttachment('foreignHeadwordAudio.mp3');
     if (!attachment) {
+      console.log(`No audio attachment found for ${this.id}`);
       return Optional.empty();
     }
-    const dataBlob = attachment.getData();
-    const sound = await loadAudio({ uri: URL.createObjectURL(dataBlob) });
+    const dataBlob = await attachment.getData();
+    if (!dataBlob) {
+      console.log("Couldn't get data from attachment");
+      return Optional.empty();
+    }
+    console.log('successfully got data from attachment');
+    // const sound = await loadAudio({ uri: URL.createObjectURL(dataBlob) });
+    const sound = await loadAudio({ uri: 'data:image/png;base64,' + dataBlob });
+    if (!sound) {
+      console.log("Couldn't load sound");
+    }
     return Optional.of(sound);
   },
   async getImage(this: CardDocument) {
@@ -32,7 +45,7 @@ const cardDocMethods: CardDocMethods = {
     if (!attachment) {
       return Optional.empty();
     }
-    const dataBlob = attachment.getData();
+    const dataBlob = await attachment.getData();
     return Optional.of({ uri: URL.createObjectURL(dataBlob) });
   },
 };
@@ -63,7 +76,7 @@ export const collectionOpts: CollectionOpts = {
     statics: cardCollectionMethods,
   },
   syncOpts: {
-    direction: { pull: true, push: false },
+    direction: { pull: true, push: true },
     options: {
       live: true,
       retry: true,

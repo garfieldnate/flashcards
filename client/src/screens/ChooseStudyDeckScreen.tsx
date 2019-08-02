@@ -51,7 +51,6 @@ const ChooseStudyDeckScreen: INavStatelessComponent = observer(() => {
 
   const renderItem = (listItem: ListRenderItemInfo<StudyManager>) => {
     const studyManager = listItem.item;
-    console.log(studyManager.deck.getId());
     const navigateToStudyScreen = () =>
       navigation.navigate(
         'Study',

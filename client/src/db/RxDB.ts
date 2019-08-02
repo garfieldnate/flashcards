@@ -2,7 +2,12 @@ import AsyncStorageAdapter from 'pouchdb-adapter-asyncstorage';
 import * as HTTPAdapter from 'pouchdb-adapter-http';
 import * as RxDB from 'rxdb';
 
-RxDB.plugin(AsyncStorageAdapter);
 RxDB.plugin(HTTPAdapter);
+RxDB.plugin(AsyncStorageAdapter);
+
+const pouchdbDebug = require('pouchdb-debug');
+RxDB.plugin(pouchdbDebug);
+RxDB.PouchDB.debug.enable('*');
+console.log('turned on debugging for pouchdb, I think');
 
 export default RxDB;

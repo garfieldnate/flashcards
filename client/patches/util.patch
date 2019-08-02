@@ -1,0 +1,12 @@
+--- node_modules/rxdb/dist/lib/util.js
++++ node_modules/rxdb/dist/lib/util.js
+@@ -435,6 +435,9 @@
+
+
+ function getHeightOfRevision(revString) {
++  if(!revString) {
++      return 0;
++  }
+   var first = revString.split('-')[0];
+   return parseInt(first);
+ }
