@@ -28,6 +28,11 @@ How it works:
 - Await for resolution of https://github.com/alexbrillant/react-native-deck-swiper/pull/245. Until then, we have to patch react-native-deck-swiper (done automatically with postinstall hook)
 - Also awaiting update of jest-expo (https://github.com/expo/expo/issues/4503). Fixed via postinstall hook.
 - VSCode Expo debug setup: https://github.com/microsoft/vscode-react-native/issues/1060.
+- Locally patching for this issue: https://github.com/pubkey/rxdb/pull/1347
+- Locally setting `process.browser=true` to fix https://github.com/pouchdb/pouchdb/pull/7862
+- Locally patching `pouchdb-adapter-asyncstorage` so that `options.binary` is always false
+- Polyfilling FileReader.prototype.readAsArrayBuffer to make it possible to read attachments in CouchDB
+- If I ever need the memory adapter for PouchDB, I need to install `react-native-stream` and then do `mv node_modules/react-native-stream/ node_modules/stream`.
 
 ### User Stories
 
