@@ -28,12 +28,7 @@ const cardDocMethods: CardDocMethods = {
       return Optional.empty();
     }
     const dataBlob = await attachment.getData();
-    if (!dataBlob) {
-      console.log("Couldn't get data from attachment");
-      return Optional.empty();
-    }
     console.log('successfully got data from attachment');
-    // const sound = await loadAudio({ uri: URL.createObjectURL(dataBlob) });
     const sound = await loadAudio({ uri: 'data:image/png;base64,' + dataBlob });
     if (!sound) {
       console.log("Couldn't load sound");
@@ -46,6 +41,7 @@ const cardDocMethods: CardDocMethods = {
       return Optional.empty();
     }
     const dataBlob = await attachment.getData();
+
     return Optional.of({ uri: URL.createObjectURL(dataBlob) });
   },
 };
@@ -76,7 +72,7 @@ export const collectionOpts: CollectionOpts = {
     statics: cardCollectionMethods,
   },
   syncOpts: {
-    direction: { pull: true, push: true },
+    direction: { pull: true, push: false },
     options: {
       live: true,
       retry: true,

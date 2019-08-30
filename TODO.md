@@ -6,27 +6,16 @@ Current:
 
 Continuing:
 
-- Cleanup from bug searching
-- check if we can remove the jest-expo patch
-- (Script to) dump SQLite DB into couchDB
+- (Script to) dump/update SQLite DB into couchDB
 - Script to dump card previews from couchDB to builtinData
 - when user adds a deck, connect to DB and start downloading
 - make sure DB is read-only!
 - dockerize DB setup
 - ?fork or do whatever it takes to get SQLite version working?
 
-
-How it works:
-
-- use web async storage plugin; the RN sqlite one from crazy dog doesn't work with Expo
-- use http plugin
-- polyfill FileReader.readAsArrayBuffer
-- Sqlite adapter would be faster, but this is what we have to work with for now. So many bugs in this thing!
-
 ### Bugs
 
 - Await for resolution of https://github.com/alexbrillant/react-native-deck-swiper/pull/245. Until then, we have to patch react-native-deck-swiper (done automatically with postinstall hook)
-- Also awaiting update of jest-expo (https://github.com/expo/expo/issues/4503). Fixed via postinstall hook.
 - VSCode Expo debug setup: https://github.com/microsoft/vscode-react-native/issues/1060.
 - Locally patching for this issue: https://github.com/pubkey/rxdb/pull/1347
 - Locally setting `process.browser=true` to fix https://github.com/pouchdb/pouchdb/pull/7862

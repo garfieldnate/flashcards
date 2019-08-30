@@ -5,6 +5,7 @@ import * as RxDB from 'rxdb';
 RxDB.plugin(HTTPAdapter);
 RxDB.plugin(AsyncStorageAdapter);
 
+// TODO: only run in DEV environment
 const pouchdbDebug = require('pouchdb-debug');
 RxDB.plugin(pouchdbDebug);
 RxDB.PouchDB.debug.enable('*');

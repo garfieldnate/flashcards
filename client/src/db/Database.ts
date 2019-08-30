@@ -8,7 +8,7 @@ import RxDB from './RxDB';
 
 // TODO: this has to be parameterized for dev/prod
 const syncURL = 'http://localhost:5984/';
-const dbName = 'flashcards2';
+const dbName = 'flashcards';
 
 type DatabaseCollections = {
   cards: CardCollection;
@@ -26,7 +26,6 @@ export const database: Promise<Database> = RxDB.create<DatabaseCollections>({
   name: dbName,
 }).then(async (db) => {
   // console.log(RxDB.PouchDB);
-  // RxDB.PouchDB.debug.enable('*');
   // deletes the whole DB if needed. Only for development when changing a collection's schema!
   // const colPouch = db._collectionsPouch;
   // const docsRes = await colPouch.allDocs();

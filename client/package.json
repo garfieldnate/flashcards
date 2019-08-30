@@ -10,12 +10,11 @@
     "test": "node_modules/.bin/jest",
     "test:debug": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand",
     "lint": "tslint -p tsconfig.json ./*.{ts,tsx} src/**/*.{ts,tsx}",
-    "fix-jest-expo": "curl https://raw.githubusercontent.com/expo/expo/master/packages/jest-expo/src/preset/setup.js > node_modules/jest-expo/src/preset/setup.js",
     "fix-swiper": "patch -p0 <patches/swiper.patch",
     "fix-util": "patch -p0 <patches/util.patch",
     "fix-get_attachment": "patch -p0 <patches/get_attachment.patch",
     "format": "prettier --write *.ts src/**/*.{ts,tsx}",
-    "postinstall": "npm run fix-jest-expo && npm run fix-swiper && npm run fix-util && npm run fix-get_attachment",
+    "postinstall": "npm run fix-swiper && npm run fix-util && npm run fix-get_attachment",
     "schemata2ts": "ts-node ./scripts/schemata2ts.ts"
   },
   "dependencies": {

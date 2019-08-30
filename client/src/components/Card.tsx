@@ -8,7 +8,6 @@ import cardLayout from './CardLayout';
 import { Sound } from 'expo-av/build/Audio';
 import CardFlip from 'react-native-card-flip';
 import DeleteButton from './DeleteButton';
-// import createCardCollection from '../db/CardsDB';
 
 interface IProps {
   cardData: CardData;
@@ -36,7 +35,7 @@ export default class Card extends Component<IProps> {
             );
           },
           () => {
-            'Sound was not present';
+            console.log('Sound was not present');
           }
         );
       })
