@@ -36,7 +36,7 @@ const cardDocMethods: CardDocMethods = {
     return Optional.of(sound);
   },
   async getImage(this: CardDocument) {
-    const attachment = await this.getAttachment('image');
+    const attachment = await this.getAttachment('image.png');
     if (!attachment) {
       return Optional.empty();
     }

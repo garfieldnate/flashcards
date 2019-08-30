@@ -20,6 +20,9 @@
     "headwordForeignLang": {
       "type": "string"
     },
+    "pronunciation": {
+      "type": "string"
+    },
     "category": {
       "type": "string"
     },

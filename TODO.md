@@ -6,10 +6,11 @@ Current:
 
 Continuing:
 
-- (Script to) dump/update SQLite DB into couchDB
-- Script to dump card previews from couchDB to builtinData
+- Make attachment names into constants somewhere; share in DB filling script and in collection reading code
+- Script to dump card previews from couchDB to builtinData?
 - when user adds a deck, connect to DB and start downloading
 - make sure DB is read-only!
+- script for backing up couch db
 - dockerize DB setup
 - ?fork or do whatever it takes to get SQLite version working?
 
