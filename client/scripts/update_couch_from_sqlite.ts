@@ -1,9 +1,12 @@
 // Run like this: yarn ts-node --log-error scripts/update_couch_from_sqlite.ts localhost:5000 http://localhost:5984
 import { CardSchema } from '../src/db/schemata/card';
+import {
+  FLASHCARDS_DB_NAME,
+  FOREIGN_HEADWORD_AUDIO_ATTACHMENT,
+  IMAGE_ATTACHMENT,
+} from '../src/db/schemata/constants';
 
 import * as got from 'got';
-
-const dbName = 'flashcards';
 
 // plan:
 // * read data from sqlite or server
@@ -34,7 +37,7 @@ const main = async (serverURL: string, couchURL: string) => {
 };
 
 async function createCouchDb(couchURL: string) {
-  const createEndpoint = `${couchURL}/${dbName}`;
+  const createEndpoint = `${couchURL}/${FLASHCARDS_DB_NAME}`;
   try {
     await got.put(createEndpoint);
     console.log('Created DB');
@@ -46,6 +49,11 @@ async function createCouchDb(couchURL: string) {
     }
   }
 }
+
+const getDocId = (vocabId: string) => {
+  // TODO: only works for thai
+  return `thai-${vocabId}`;
+};
 
 async function downloadVocab(serverURL: string) {
   // TODO: for now, only does one language
@@ -82,7 +90,7 @@ const createCards = (vocabData, catsData, examplesData) => {
     // just the first category
     const firstCatId = String(vocab.cats[0]);
     const card: CardSchema = {
-      id: vocabId,
+      id: getDocId(vocabId),
       headwordUserLang: {
         english: vocab.english_word,
       },
@@ -107,7 +115,7 @@ const createCards = (vocabData, catsData, examplesData) => {
 
 async function uploadCards(couchURL: string, cards: CardSchema[]) {
   for (const card of cards) {
-    const createEndpoint = `${couchURL}/${dbName}/${card.id}`;
+    const createEndpoint = `${couchURL}/${FLASHCARDS_DB_NAME}/${card.id}`;
     try {
       await got.put(createEndpoint, {
         body: card,
@@ -127,10 +135,11 @@ async function copyBinaryResources(
   couchURL: string
 ) {
   for (const [vocabId, vocab] of Object.entries(vocabData)) {
+    const docId = getDocId(vocab.id);
     if ('foreign_audio_id' in vocab) {
-      const docRev = await getDocRevision(couchURL, vocab.id);
+      const docRev = await getDocRevision(couchURL, docId);
       const audioURL = `${serverURL}/api/v1/audio/${vocab.foreign_audio_id}`;
-      const attachAudioURL = `${couchURL}/${dbName}/${vocab.id}/foreignHeadwordAudio.mp3?rev=${docRev}`;
+      const attachAudioURL = `${couchURL}/${FLASHCARDS_DB_NAME}/${docId}/${FOREIGN_HEADWORD_AUDIO_ATTACHMENT}?rev=${docRev}`;
       try {
         const audioData = (await got(audioURL, {
           protocol: 'http:',
@@ -143,7 +152,7 @@ async function copyBinaryResources(
           protocol: 'http:',
           encoding: null,
         });
-        console.log('Updated audio for vocab ' + vocab.id);
+        console.log('Updated audio for doc ' + docId);
       } catch (error) {
         console.log(error);
         throw error;
@@ -151,9 +160,9 @@ async function copyBinaryResources(
     }
 
     if ('image_id' in vocab) {
-      const docRev = await getDocRevision(couchURL, vocab.id);
+      const docRev = await getDocRevision(couchURL, docId);
       const imageURL = `${serverURL}/api/v1/image/${vocab.image_id}`;
-      const attachImageURL = `${couchURL}/${dbName}/${vocab.id}/image.png?rev=${docRev}`;
+      const attachImageURL = `${couchURL}/${FLASHCARDS_DB_NAME}/${docId}/${IMAGE_ATTACHMENT}?rev=${docRev}`;
       try {
         const audioData = (await got(imageURL, {
           protocol: 'http:',
@@ -166,7 +175,7 @@ async function copyBinaryResources(
           protocol: 'http:',
           encoding: null,
         });
-        console.log('Updated image for vocab ' + vocab.id);
+        console.log('Updated image for doc ' + docId);
       } catch (error) {
         console.log(error);
         throw error;
@@ -176,7 +185,7 @@ async function copyBinaryResources(
 }
 
 async function getDocRevision(couchURL: string, docID: string) {
-  const docURL = `${couchURL}/${dbName}/${docID}`;
+  const docURL = `${couchURL}/${FLASHCARDS_DB_NAME}/${docID}`;
   try {
     return (await got(docURL, { protocol: 'http:', json: true })).body._rev;
   } catch (error) {

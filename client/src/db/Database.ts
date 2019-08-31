@@ -5,10 +5,10 @@ import {
 } from './CardCollection';
 import { CollectionOpts } from './CollectionOpts';
 import RxDB from './RxDB';
+import { FLASHCARDS_DB_NAME } from './schemata/constants';
 
 // TODO: this has to be parameterized for dev/prod
 const syncURL = 'http://localhost:5984/';
-const dbName = 'flashcards';
 
 type DatabaseCollections = {
   cards: CardCollection;
@@ -23,7 +23,7 @@ export type Database = RxDatabase<DatabaseCollections>;
 export const database: Promise<Database> = RxDB.create<DatabaseCollections>({
   adapter: 'asyncstorage',
   multiInstance: false,
-  name: dbName,
+  name: FLASHCARDS_DB_NAME,
 }).then(async (db) => {
   // console.log(RxDB.PouchDB);
   // deletes the whole DB if needed. Only for development when changing a collection's schema!
@@ -56,7 +56,7 @@ const createCollections = async (db: Database) => {
       const collection = await db.collection(collectionOpts.creationOpts);
       const replicationState = await collection.sync({
         ...collectionOpts.syncOpts,
-        remote: syncURL + dbName + '/',
+        remote: syncURL + FLASHCARDS_DB_NAME + '/',
       });
       replicationState.change$.subscribe((change) =>
         console.log(`change: ${change}`)

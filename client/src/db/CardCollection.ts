@@ -7,6 +7,10 @@ import { loadAudio } from '../utils/Audio';
 import { CollectionOpts } from './CollectionOpts';
 import DBCard from './DBCard';
 import { CardSchema as CardDocType } from './schemata/card';
+import {
+  FOREIGN_HEADWORD_AUDIO_ATTACHMENT,
+  IMAGE_ATTACHMENT,
+} from './schemata/constants';
 
 // TypeScript can't give the correct type if we import and *then* type annotate
 // tslint:disable-next-line: no-var-requires
@@ -22,7 +26,9 @@ const cardDocMethods: CardDocMethods = {
     // const attachments = await this.allAttachments();
     // console.log(`num attachments: ${attachments.length}`);
     console.log('getting attachment...');
-    const attachment = await this.getAttachment('foreignHeadwordAudio.mp3');
+    const attachment = await this.getAttachment(
+      FOREIGN_HEADWORD_AUDIO_ATTACHMENT
+    );
     if (!attachment) {
       console.log(`No audio attachment found for ${this.id}`);
       return Optional.empty();
@@ -36,7 +42,7 @@ const cardDocMethods: CardDocMethods = {
     return Optional.of(sound);
   },
   async getImage(this: CardDocument) {
-    const attachment = await this.getAttachment('image.png');
+    const attachment = await this.getAttachment(IMAGE_ATTACHMENT);
     if (!attachment) {
       return Optional.empty();
     }
