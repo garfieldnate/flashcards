@@ -3,7 +3,7 @@
 ## Running the Server
 
     cd server
-    pip3 install -R requirements.txt
+    pip3 install -r requirements.txt
     python3 app.py <path to database>
 
 The server will run at localhost:5000.
